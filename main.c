@@ -1,29 +1,16 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-void	ft_check()
-{
-	char *arr;
-	printf("%p\n", &arr[0]);
-	arr = malloc(sizeof(char) * 5);
+#include "mlx.h"
 
-	int i = 0;
-	while (i < 5)
-	{
-		arr[i] = '\0';
-		i++;
-		
-	}
-	printf("%p\n", &arr[0]);
-	printf("%p\n", &arr[1]);
-	free(arr);
-	printf("%p\n", &arr[0]);
-	printf("%p", &arr[1]);
-}
-int main(int argc, char const *argv[])
-{
-	ft_check();
-	system("leaks a.out > leaks_result; cat leaks_result	| grep leaked && rm -rf leaks_result");
-	return (0);
+#define X_EVENT_KEY_PRESS		2
 
+
+int		main(void)
+{
+	void	*mlx;
+	void	*win;
+
+	mlx = mlx_init();
+	win = mlx_new_window(mlx, 500, 500, "mlx_project");
+	mlx_hook(win, X_EVENT_KEY_PRESS, 0, &key_press, &param);
+
+	mlx_loop(mlx);
 }
