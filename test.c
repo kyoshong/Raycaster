@@ -18,7 +18,7 @@ typedef	struct s_window
 	void		*mlx;
 	void		*win;
 
-	t_player	t_player;
+	t_player	player;
 	int			width;
 	int			hight;
 	
@@ -58,7 +58,79 @@ int			draw_grid(t_window *window)
 	}
 	return (0);
 }
+void		init_player(t_window *window)
+{
+	mlx_pixel_put(window->mlx, window->win, window->player.x, window->player.y, window->player.color);
+}
 
+void		move_dot_left(t_window *window)
+{
+	int		old_x = window->player.x;
+	int		old_y = window->player.y;
+	int black = 0x000000;
+
+	if((0 < window->player.x && window->player.x <= window->width) && 
+	(0 < window->player.y && window->player.x <= window->hight))
+	{
+		mlx_pixel_put(window->mlx, window->win, old_x, old_y, black);
+		mlx_pixel_put(window->mlx, window->win, --window->player.x, window->player.y, window->player.color);
+	}
+}
+
+void		move_dot_right(t_window *window)
+{
+	int		old_x = window->player.x;
+	int		old_y = window->player.y;
+	int		black = 0x000000;
+
+	if((0 < window->player.x && window->player.x <= window->width) && 
+	(0 < window->player.y && window->player.x <= window->hight))
+	{
+		mlx_pixel_put(window->mlx, window->win, old_x, old_y, black);
+		mlx_pixel_put(window->mlx, window->win, ++window->player.x, window->player.y, window->player.color);
+	}
+}
+
+void		move_dot_up(t_window *window)
+{
+	int		old_x = window->player.x;
+	int		old_y = window->player.y;
+	int		black = 0x000000;
+
+	if((0 < window->player.x && window->player.x <= window->width) && 
+	(0 < window->player.y && window->player.x <= window->hight))
+	{
+		mlx_pixel_put(window->mlx, window->win, old_x, old_y, black);
+		mlx_pixel_put(window->mlx, window->win, window->player.x, --window->player.y, window->player.color);
+	}
+}
+
+void		move_dot_down(t_window *window)
+{
+	int		old_x = window->player.x;
+	int		old_y = window->player.y;
+	int		black = 0x000000;
+
+	if((0 < window->player.x && window->player.x <= window->width) && 
+	(0 < window->player.y && window->player.x <= window->hight))
+	{
+		mlx_pixel_put(window->mlx, window->win, old_x, old_y, black);
+		mlx_pixel_put(window->mlx, window->win, window->player.x, ++window->player.y, window->player.color);
+	}
+}
+
+int		press_key_for_dot(int key, t_window *window)
+{
+	if (key == KEY_A)
+		move_dot_left(window);
+	else if (key == KEY_D)
+		move_dot_right(window);
+	else if (key == KEY_W)
+		move_dot_up(window);
+	else if (key == KEY_S)
+		move_dot_down(window);
+	return (0);
+}
 
 int main()
 {
@@ -66,13 +138,19 @@ int main()
 
 	window.width = 500;
 	window.hight = 500;
-	window.grid_color = 0x00FFFF;
 	window.row_count = 10;
 	window.column_count = 10;
+	window.grid_color = 0x00FFFF;
 	
+	window.player.color = 0xFF0000;
+	window.player.x = 220;
+	window.player.y = 220;
+
 	window.mlx = mlx_init();
 	window.win = mlx_new_window(window.mlx, window.width, window.hight, "mlx_grid");
+	init_player(&window);
 	mlx_loop_hook(window.mlx, draw_grid, &window);
+	mlx_hook(window.win, 2, 1, press_key_for_dot, &window);
 	mlx_loop(window.mlx);
 	return 0;
 }
