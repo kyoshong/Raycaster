@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"__locale": "c"
 	}
 }

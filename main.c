@@ -24,6 +24,8 @@ typedef struct	s_info
 	void	*win;
 	double	moveSpeed;
 	double	rotSpeed;
+	double	oldTime;
+	double	time;
 }				t_info;
 
 int worldMap[mapWidth][mapHeight]=
@@ -138,7 +140,8 @@ void	calc(t_info *info)
 			perpWAllDist = (mapX - info->posX + (1 - stepX) / 2) / rayDirX;
 		else
 			perpWAllDist = (mapY - info->posY + (1 - stepY) / 2) / rayDirY;
-		
+		//화면 길이에 따른 비율을 설정한뒤 길이의 절반을 기준으로 찍어낼 픽셀의 start 와 end를 구한다.
+		// 만약 0 보다 작거나 height 보다 크다면 기본값 수정해준다.
 		int lineHeight = (int)(height / perpWAllDist);
 		int drawStart = -lineHeight / 2 + height / 2;
 		if (drawStart < 0)
@@ -146,7 +149,7 @@ void	calc(t_info *info)
 		int drawEnd = lineHeight / 2 + height / 2;
 		if (drawEnd >= height)
 			drawEnd = height - 1;
-
+		//맵 인덱스 종류따라 색을 설정해준다, 만약 해당 벽이 y 사이드라면 색을 탁하게 하기 위해 / 2
 		int color;
 		if (worldMap[mapX][mapY] == 1)
 			color = 0xFF0000;
@@ -158,16 +161,15 @@ void	calc(t_info *info)
 			color = 0xFFFF00;
 		if (side == 1)
 			color = color / 2;
-
+		// 라인출력
 		varLine(info, x, drawStart, drawEnd, color);
 		x++;
 	}
+
 }
 int	main_loop(t_info *info)
 {
 	calc(info);
-	// mlx_put_image_to_window(info->mlx, info->win, &info->img, 0, 0);
-
 	return (0);
 }
 int	key_press(int key, t_info *info)
@@ -188,18 +190,21 @@ int	key_press(int key, t_info *info)
 	}
 	if (key == K_D)
 	{
+		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;
-		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(info->rotSpeed);
-		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
+		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
+		info->dirY = oldDirX * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
 		double oldPlaneX = info->planeX;
-		info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
-		info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
+		info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
+		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
 	}
+	//rotate to the left
 	if (key == K_A)
 	{
+		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;
 		info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
-		info->dirY = oldDirX * sin(info->rotSpeed) - info->dirY * cos(info->rotSpeed);
+		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
 		double oldPlaneX = info->planeX;
 		info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
 		info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
@@ -222,10 +227,13 @@ int main(int argc, char const *argv[])
 	info.planeY = 0.66;
 	info.moveSpeed = 0.1;
 	info.rotSpeed = 0.1;
-
+	info.oldTime = 0;
+	info.time = 0;
+	
 	info.win = mlx_new_window(info.mlx, width, height, "test");
 
 	mlx_loop_hook(info.mlx, &main_loop, &info);
+
 	mlx_hook(info.win, X_EVENT_KET_PRESS, 0, &key_press, &info);
 
 	mlx_loop(info.mlx);
