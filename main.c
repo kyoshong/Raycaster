@@ -16,6 +16,7 @@
 #define height 480
 #define numSprites 19
 
+
 typedef struct s_img
 {
 	void	*img;
@@ -27,6 +28,38 @@ typedef struct s_img
 	int		img_height;
 }				t_img;
 
+struct	s_sprite
+{
+	double	x;
+	double	y;
+	int		texture;
+};
+
+struct s_sprite	sprite[numSprites] =
+{
+	{20.5, 11.5, 10},
+	{18.5, 4.5, 10},
+	{10.0, 4.5, 10},
+	{10.0, 12.5, 10},
+	{3.5, 6.5, 10},
+	{3.5, 20.5, 10},
+	{3.5, 14.5, 10},
+	{14.5, 20.5, 10},
+	{18.5, 10.5, 9},
+	{18.5, 11.5, 9},
+	{18.5, 12.5, 9},
+	{21.5, 1.5, 8},
+	{15.5, 1.5, 8},
+	{16.0, 1.8, 8},
+	{16.2, 1.2, 8},
+	{3.5, 2.5, 8},
+	{9.5, 15.5, 8},
+	{10.0, 15.1,8},
+	{10.5, 15.8,8}
+};
+
+int		spriteOrder[numSprites];
+double	spriteDistance[numSprites];
 typedef struct	s_info
 {
 	double	posX;
@@ -37,13 +70,76 @@ typedef struct	s_info
 	double	planeY;
 	void	*mlx;
 	void	*win;
+	int		key_a;
+	int		key_w;
+	int		key_s;
+	int		key_d;
+	int		key_esc;
 	t_img	img;
 	int		buf[height][width];
+	double	zBuffer[width];
 	int		**texture;
 	double	moveSpeed;
 	double	rotSpeed;
 }				t_info;
 
+typedef	struct		s_pair
+{
+	double	first;
+	int		second;
+}					t_pair;
+
+void	key_update(t_info *info);
+
+static	int	compare(const void *first, const void *second)
+{
+	if (*(int *)first > *(int *)second)
+		return (1);
+	else if (*(int *)first < *(int *)second)
+		return (-1);
+	else
+		return (0); 
+}
+
+void	sort_order(t_pair *orders, int amount)
+{
+	t_pair	tmp;
+
+	for (int i = 0; i < amount; i++)
+	{
+		for (int j = 0; j < amount - 1; j++)
+		{
+			if (orders[j].first > orders[j + 1].first)
+			{
+				tmp.first = orders[j].first;
+				tmp.second = orders[j].second;
+				orders[j].first = orders[j + 1].first;
+				orders[j].second = orders[j + 1].second;
+				orders[j + 1].first = tmp.first;
+				orders[j + 1].second = tmp.second;
+			}
+		}
+	}
+}
+
+void	sortSprites(int *order, double *dist, int amount)
+{
+	t_pair *sprites;
+
+	sprites = (t_pair*)malloc(sizeof(t_pair) * amount);
+	for (int i = 0; i < amount; i++)
+	{
+		sprites[i].first = dist[i];
+		sprites[i].second = order[i];
+	}
+	sort_order(sprites, amount);
+	for (int i = 0; i < amount; i++)
+	{
+		dist[i] = sprites[amount - i - 1].first;
+		order[i] = sprites[amount - i - 1].second;
+	}
+	free(sprites);
+}
 int	worldMap[mapWidth][mapHeight] =
 									{
 										{8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
@@ -87,8 +183,7 @@ void	calc(t_info *info)
 	int x;
 	int y;
 
-	x = 0;
-	y = 0;
+	y = height / 2 + 1;
 	while (y < height)
 	{
 		float rayDirX0 = info->dirX - info->planeX;
@@ -105,8 +200,7 @@ void	calc(t_info *info)
 
 		float floorX = info->posX + rowDistance * rayDirX0;
 		float floorY = info->posY + rowDistance * rayDirY0;
-
-
+		x = 0;
 		while (x < width)
 		{
 			int cellX = (int)(floorX);
@@ -117,8 +211,12 @@ void	calc(t_info *info)
 
 			floorX += floorStepX;
 			floorY += floorStepY;
-
-			int floorTexture = 3;
+			int	checkPattern = (int)(cellX + cellY) & 1;
+			int floorTexture;
+			if (checkPattern == 0)
+				floorTexture = 3;
+			else 
+				floorTexture = 4;
 			int ceilingTexture = 6;
 
 			int color;
@@ -141,8 +239,8 @@ void	calc(t_info *info)
 	while (x < width)
 	{
 		double cameraX = 2 * x / (double)width - 1; //카메라 평면의 위치 값
-		double rayDirX = info->dirX + (info->planeX * cameraX);//ray 의 방향 계산
-		double rayDirY = info->dirY + (info->planeY * cameraX);
+		double rayDirX = info->dirX + info->planeX * cameraX;//ray 의 방향 계산
+		double rayDirY = info->dirY + info->planeY * cameraX;
 		int mapX = (int)info->posX;
 		int mapY = (int)info->posY; //현재위치 자연수 저장
 
@@ -158,8 +256,6 @@ void	calc(t_info *info)
 
 		int hit = 0; // 벽에 부딛혔는지
 		int side; // 벽 사이드인지
-
-	
 		// 4분면 방향 설정과 현재위치에서 다음 좌표까지의 거리(sideDist) 계산
 		if (rayDirX < 0)
 		{
@@ -243,62 +339,63 @@ void	calc(t_info *info)
 				color = (color >> 1) & 8355711;
 			info->buf[i][x] = color;
 		}
-		double floorXWall, floorYWall;
-
-		if (side == 0 && rayDirX > 0)
-		{
-			floorXWall = mapX;
-			floorYWall = mapY + wallX;
-		}
-		else if (side == 0 && rayDirX < 0)
-		{
-			floorXWall = mapX + 1.0;
-			floorYWall = mapY + wallX;
-		}
-		else if (side == 1 && rayDirY > 0)
-		{
-			floorXWall = mapX + wallX;
-			floorYWall = mapY;
-		}
-		else
-		{
-			floorXWall = mapX + wallX;
-			floorYWall = mapY + 1.0;
-		}
-
-		double distWall, distPlayer, currentDist;
-
-		distWall = perpWallDist;
-		distPlayer = 0.0;
-
-		if (drawEnd < 0)
-			drawEnd = height;
-		int y = drawEnd + 1;
-		while (y < height)
-		{
-			currentDist = height / (2.0 * y - height);
-			double weight = (currentDist - distPlayer) / (distWall - distPlayer);
-
-			double currentFloorX = weight * floorXWall + (1.0 - weight) * info->posX;
-			double currentFloorY = weight * floorYWall + (1.0 - weight) * info->posY;
-
-			int floorTexX, floorTexY;
-			floorTexX = (int)(currentFloorX * textWidth) % textWidth;
-			floorTexY = (int)(currentFloorY * textHeight) % textHeight;
-
-			int checkPattern = ((int)(currentFloorX) + (int)(currentFloorY)) % 2;
-			int floorTexture;
-			if (checkPattern == 0)
-				floorTexture = 3;
-			else
-				floorTexture = 4;
-			// floor
-			info->buf[y][x] = (info->texture[floorTexture][textWidth * floorTexY + floorTexX] >> 1) & 8355711;
-			// ceiling 대칭
-			info->buf[height - y][x] = info->texture[6][textWidth * floorTexY + floorTexX];
-			y++;
-		}
+		info->zBuffer[x] = perpWallDist;
 		x++;
+	}
+	for (int i = 0; i < numSprites; i++)
+	{
+		spriteOrder[i] = i;
+		spriteDistance[i] = ((info->posX - sprite[i].x) * (info->posX - sprite[i].x)
+		+ (info->posY - sprite[i].y) *
+		(info->posY - sprite[i].y));
+	}
+
+	sortSprites(spriteOrder, spriteDistance, numSprites);
+
+	for(int i = 0; i < numSprites; i++)
+	{
+		double spriteX = sprite[spriteOrder[i]].x - info->posX;
+		double spriteY = sprite[spriteOrder[i]].y - info->posY;
+
+		double invDet = 1.0 / (info->planeX * info->dirY - info->dirX * info->planeY);
+		
+		double transformX = invDet * (info->dirY * spriteX - info->dirX * spriteY);
+		double transformY = invDet * (-info->planeY * spriteX + info->planeX * spriteY);
+
+		int spriteScreenX = (int)((width / 2) * (1 + transformX / transformY));
+		#define uDiv 1
+		#define vDiv 1
+		#define vMove 0.0
+		int vMoveScreen = (int)(vMove / transformY);
+
+		//sprite 높이계산
+		int spriteHeight = (int)fabs((height / transformY) / vDiv);
+		int drawStartY = -spriteHeight / 2 + height / 2 + vMoveScreen;
+		if (drawStartY < 0)
+			drawStartY = 0;
+		int drawEndY = spriteHeight / 2 + height / 2 + vMoveScreen;
+		if (drawEndY >= height)
+			drawEndY = height - 1;
+		//sprite 너비계산
+		int spriteWidth = (int)fabs((height / transformY) / uDiv);
+		int drawStartX = -spriteWidth / 2 + spriteScreenX;
+		if (drawStartX < 0) drawStartX = 0;
+		int drawEndX = spriteWidth / 2 + spriteScreenX;
+		if (drawEndX >= width) drawEndX = width - 1;
+
+		for (int stripe = drawStartX; stripe < drawEndX; stripe++)
+		{
+			int texX = (int)((256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * textWidth / spriteWidth) / 256);
+			if (transformY > 0 && stripe > 0 && stripe < width && transformY < info->zBuffer[stripe])
+			for (int y = drawStartY; y < drawEndY; y++)
+			{
+				int d = (y-vMoveScreen) * 256 - height * 128 + spriteHeight * 128;
+				int texY = ((d * textHeight) / spriteHeight) / 256;
+				int color = info->texture[sprite[spriteOrder[i]].texture][textWidth * texY + texX];
+				if ((color & 0x00FFFFFF) != 0)
+					info->buf[y][stripe] = color;
+			}
+		}
 	}
 }
 
@@ -306,26 +403,30 @@ int	main_loop(t_info *info)
 {
 	calc(info);
 	draw(info);
+	key_update(info);
 	return (0);
 }
-int	key_press(int key, t_info *info)
+void	key_update(t_info *info)
 {
-	if (key == K_W)
+	if (info->key_w)
 	{
 		if (!worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
 			info->posX += info->dirX * info->moveSpeed;
 		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
 			info->posY += info->dirY * info->moveSpeed;
 	}
-	if (key == K_S)
+	//move backwards if no wall behind you
+	if (info->key_s)
 	{
 		if (!worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
 			info->posX -= info->dirX * info->moveSpeed;
 		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
 			info->posY -= info->dirY * info->moveSpeed;
 	}
-	if (key == K_D)
+	//rotate to the right
+	if (info->key_d)
 	{
+		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;
 		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
 		info->dirY = oldDirX * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
@@ -333,8 +434,10 @@ int	key_press(int key, t_info *info)
 		info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
 		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
 	}
-	if (key == K_A)
+	//rotate to the left
+	if (info->key_a)
 	{
+		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;
 		info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
 		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
@@ -342,8 +445,37 @@ int	key_press(int key, t_info *info)
 		info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
 		info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
 	}
+	if (info->key_esc)
+		exit(0);
+}
+
+int		key_press(int key, t_info *info)
+{
 	if (key == K_ESC)
 		exit(0);
+	else if (key == K_W)
+		info->key_w = 1;
+	else if (key == K_A)
+		info->key_a = 1;
+	else if (key == K_S)
+		info->key_s = 1;
+	else if (key == K_D)
+		info->key_d = 1;
+	return (0);
+}
+
+int		key_release(int key, t_info *info)
+{
+	if (key == K_ESC)
+		exit(0);
+	else if (key == K_W)
+		info->key_w = 0;
+	else if (key == K_A)
+		info->key_a = 0;
+	else if (key == K_S)
+		info->key_s = 0;
+	else if (key == K_D)
+		info->key_d = 0;
 	return (0);
 }
 
@@ -370,7 +502,11 @@ void	load_texture(t_info *info)
 	load_image(info, info->texture[5], "textures/mossy.xpm", &img);
 	load_image(info, info->texture[6], "textures/wood.xpm", &img);
 	load_image(info, info->texture[7], "textures/colorstone.xpm", &img);
+	load_image(info, info->texture[8], "textures/barrel.xpm", &img);
+	load_image(info, info->texture[9], "textures/pillar.xpm", &img);
+	load_image(info, info->texture[10], "textures/greenlight.xpm", &img);
 }
+
 
 int main(void)
 {
@@ -383,6 +519,12 @@ int main(void)
 	info.dirY = 0.0;
 	info.planeX = 0.0;
 	info.planeY = 0.66;
+	info.key_a = 0;
+	info.key_w = 0;
+	info.key_s = 0;
+	info.key_d = 0;
+	info.key_esc = 0;
+
 	
 	for (int i = 0; i < height; i++)
 	{
@@ -391,14 +533,15 @@ int main(void)
 			info.buf[i][j] = 0;
 		}
 	}
-	if (!(info.texture = (int **)malloc(sizeof(int *) * 8)))
+
+	if (!(info.texture = (int **)malloc(sizeof(int *) * 11)))
 		return (-1);
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 11; i++)
 	{
 		if (!(info.texture[i] = (int *)malloc(sizeof(int) * (textHeight * textWidth))))
 			return (-1);
 	}
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 11; i++)
 	{
 		for (int j = 0; j < textHeight * textWidth; j++)
 		{
@@ -415,7 +558,9 @@ int main(void)
 	info.img.img = mlx_new_image(info.mlx, width, height);
 	info.img.data = (int *)mlx_get_data_addr(info.img.img, &info.img.bpp, &info.img.size_l, &info.img.endian);
 	mlx_loop_hook(info.mlx, &main_loop, &info);
+
 	mlx_hook(info.win, X_EVENT_KEY_PRESS, 0, &key_press, &info);
+	mlx_hook(info.win, X_EVENT_KEY_RELEASE, 0, &key_release, &info);
 
 	mlx_loop(info.mlx);
 }

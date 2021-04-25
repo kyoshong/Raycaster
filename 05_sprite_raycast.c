@@ -57,7 +57,7 @@ struct Sprite	sprite[numSprites] =
 	{15.5, 1.5, 8},
 	{16.0, 1.8, 8},
 	{16.2, 1.2, 8},
-	{3.5,  2.5, 8},
+	{3.5, 2.5, 8},
 	{9.5, 15.5, 8},
 	{10.0, 15.1,8},
 	{10.5, 15.8,8},
@@ -182,9 +182,7 @@ void	draw(t_info *info)
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
-		{
 			info->img.data[y * width + x] = info->buf[y][x];
-		}
 	}
 	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
 }
@@ -348,7 +346,9 @@ void	calc(t_info *info)
 	for(int i = 0; i < numSprites; i++)
 	{
 		spriteOrder[i] = i;
-		spriteDistance[i] = ((info->posX - sprite[i].x) * (info->posX - sprite[i].x) + (info->posY - sprite[i].y) * (info->posY - sprite[i].y)); //sqrt not taken, unneeded
+		spriteDistance[i] = ((info->posX - sprite[i].x) * 
+		(info->posX - sprite[i].x) + (info->posY - sprite[i].y) * 
+		(info->posY - sprite[i].y)); //sqrt not taken, unneeded
 	}
 	sortSprites(spriteOrder, spriteDistance, numSprites);
 	//after sorting the sprites, do the projection and draw them
