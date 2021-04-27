@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 12:53:45 by hyospark          #+#    #+#             */
-/*   Updated: 2021/01/19 22:06:49 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/04/27 21:28:52 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,16 @@ char			*ft_strdup(const char *s);
 char			*ft_strjoin(char const *s1, char const *s2);
 size_t			ft_strlcat(char *dest, const char *src, size_t size);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-int				ft_strncmp(const char *s1, const char *s2, size_t n);
+int				ft_strncmp(char *s1, char *s2, size_t n);
 char			*ft_strnstr(const char *big, const char *little, size_t len);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strtrim(char const *s1, char const *set);
-char			*ft_substr(char const *s, unsigned int start, size_t len);
+char			*ft_substr(char *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 size_t			ft_strlcpy(char *dest, char *src, size_t size);
+int				*ft_split_atoi(char const *s, char c);
+int				*ft_split_atoi2(char const *result, int word_num);
 
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstnew(void *content);
