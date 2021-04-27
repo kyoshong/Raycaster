@@ -9,7 +9,7 @@
 #include <string.h>
 #include "../libft/libft.h"
 #include <fcntl.h>
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 #define X_EVENT_KEY_PRESS	2
 #define X_EVENT_KEY_RELEASE	3
@@ -18,22 +18,25 @@
 #define textWidth 64
 #define mapWidth 24
 #define mapHeight 24
-#define width 640
-#define height 480
 #define numSprites 19
 #define uDiv 1
 #define vDiv 1
 #define vMove 0.0
 
-// typedef	enum	e_error
-// {
-// 	SUCCESS,
-// 	ERROR,
-// 	ARG_ERROR_TOO_FEW,
-// 	ARG_ERROR_TOO_MANY,
-// 	FILE_NAME_ERROR,
-// 	SAVE_FLAG_ERROR
-// }			t_error;
+typedef	enum	e_error
+{
+	SUCCESS,
+	ERROR,
+	ARG_ERROR_TOO_FEW,
+	ARG_ERROR_TOO_MANY,
+	FILE_NAME_ERROR,
+	SAVE_FLAG_ERROR,
+	PATH_ERROR,
+	RGB_VALUE_ERROR,
+	SCREEN_VALUE_ERROR,
+	MAP_FILE_ERROR,
+
+}			t_error;
 
 typedef struct s_img
 {
@@ -46,7 +49,7 @@ typedef struct s_img
 	int		img_height;
 }				t_img;
 
-typedef struct	s_arg
+typedef struct	s_config
 {
 	int		screen_width;
 	int		screen_height;
@@ -55,11 +58,11 @@ typedef struct	s_arg
 	char	*east;
 	char	*west;
 	char	*sprite;
-	char	*floor;
-	char	*ceiling;
+	int		*floor;
+	int		*ceiling;
 	t_map	*map;
 
-}				t_arg;
+}				t_config;
 
 typedef struct	s_map
 {
@@ -89,8 +92,8 @@ typedef struct	s_info
 	int		key_d;
 	int		key_esc;
 	t_img	img;
-	int		buf[height][width];
-	double	zBuffer[width];
+	int		**buf;
+	double	*zBuffer;
 	int		**texture;
 	double	moveSpeed;
 	double	rotSpeed;
@@ -102,4 +105,11 @@ typedef	struct		s_pair
 	int		second;
 }					t_pair;
 
+int		check_screen(char *line, t_config *config, int i);
+char	*re_path(char *line, int i);
+int		check_path(char *line, t_config *config);
+int		check_rgb(char *line, t_config *config);
+int		check_map(char *line,t_config *config);
+int		check_arg(int argc, char **argv);
+void	print_error(int error);
 #	endif

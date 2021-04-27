@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main1.c                                            :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/04/27 21:54:44 by hyospark         ###   ########.fr       */
+/*   Created: 2021/04/27 17:02:52 by hyospark          #+#    #+#             */
+/*   Updated: 2021/04/27 21:56:44 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int argc, char *argv[])
+void	print_error(int error)
 {
-	int		fd;
-	int 	check;
-	char	*buf;
-	t_config config;
-
-	if (check_arg(argc, argv))
-		return (0);
-	fd = open(argv[1], O_RDWR);
-	while ((check = get_next_line(fd, &buf)) > 0)
-	{
-		check_map(buf, &config);
-		free(buf);
-	}
-	return 0;
+	if (error == ARG_ERROR_TOO_FEW)
+		printf("ERROR\nARG_ERROR_TOO_FEW");
+	else if (error == ARG_ERROR_TOO_MANY)
+		printf("ERROR\nARG_ERROR_TOO_MANY");
+	else if (error == FILE_NAME_ERROR)
+		printf("ERROR\nFILE_NAME_ERROR");
+	else if (error == FILE_NAME_ERROR)
+		printf("ERROR\nFILE_NAME_ERROR");
+	else if (error == SAVE_FLAG_ERROR)
+		printf("ERROR\nSAVE_FLAG_ERROR");
 }

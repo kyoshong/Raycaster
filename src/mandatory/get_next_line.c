@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 18:54:03 by hyospark          #+#    #+#             */
-/*   Updated: 2021/02/07 21:59:52 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:08:05 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 char	*re_backup(char *cont)
 {
@@ -43,7 +43,7 @@ char	*re_backup(char *cont)
 
 int		line_check(char *cont)
 {
-	int i;
+	int	i;
 
 	if (!cont)
 		return (0);
