@@ -1,5 +1,5 @@
 
-#include "key_h.h"
+#include "src/mandatory/key_h.h"
 #include "mlx/mlx.h"
 #include <math.h>
 #include <string.h>

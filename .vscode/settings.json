@@ -4,6 +4,12 @@
 		"__locale": "c",
 		"cub3d.h": "c",
 		"get_next_line_bonus.h": "c",
-		"ratio": "c"
+		"ratio": "c",
+		"libft.h": "c",
+		"__cxx_version": "c",
+		"__hash_table": "c",
+		"functional": "c",
+		"type_traits": "c",
+		"key_h.h": "c"
 	}
 }

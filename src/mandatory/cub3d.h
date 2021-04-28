@@ -35,6 +35,7 @@ typedef	enum	e_error
 	RGB_VALUE_ERROR,
 	SCREEN_VALUE_ERROR,
 	MAP_FILE_ERROR,
+	NOT_ENOUGH_CONFIG,
 
 }			t_error;
 
@@ -60,13 +61,14 @@ typedef struct	s_config
 	char	*sprite;
 	int		*floor;
 	int		*ceiling;
+	int		check_val[9];
 	t_map	*map;
-
 }				t_config;
 
 typedef struct	s_map
 {
-	
+	int		*map_line;
+	t_map	*next_map_line;
 
 }				t_map;
 typedef struct	s_sprite
@@ -112,4 +114,7 @@ int		check_rgb(char *line, t_config *config);
 int		check_map(char *line,t_config *config);
 int		check_arg(int argc, char **argv);
 void	print_error(int error);
+int		check_val(t_config *config);
+
+
 #	endif

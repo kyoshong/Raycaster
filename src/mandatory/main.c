@@ -1,5 +1,6 @@
 #include "cub3d.h"
-
+#define width 1920
+#define height 1080 
 t_sprite	sprite[numSprites] =
 {
 	{20.5, 11.5, 10},

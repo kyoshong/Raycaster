@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 17:03:04 by hyospark          #+#    #+#             */
-/*   Updated: 2021/04/27 22:00:53 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/04/27 23:34:16 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int		check_screen(char *line, t_config *config, int i)
 	{
 		config->screen_width = width;
 		config->screen_height = height;
+		config->check_val[0] = 1;
+		config->check_val[1] = 1;
 		return (SUCCESS);
 	}
 	return (SCREEN_VALUE_ERROR);
@@ -63,26 +65,31 @@ int	check_path(char *line, t_config *config)
 	{
 		if (NULL == (config->north = (re_path(line, 2))))
 			return (PATH_ERROR);
+		config->check_val[2] = 1;
 	}
 	else if (!ft_strncmp(line, "SO", 2))
 	{
 		if (NULL == (config->south = (re_path(line, 2))))
 			return (PATH_ERROR);
+		config->check_val[3] = 1;
 	}
 	else if (ft_strncmp(line, "WE", 2))
 	{
 		if (NULL == (config->west = (re_path(line, 2))))
 			return (PATH_ERROR);
+		config->check_val[4] = 1;
 	}
 	else if (ft_strncmp(line, "EA", 2))
 	{
 		if (NULL == (config->east = (re_path(line, 2))))
 			return (PATH_ERROR);
+		config->check_val[5] = 1;
 	}
 	else if (!ft_strncmp(line, "S ", 2))
 	{
 		if (NULL == (config->sprite = (re_path(line, 2))))
 			return (PATH_ERROR);
+		config->check_val[6] = 1;
 	}
 	return (SUCCESS);
 }
@@ -101,39 +108,15 @@ int		check_rgb(char *line, t_config *config)
 	{
 		if ((config->floor = ft_split_atoi(tem, ',')) == NULL)
 			return (RGB_VALUE_ERROR);
+		config->check_val[7] = 1;
 	}
 	else if (line[0] == 'C')
 	{
 		if((config->ceiling = ft_split_atoi(tem, ',')) == NULL)
 			return (RGB_VALUE_ERROR);
+		config->check_val[8] = 1;
 	}
 	return (SUCCESS);
-}
-
-int		check_map(char *line,t_config *config)
-{
-	int error;
-	
-	if (line[0] == 'R')
-	{
-		error = check_screen(line, &config, 1);
-	}
-	else if (ft_strchr("NSWE", line[0]))
-	{
-		error = check_path(line, &config);
-	}
-	else if (ft_strchr("FC", line[0]))
-	{
-		error = check_rgb(line, &config);
-	}
-	else if (line == '\n' || line == '\0')
-	{
-		error = SUCCESS;
-	}
-	else if ()
-	else
-		error = MAP_FILE_ERROR;
-	return (error);
 }
 
 int		check_arg(int argc, char **argv)
