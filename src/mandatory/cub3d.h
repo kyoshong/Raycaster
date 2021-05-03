@@ -36,7 +36,11 @@ typedef	enum	e_error
 	SCREEN_VALUE_ERROR,
 	MAP_FILE_ERROR,
 	NOT_ENOUGH_CONFIG,
-
+	MAP_ERROR,
+	NEW_MAP_ERROR,
+	UNAVAILABLE_MAP_ERROR,
+	WRONG_MAP_CAHR,
+	MAP_POS_ERROR,
 }			t_error;
 
 typedef struct s_img
@@ -69,8 +73,8 @@ typedef struct	s_map
 {
 	int		*map_line;
 	t_map	*next_map_line;
-
 }				t_map;
+
 typedef struct	s_sprite
 {
 	double	x;
@@ -116,5 +120,13 @@ int		check_arg(int argc, char **argv);
 void	print_error(int error);
 int		check_val(t_config *config);
 
+//handle_map
+
+void	ft_lstdelone(t_map *lst, void (*del)(void *));
+void	ft_lstadd_back(t_map **lst, t_map *new);
+t_map	*ft_new_map(char *content);
+int		get_map(char *line, t_config *config);
+int		check_map_val(char *line, t_config *config);
+void	print_error(int error);
 
 #	endif

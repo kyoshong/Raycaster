@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/04/27 21:54:44 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/05/03 21:44:35 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,14 @@ int main(int argc, char *argv[])
 	fd = open(argv[1], O_RDWR);
 	while ((check = get_next_line(fd, &buf)) > 0)
 	{
-		check_map(buf, &config);
+		print_error(check_map(buf, &config));
 		free(buf);
 	}
+	if (map_avail(config.map))
+	{
+		start_cub3d(&config);
+	}
+	else
+		print_error(UNAVAILABLE_MAP_ERROR);
 	return 0;
 }

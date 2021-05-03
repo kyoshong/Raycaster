@@ -6,11 +6,12 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 22:01:47 by hyospark          #+#    #+#             */
-/*   Updated: 2021/04/28 20:41:01 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/05/03 21:48:34 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 
 int		check_val(t_config *config)
 {
@@ -26,31 +27,33 @@ int		check_val(t_config *config)
 	return (NOT_ENOUGH_CONFIG);
 }
 
-int		check_map_val(char *line, t_config *config)
+int		map_avail(t_map *map)
 {
+	t_map *tem;
 	int i;
-	
-	if (check_val(&config) > 0)
-		return (NOT_ENOUGH_CONFIG);
-	i = 0;
-	while (line[i] == ' ')
-		i++;
-	if (ft_isdigit(line[i]))
+	int count;
+
+	count = 0;
+	tem = map;
+	while (tem->next_map_line != NULL)
 	{
-		config->
-		while (ft_isdigit(line[i]))
+		i = 0;
+		while (tem->map_line[i])
 		{
-			
+			if (ft_strchr("012N ",tem->map_line[i]))
+			{
+				if (tem->map_line[i] == 'N')
+					count++;
+			}
+			else
+				return (WRONG_MAP_CAHR);
 			i++;
 		}
-		i = 0;
-		
+		tem = map->next_map_line;
 	}
-	else
-
-	
-	
-	
+	if (count != 1)
+		return (MAP_POS_ERROR);
+	return (SUCCESS);
 }
 
 int		check_map(char *line, t_config *config)
@@ -73,9 +76,9 @@ int		check_map(char *line, t_config *config)
 	{
 		error = SUCCESS;
 	}
-	else if ()
+	else if (!check_map_val(line, &config))
 	{
-		
+		error = SUCCESS;
 	}
 	else
 		error = MAP_FILE_ERROR;

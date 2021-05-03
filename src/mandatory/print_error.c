@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 17:02:52 by hyospark          #+#    #+#             */
-/*   Updated: 2021/04/27 21:56:44 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/05/03 20:51:43 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	print_error(int error)
 {
-	if (error == ARG_ERROR_TOO_FEW)
+	if (error == SUCCESS)
+		return (0);
+	else if (error == ARG_ERROR_TOO_FEW)
 		printf("ERROR\nARG_ERROR_TOO_FEW");
 	else if (error == ARG_ERROR_TOO_MANY)
 		printf("ERROR\nARG_ERROR_TOO_MANY");
