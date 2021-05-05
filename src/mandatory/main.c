@@ -464,15 +464,11 @@ int main(void)
 	info.key_d = 0;
 	info.key_esc = 0;
 
-	
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
-		{
 			info.buf[i][j] = 0;
-		}
 	}
-
 	if (!(info.texture = (int **)malloc(sizeof(int *) * 11)))
 		return (-1);
 	for (int i = 0; i < 11; i++)

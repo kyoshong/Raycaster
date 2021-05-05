@@ -6,11 +6,26 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/05/03 21:44:35 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/05/05 20:29:48 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	check_arg(int argc, char **argv)
+{
+	int a;
+	
+	if (argc < 2)
+		error_exit("TOO_FEW_ARG");
+	if (argc > 3)
+		error_exit("TOO_MANY_ARG");
+	a = ft_strlen(argv[1]);
+	if (argc == 2 && ft_strncmp(ft_substr(argv[1], a - 4, 4), ".cub", 4) != 0)
+		error_exit("FILE_NAME_ERROR");
+	if (argc == 3 && ft_strncmp(argv[2], "--save", 6) != 0)
+		error_exit("SAVE_FLAG_ERROR");
+}
 
 int main(int argc, char *argv[])
 {
@@ -19,19 +34,21 @@ int main(int argc, char *argv[])
 	char	*buf;
 	t_config config;
 
-	if (check_arg(argc, argv))
-		return (0);
-	fd = open(argv[1], O_RDWR);
+	check_arg(argc, argv);
+	if ((fd = open(argv[1], O_RDWR)) < 0)
+		print_error("CAN_NOT_OPEN_FILE");
 	while ((check = get_next_line(fd, &buf)) > 0)
 	{
-		print_error(check_map(buf, &config));
+		check_map_id(buf, &config);
 		free(buf);
 	}
-	if (map_avail(config.map))
-	{
+	if (map_avail(&config))
 		start_cub3d(&config);
-	}
 	else
-		print_error(UNAVAILABLE_MAP_ERROR);
+	{
+		ft_lstclear_map(config.map);
+		free(&config);
+		print_error("UNAVAILABLE_MAP_ERROR");
+	}
 	return 0;
 }

@@ -10,6 +10,7 @@
 		"__hash_table": "c",
 		"functional": "c",
 		"type_traits": "c",
-		"key_h.h": "c"
+		"key_h.h": "c",
+		"ios": "c"
 	}
 }

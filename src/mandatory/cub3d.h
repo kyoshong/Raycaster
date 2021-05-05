@@ -16,9 +16,6 @@
 #define X_EVENT_KEY_EXIT	17
 #define textHeight 64
 #define textWidth 64
-#define mapWidth 24
-#define mapHeight 24
-#define numSprites 19
 #define uDiv 1
 #define vDiv 1
 #define vMove 0.0
@@ -43,6 +40,11 @@ typedef	enum	e_error
 	MAP_POS_ERROR,
 }			t_error;
 
+typedef struct	s_env
+{
+	
+}				t_env;
+
 typedef struct s_img
 {
 	void	*img;
@@ -56,17 +58,22 @@ typedef struct s_img
 
 typedef struct	s_config
 {
-	int		screen_width;
-	int		screen_height;
-	char	*north;
-	char	*south;
-	char	*east;
-	char	*west;
-	char	*sprite;
-	int		*floor;
-	int		*ceiling;
-	int		check_val[9];
-	t_map	*map;
+	int			width;
+	int			height;
+	char		*north;
+	char		*south;
+	char		*east;
+	char		*west;
+	char		*sprite;
+	int			*floor;
+	int			*ceiling;
+	int			check_val[9];
+	int			numSprites;
+	t_sprite	sprite;
+	t_map		*map;
+	int			**worldMap;
+	int			mapHeight;
+	int			mapWidth;
 }				t_config;
 
 typedef struct	s_map
@@ -84,6 +91,8 @@ typedef struct	s_sprite
 
 typedef struct	s_info
 {
+	int		width;
+	int		height;
 	double	posX;
 	double	posY;
 	double	dirX;
@@ -111,22 +120,49 @@ typedef	struct		s_pair
 	int		second;
 }					t_pair;
 
+
+//main
+void	check_arg(int argc, char **argv);
+
+//handle_map_id
 int		check_screen(char *line, t_config *config, int i);
-char	*re_path(char *line, int i);
 int		check_path(char *line, t_config *config);
+int		check_path2(char *line, t_config *config);
+int		check_map_id(char *line, t_config *config);
+
+//handle_map_id2
+char	*re_path(char *line, int i);
 int		check_rgb(char *line, t_config *config);
-int		check_map(char *line,t_config *config);
-int		check_arg(int argc, char **argv);
-void	print_error(int error);
-int		check_val(t_config *config);
 
 //handle_map
-
-void	ft_lstdelone(t_map *lst, void (*del)(void *));
-void	ft_lstadd_back(t_map **lst, t_map *new);
-t_map	*ft_new_map(char *content);
+int		check_val(t_config *config);
 int		get_map(char *line, t_config *config);
 int		check_map_val(char *line, t_config *config);
-void	print_error(int error);
+
+//print_error
+void	error_exit(char *str);
+
+//map_list
+t_map	*ft_new_map(char *content);
+int		ft_lstsize_map(t_map *lst);
+void	ft_lstadd_back_map(t_map **lst, t_map *new);
+t_map	*ft_lstlast_map(t_map *lst);
+void	ft_lstclear_map(t_map **lst);
+
+//map_avail
+int		check_map_char(t_map *map, int i, int count);
+int		map_avail(t_config *config);
+
+//cub3d
+int		start_cub3d(t_config *config);
+int		main_loop(t_info *info);
+t_info	set_config(t_config *config);
+int		key_release(int key, t_info *info);
+int		key_press(int key, t_info *info);
+int		main_loop(t_info *info);
+
+//error print
+void	error_exit(char *str);
+
 
 #	endif
