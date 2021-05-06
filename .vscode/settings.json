@@ -11,6 +11,8 @@
 		"functional": "c",
 		"type_traits": "c",
 		"key_h.h": "c",
-		"ios": "c"
+		"ios": "c",
+		"fcntl.h": "c",
+		"get_next_line.h": "c"
 	}
 }

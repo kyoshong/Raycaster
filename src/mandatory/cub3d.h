@@ -9,7 +9,7 @@
 #include <string.h>
 #include "../libft/libft.h"
 #include <fcntl.h>
-#include "get_next_line.h"
+#include "../gnl/get_next_line.h"
 
 #define X_EVENT_KEY_PRESS	2
 #define X_EVENT_KEY_RELEASE	3
@@ -74,14 +74,16 @@ typedef struct	s_config
 	int			**worldMap;
 	int			mapHeight;
 	int			mapWidth;
-	int			
+	int			player_x;
+	int			player_y;
 }				t_config;
 
 typedef struct	s_map
 {
-	int		*map_line;
-	t_map	*next_map_line;
+	char			*map;
+	struct s_map	*next_map_line;
 }				t_map;
+
 
 typedef struct	s_sprite
 {

@@ -1,6 +1,6 @@
 #include "cub3d.h"
 #define width 1920
-#define height 1080 
+#define height 1080
 t_sprite	sprite[numSprites] =
 {
 	{20.5, 11.5, 10},
@@ -39,7 +39,7 @@ static	int	compare(const void *first, const void *second)
 	else if (*(int *)first < *(int *)second)
 		return (-1);
 	else
-		return (0); 
+		return (0);
 }
 
 void	sort_order(t_pair *orders, int amount)
@@ -156,7 +156,7 @@ void	calc(t_info *info)
 			int floorTexture;
 			if (checkPattern == 0)
 				floorTexture = 3;
-			else 
+			else
 				floorTexture = 4;
 			int ceilingTexture = 6;
 
@@ -238,7 +238,7 @@ void	calc(t_info *info)
 		}
 		/*
 		 최종적으로 벽을 만났을때 플레이어 기준이 아닌 카메라 기준에서 벽까지의 "수직" 거리를 측정
-		 플레이어 기준으로 벽의 거리를 측정할 시에 벽의 높이가 일정하게 보이고 둥글게 보이는 현상 나타남 
+		 플레이어 기준으로 벽의 거리를 측정할 시에 벽의 높이가 일정하게 보이고 둥글게 보이는 현상 나타남
 		 (1 - stepX) / 2) 은 방향에 따른 + 1을 해주는 이유
 		*/
 		if (side == 0)
@@ -299,7 +299,7 @@ void	calc(t_info *info)
 		double spriteY = sprite[spriteOrder[i]].y - info->posY;
 
 		double invDet = 1.0 / (info->planeX * info->dirY - info->dirX * info->planeY);
-		
+
 		double transformX = invDet * (info->dirY * spriteX - info->dirX * spriteY);
 		double transformY = invDet * (-info->planeY * spriteX + info->planeX * spriteY);
 
@@ -451,7 +451,7 @@ int main(void)
 {
 	t_info info;
 	info.mlx = mlx_init();
-	
+
 	info.posX = 22.0;
 	info.posY = 11.5;
 	info.dirX = -1.0;
@@ -484,10 +484,10 @@ int main(void)
 		}
 	}
 	load_texture(&info);
-	
+
 	info.moveSpeed = 0.05;
 	info.rotSpeed = 0.05;
-	
+
 	info.win = mlx_new_window(info.mlx, width, height, "test");
 
 	info.img.img = mlx_new_image(info.mlx, width, height);

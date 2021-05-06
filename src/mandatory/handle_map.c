@@ -4,7 +4,7 @@
 int		check_val(t_config *config)
 {
 	int i;
-	
+
 	i = 0;
 	while (config->check_val[i])
 	{
@@ -18,16 +18,17 @@ int		check_val(t_config *config)
 int		get_map(char *line, t_config *config)
 {
 	t_map *map;
+
 	if (!(map = ft_new_map(line)))
 		return (NEW_MAP_ERROR);
-	ft_lstadd_back(&(config->map->map_line), &map);
+	ft_lstadd_back(&(config->map->map), &map);
 	return (SUCCESS);
 }
- 
+
 int		check_map_val(char *line, t_config *config)
 {
 	int i;
-	
+
 	if (check_val(&config) > 0)
 		return (NOT_ENOUGH_CONFIG);
 	i = 0;

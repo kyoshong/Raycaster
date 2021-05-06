@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/05/05 20:29:48 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/05/07 02:09:56 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	check_arg(int argc, char **argv)
 {
 	int a;
-	
+
 	if (argc < 2)
 		error_exit("TOO_FEW_ARG");
 	if (argc > 3)
@@ -47,7 +47,6 @@ int main(int argc, char *argv[])
 	else
 	{
 		ft_lstclear_map(config.map);
-		free(&config);
 		print_error("UNAVAILABLE_MAP_ERROR");
 	}
 	return 0;
