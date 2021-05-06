@@ -151,6 +151,8 @@ void	ft_lstclear_map(t_map **lst);
 
 //map_avail
 int		check_map_char(t_map *map, int i, int count);
+void	*set_map(void *ptr, int val, size_t s);
+void	make_worldMap(t_config *config, int i, int h, int w);
 int		map_avail(t_config *config);
 
 //cub3d

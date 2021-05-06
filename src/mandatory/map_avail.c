@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 22:01:47 by hyospark          #+#    #+#             */
-/*   Updated: 2021/05/05 22:22:54 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/05/06 18:13:24 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,23 @@ int		check_map_char(t_map *map, int i, int count)
 	return (max);
 }
 
+void	*set_map(void *ptr, int val, size_t s)
+{
+	while (s != 0)
+	{
+		*((int *)ptr + s - 1) = val;
+		s--;
+	}
+	return (ptr);
+}
+
 void	make_worldMap(t_config *config, int i, int h, int w)
 {
 	int		arr[config->mapHeight][config->mapWidth];
 	t_map	*tem;
 	
+	while (i < config->mapHeight)
+		set_map(arr[i++], -1, config->mapWidth);
 	tem = config->map;
 	while (tem->next_map_line != NULL)
 	{
@@ -59,16 +71,9 @@ void	make_worldMap(t_config *config, int i, int h, int w)
 			w = 0;
 			if (tem->map_line[i] == '0' || tem->map_line[i] == '1' || tem->map_line[i] == '2')
 				arr[h][w] = tem->map_line[i] - '0';
-			else if (tem->map_line[i] == ' ')
-				arr[h][w] = -1;
 			else if (tem->map_line[i] == 'N')
 				arr[h][w] = 3;
 			i++;
-			if (!tem->map_line[i] && w < config->mapHeight)
-			{
-				while (w < config->mapHeight)
-					arr[h][w++] = -1;
-			}
 		}
 		h++;
 		tem = config->map->next_map_line;
