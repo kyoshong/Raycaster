@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 22:01:47 by hyospark          #+#    #+#             */
-/*   Updated: 2021/05/07 02:08:19 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/05/07 04:50:10 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,18 @@ void	make_worldMap(t_config *config, int i, int h, int w)
 void		dfs_map(t_config *t, int **map, int x, int y)
 {
 	if (x == 0 || x == t->mapHeight - 1 || y == 0 | y == t->mapWidth - 1)
-		error_exit("INVAILED_MAP");
+		free_error_exit(t->map, "INVAILED_MAP");
 	if (map[x][y] == 0 || map[x][y] == 3)
 		map[x][y] = -2;
-	if (x < t->mapHeight - 1 && (map[x + 1][y] == '0' || map[x + 1][y] == ' '))
+	if (map[x][y] == -1)
+		free_error_exit(t->map, "INVAILED_MAP");
+	if (x < t->mapHeight - 1 && map[x + 1][y] == 0)
 		dfs_map(t, map, x + 1, y);
-	if (x > 0  && (map[x - 1][y] == '0' || map[x - 1][y] == ' '))
+	if (x > 0 && map[x - 1][y] == 0)
 		dfs_map(t, map, x - 1, y);
-	if (y < t->mapWidth - 1 && (map[x][y + 1] == '0' || map[x][y + 1] == ' '))
+	if (y < t->mapWidth - 1 && map[x][y + 1] == 0)
 		dfs_map(t, map, x, y + 1);
-	if (y > 0 && (map[x][y - 1] == '0' || map[x][y - 1] == ' '))
+	if (y > 0 && map[x][y - 1] == 0)
 		dfs_map(t, map, x, y - 1);
 }
 
