@@ -42,7 +42,7 @@ typedef	enum	e_error
 
 typedef struct	s_env
 {
-	
+
 }				t_env;
 
 typedef struct s_img
@@ -74,6 +74,7 @@ typedef struct	s_config
 	int			**worldMap;
 	int			mapHeight;
 	int			mapWidth;
+	int			
 }				t_config;
 
 typedef struct	s_map

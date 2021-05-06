@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 22:01:47 by hyospark          #+#    #+#             */
-/*   Updated: 2021/05/06 18:13:24 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/05/06 23:04:53 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ void	make_worldMap(t_config *config, int i, int h, int w)
 			if (tem->map_line[i] == '0' || tem->map_line[i] == '1' || tem->map_line[i] == '2')
 				arr[h][w] = tem->map_line[i] - '0';
 			else if (tem->map_line[i] == 'N')
+			{
+				
 				arr[h][w] = 3;
+			}
 			i++;
 		}
 		h++;
@@ -81,32 +84,38 @@ void	make_worldMap(t_config *config, int i, int h, int w)
 	config->worldMap = arr;
 }
 
-void		dfs_map(t_values *t, char **map, int x, int y)
+void		dfs_map(t_config *t, int **map, int x, int y)
 {
-	if (x == 0 || x == t->row - 1 || y == 0 | y == t->col - 1)
-	{
-		t->invalid_map = 1;
-		return ;
-	}
-	if (map[x][y] == 0 || ft_strchr('N', map[x][y] != NULL)
-		map[x][y] = 'V';
-	if (x < t->row - 1 && (map[x + 1][y] == '0' || map[x + 1][y] == ' '))
+	if (x == 0 || x == t->mapHeight - 1 || y == 0 | y == t->mapWidth - 1)
+		error_exit("INVAILED_MAP");
+	if (map[x][y] == 0 || map[x][y] == 3)
+		map[x][y] = -2;
+	if (x < t->mapHeight - 1 && (map[x + 1][y] == '0' || map[x + 1][y] == ' '))
 		dfs_map(t, map, x + 1, y);
 	if (x > 0  && (map[x - 1][y] == '0' || map[x - 1][y] == ' '))
 		dfs_map(t, map, x - 1, y);
-	if (y < t->col - 1 && (map[x][y + 1] == '0' || map[x][y + 1] == ' '))
+	if (y < t->mapWidth - 1 && (map[x][y + 1] == '0' || map[x][y + 1] == ' '))
 		dfs_map(t, map, x, y + 1);
 	if (y > 0 && (map[x][y - 1] == '0' || map[x][y - 1] == ' '))
 		dfs_map(t, map, x, y - 1);
 }
 
+void	dfs_map_check(int **worldMap, int width, int height)
+{
+	int **map;
+
+	map = worldMap;
+	dfs_map();
+	
+	
+}
 
 int		map_avail(t_config *config)
 {
 	config->mapWidth = check_map_char(config->map, 0, 0);
 	config->mapHeight = ft_lstsize_map(config->map);
+	dfs_map_check(config->worldMap, config->mapWidth, config->mapHeight);
 	make_worldMap(config, 0, 0, 0);
-	
 	
 	return (SUCCESS);
 }
