@@ -81,15 +81,21 @@ typedef struct	s_config
 	int			**worldMap;
 	int			mapHeight;
 	int			mapWidth;
+<<<<<<< HEAD
 	t_player	player;
 
+=======
+	int			player_x;
+	int			player_y;
+>>>>>>> 8c5d03cbc10d46b391996af9be5dcc938d6a15e4
 }				t_config;
 
 typedef struct	s_map
 {
-	int		*map_line;
-	t_map	*next_map_line;
+	char			*map;
+	struct s_map	*next_map_line;
 }				t_map;
+
 
 typedef struct	s_sprite
 {
