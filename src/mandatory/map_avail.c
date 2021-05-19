@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 22:01:47 by hyospark          #+#    #+#             */
-/*   Updated: 2021/05/06 23:04:53 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/05/19 22:28:25 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ int		check_map_char(t_map *map, int i, int count)
 			if (tem->map_line[i] == 'N')
 					count++;
 			if (!ft_strchr("012N ",tem->map_line[i]))
-			{
-				ft_lstclear_map(map);
-				error_exit("WRONG_MAP_CAHR");
-			}
+				map_error_exit("WRONG_MAP_CAHR", map);
 			i++;
 			if (max < i)
 				max = i;
@@ -38,10 +35,7 @@ int		check_map_char(t_map *map, int i, int count)
 		tem = map->next_map_line;
 	}
 	if (count != 1)
-	{
-		ft_lstclear_map(map);
-		error_exit("MAP_POS_ERROR");
-	}
+		map_error_exit("MAP_POS_ERROR", map);
 	return (max);
 }
 
@@ -73,7 +67,8 @@ void	make_worldMap(t_config *config, int i, int h, int w)
 				arr[h][w] = tem->map_line[i] - '0';
 			else if (tem->map_line[i] == 'N')
 			{
-				
+				config->player.x = h;
+				config->player.y = w;
 				arr[h][w] = 3;
 			}
 			i++;
@@ -100,21 +95,19 @@ void		dfs_map(t_config *t, int **map, int x, int y)
 		dfs_map(t, map, x, y - 1);
 }
 
-void	dfs_map_check(int **worldMap, int width, int height)
+void	dfs_map_check(t_config *config)
 {
 	int **map;
 
-	map = worldMap;
-	dfs_map();
-	
-	
+	map = config->worldMap;
+	dfs_map(config, map, config->player.x, config->player.y);
 }
 
 int		map_avail(t_config *config)
 {
 	config->mapWidth = check_map_char(config->map, 0, 0);
 	config->mapHeight = ft_lstsize_map(config->map);
-	dfs_map_check(config->worldMap, config->mapWidth, config->mapHeight);
+	dfs_map_check(config);
 	make_worldMap(config, 0, 0, 0);
 	
 	return (SUCCESS);

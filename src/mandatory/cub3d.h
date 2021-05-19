@@ -9,7 +9,7 @@
 #include <string.h>
 #include "../libft/libft.h"
 #include <fcntl.h>
-#include "get_next_line.h"
+#include "../gnl/get_next_line.h"
 
 #define X_EVENT_KEY_PRESS	2
 #define X_EVENT_KEY_RELEASE	3
@@ -56,6 +56,13 @@ typedef struct s_img
 	int		img_height;
 }				t_img;
 
+typedef struct	s_player
+{
+	int		x;
+	int		y;
+	int		num;
+}				t_player;
+
 typedef struct	s_config
 {
 	int			width;
@@ -74,7 +81,8 @@ typedef struct	s_config
 	int			**worldMap;
 	int			mapHeight;
 	int			mapWidth;
-	int			
+	t_player	player;
+
 }				t_config;
 
 typedef struct	s_map
@@ -92,27 +100,27 @@ typedef struct	s_sprite
 
 typedef struct	s_info
 {
-	int		width;
-	int		height;
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
-	void	*mlx;
-	void	*win;
-	int		key_a;
-	int		key_w;
-	int		key_s;
-	int		key_d;
-	int		key_esc;
-	t_img	img;
-	int		**buf;
-	double	*zBuffer;
-	int		**texture;
-	double	moveSpeed;
-	double	rotSpeed;
+	int			width;
+	int			height;
+	double		posX;
+	double		posY;
+	double		dirX;
+	double		dirY;
+	double		planeX;
+	double		planeY;
+	void		*mlx;
+	void		*win;
+	int			key_a;
+	int			key_w;
+	int			key_s;
+	int			key_d;
+	int			key_esc;
+	t_img		img;
+	int			**buf;
+	double		*zBuffer;
+	int			**texture;
+	double		moveSpeed;
+	double		rotSpeed;
 }				t_info;
 
 typedef	struct		s_pair
@@ -155,6 +163,7 @@ int		check_map_char(t_map *map, int i, int count);
 void	*set_map(void *ptr, int val, size_t s);
 void	make_worldMap(t_config *config, int i, int h, int w);
 int		map_avail(t_config *config);
+void	dfs_map(t_config *t, int **map, int x, int y);
 
 //cub3d
 int		start_cub3d(t_config *config);
@@ -166,6 +175,8 @@ int		main_loop(t_info *info);
 
 //error print
 void	error_exit(char *str);
+void	map_error_exit(char *str, t_map **map);
+
 
 
 #	endif
