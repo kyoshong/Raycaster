@@ -1,7 +1,7 @@
 
 #include "cub3d.h"
 
-int		check_screen(char *line, t_config *config, int i)
+void	check_screen(char *line, t_config *config, int i)
 {
 	int		width;
 	int		height;
@@ -22,13 +22,12 @@ int		check_screen(char *line, t_config *config, int i)
 		config->height = height;
 		config->check_val[0] = 1;
 		config->check_val[1] = 1;
-		return (SUCCESS);
 	}
-	error_exit("SCREEN_VALUE_ERROR");
+	buf_free_error_exit("SCREEN_VALUE_ERROR", line);
 }
 
 
-int	check_path(char *line, t_config *config)
+void	check_path(char *line, t_config *config)
 {
 	if (!ft_strncmp(line, "NO", 2))
 	{
@@ -48,10 +47,9 @@ int	check_path(char *line, t_config *config)
 			error_exit("PATH_S_ERROR");
 		config->check_val[6] = 1;
 	}
-	return (SUCCESS);
 }
 
-int	check_path2(char *line, t_config *config)
+void	check_path2(char *line, t_config *config)
 {
 	if (ft_strncmp(line, "WE", 2))
 	{
@@ -65,10 +63,9 @@ int	check_path2(char *line, t_config *config)
 			error_exit("PATH_EA_ERROR");
 		config->check_val[5] = 1;
 	}
-	return (SUCCESS);
 }
 
-int		check_map_id(char *line, t_config *config)
+int	check_map_id(char *line, t_config *config)
 {
 	int i;
 
@@ -88,6 +85,6 @@ int		check_map_id(char *line, t_config *config)
 	else if (!check_map_val(line, &config))
 		return (0);
 	else
-		print_error(MAP_FILE_ERROR);
+		error_exit("MAP_FILE_ERROR");
 	return (0);
 }

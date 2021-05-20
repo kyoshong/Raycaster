@@ -1,4 +1,3 @@
-
 #include "src/mandatory/key_h.h"
 #include "mlx/mlx.h"
 #include <math.h>
@@ -140,6 +139,7 @@ void	sortSprites(int *order, double *dist, int amount)
 	}
 	free(sprites);
 }
+
 int	worldMap[mapWidth][mapHeight] =
 									{
 										{8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},

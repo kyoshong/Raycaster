@@ -20,25 +20,6 @@
 #define vDiv 1
 #define vMove 0.0
 
-typedef	enum	e_error
-{
-	SUCCESS,
-	ERROR,
-	ARG_ERROR_TOO_FEW,
-	ARG_ERROR_TOO_MANY,
-	FILE_NAME_ERROR,
-	SAVE_FLAG_ERROR,
-	PATH_ERROR,
-	RGB_VALUE_ERROR,
-	SCREEN_VALUE_ERROR,
-	MAP_FILE_ERROR,
-	NOT_ENOUGH_CONFIG,
-	MAP_ERROR,
-	NEW_MAP_ERROR,
-	UNAVAILABLE_MAP_ERROR,
-	WRONG_MAP_CAHR,
-	MAP_POS_ERROR,
-}			t_error;
 
 typedef struct	s_env
 {
@@ -81,13 +62,8 @@ typedef struct	s_config
 	int			**worldMap;
 	int			mapHeight;
 	int			mapWidth;
-<<<<<<< HEAD
 	t_player	player;
 
-=======
-	int			player_x;
-	int			player_y;
->>>>>>> 8c5d03cbc10d46b391996af9be5dcc938d6a15e4
 }				t_config;
 
 typedef struct	s_map
@@ -181,8 +157,6 @@ int		main_loop(t_info *info);
 
 //error print
 void	error_exit(char *str);
-void	map_error_exit(char *str, t_map **map);
-
-
+void	free_error_exit(t_map *map, char *str);
 
 #	endif
