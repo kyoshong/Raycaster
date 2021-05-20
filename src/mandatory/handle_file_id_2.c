@@ -15,7 +15,7 @@ char	*re_path(char *line, int i)
 	return (NULL);
 }
 
-int		check_rgb(char *line, t_config *config)
+void	check_rgb(char *line, t_config *config)
 {
 	char	*tem;
 	int		i;
@@ -23,19 +23,18 @@ int		check_rgb(char *line, t_config *config)
 	while (!ft_isdigit(line[i]))
 		i++;
 	if ((tem = ft_substr(line, i, ft_strlen(line))) == NULL)
-		error_exit("RGB_VALUE_ERROR");
+		buf_free_error_exit("RGB_VALUE_ERROR", &line);
 	i = 0;
 	if (line[0] == 'F')
 	{
 		if ((config->floor = ft_split_atoi(tem, ',')) == NULL)
-			error_exit("RGB_VALUE_ERROR");
+			buf_free_error_exit("RGB_VALUE_ERROR", &line);
 		config->check_val[7] = 1;
 	}
 	else if (line[0] == 'C')
 	{
 		if((config->ceiling = ft_split_atoi(tem, ',')) == NULL)
-			error_exit("RGB_VALUE_ERROR");
+			buf_free_error_exit("RGB_VALUE_ERROR", &line);
 		config->check_val[8] = 1;
 	}
-	return (SUCCESS);
 }
