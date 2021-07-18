@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:42 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 17:35:42 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/18 20:55:35 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	check_rgb(char *line, t_config *config)
 	while (!ft_isdigit(line[i]))
 		i++;
 	if ((tem = ft_substr(line, i, ft_strlen(line))) == NULL)
-		error_exit("RGB_VALUE_ERROR");
+		buf_free_error_exit("RGB_VALUE_ERROR", &line);
 	i = 0;
 	if (line[0] == 'F' && config->east != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:18 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 17:39:32 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/18 20:55:37 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	check_path2(char *line, t_config *config)
 	}
 }
 
-int	check_map_id(char *line, t_config *config)
+void	check_map_id(char *line, t_config *config)
 {
 	int i;
 
@@ -64,9 +64,9 @@ int	check_map_id(char *line, t_config *config)
 	else if (ft_strchr("FC", line[i]))
 		check_rgb(line, &config);
 	else if (line[i] == '\n' || line[i] == '\0')
-		return (0);
+		return ;
 	else if (!check_map_val(line, &config))
-		return (0);
+		return ;
 	else
 		error_exit("MAP_FILE_ERROR");
 }
