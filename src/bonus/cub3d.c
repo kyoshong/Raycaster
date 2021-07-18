@@ -1,172 +1,16 @@
-#include "src/mandatory/key_h.h"
-#include "mlx/mlx.h"
-#include <math.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#define X_EVENT_KEY_PRESS	2
-#define X_EVENT_KEY_RELEASE	3
-#define X_EVENT_KEY_EXIT	17
-#define textHeight 64
-#define textWidth 64
-#define mapWidth 24
-#define mapHeight 24
-#define width 640
-#define height 480
-#define numSprites 19
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/18 17:34:59 by hyospark          #+#    #+#             */
+/*   Updated: 2021/07/18 17:35:00 by hyospark         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-
-typedef struct s_img
-{
-	void	*img;
-	int		*data;
-	int		size_l;
-	int		bpp;
-	int		endian;
-	int		img_width;
-	int		img_height;
-}				t_img;
-
-struct	s_sprite
-{
-	double	x;
-	double	y;
-	int		texture;
-};
-
-struct s_sprite	sprite[numSprites] =
-{
-	{20.5, 11.5, 10},
-	{18.5, 4.5, 10},
-	{10.0, 4.5, 10},
-	{10.0, 12.5, 10},
-	{3.5, 6.5, 10},
-	{3.5, 20.5, 10},
-	{3.5, 14.5, 10},
-	{14.5, 20.5, 10},
-	{18.5, 10.5, 9},
-	{18.5, 11.5, 9},
-	{18.5, 12.5, 9},
-	{21.5, 1.5, 8},
-	{15.5, 1.5, 8},
-	{16.0, 1.8, 8},
-	{16.2, 1.2, 8},
-	{3.5, 2.5, 8},
-	{9.5, 15.5, 8},
-	{10.0, 15.1,8},
-	{10.5, 15.8,8}
-};
-
-int		spriteOrder[numSprites];
-double	spriteDistance[numSprites];
-typedef struct	s_info
-{
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
-	void	*mlx;
-	void	*win;
-	int		key_a;
-	int		key_w;
-	int		key_s;
-	int		key_d;
-	int		key_esc;
-	t_img	img;
-	int		buf[height][width];
-	double	zBuffer[width];
-	int		**texture;
-	double	moveSpeed;
-	double	rotSpeed;
-}				t_info;
-
-typedef	struct		s_pair
-{
-	double	first;
-	int		second;
-}					t_pair;
-
-void	key_update(t_info *info);
-
-static	int	compare(const void *first, const void *second)
-{
-	if (*(int *)first > *(int *)second)
-		return (1);
-	else if (*(int *)first < *(int *)second)
-		return (-1);
-	else
-		return (0); 
-}
-
-void	sort_order(t_pair *orders, int amount)
-{
-	t_pair	tmp;
-
-	for (int i = 0; i < amount; i++)
-	{
-		for (int j = 0; j < amount - 1; j++)
-		{
-			if (orders[j].first > orders[j + 1].first)
-			{
-				tmp.first = orders[j].first;
-				tmp.second = orders[j].second;
-				orders[j].first = orders[j + 1].first;
-				orders[j].second = orders[j + 1].second;
-				orders[j + 1].first = tmp.first;
-				orders[j + 1].second = tmp.second;
-			}
-		}
-	}
-}
-
-void	sortSprites(int *order, double *dist, int amount)
-{
-	t_pair *sprites;
-
-	sprites = (t_pair*)malloc(sizeof(t_pair) * amount);
-	for (int i = 0; i < amount; i++)
-	{
-		sprites[i].first = dist[i];
-		sprites[i].second = order[i];
-	}
-	sort_order(sprites, amount);
-	for (int i = 0; i < amount; i++)
-	{
-		dist[i] = sprites[amount - i - 1].first;
-		order[i] = sprites[amount - i - 1].second;
-	}
-	free(sprites);
-}
-
-int	worldMap[mapWidth][mapHeight] =
-									{
-										{8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
-										{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
-										{8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,6},
-										{8,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6},
-										{8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
-										{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,6,6,6,0,6,4,6},
-										{8,8,8,8,0,8,8,8,8,8,8,4,4,4,4,4,4,6,0,0,0,0,0,6},
-										{7,7,7,7,0,7,7,7,7,0,8,0,8,0,8,0,8,4,0,4,0,6,0,6},
-										{7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,0,0,0,0,0,6},
-										{7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,0,0,0,0,4},
-										{7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,6,0,6,0,6},
-										{7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,4,6,0,6,6,6},
-										{7,7,7,7,0,7,7,7,7,8,8,4,0,6,8,4,8,3,3,3,0,3,3,3},
-										{2,2,2,2,0,2,2,2,2,4,6,4,0,0,6,0,6,3,0,0,0,0,0,3},
-										{2,2,0,0,0,0,0,2,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
-										{2,0,0,0,0,0,0,0,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
-										{1,0,0,0,0,0,0,0,1,4,4,4,4,4,6,0,6,3,3,0,0,0,3,3},
-										{2,0,0,0,0,0,0,0,2,2,2,1,2,2,2,6,6,0,0,5,0,5,0,5},
-										{2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
-										{2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
-										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5},
-										{2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
-										{2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
-										{2,2,2,2,1,2,2,2,2,2,2,1,2,2,2,5,5,5,5,5,5,5,5,5}
-									};
+#include "cub3d.h"
 
 void	draw(t_info *info)
 {
@@ -178,6 +22,18 @@ void	draw(t_info *info)
 	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
 }
 
+int	main_loop(t_info *info)
+{
+	calc(info);
+	for (int y = 0; y < info->height; y++)
+	{
+		for (int x = 0; x < info->width; x++)
+			info->img.data[y * info->width + x] = info->buf[y][x];
+	}
+	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
+	key_update(info);
+	return (0);
+}
 void	calc(t_info *info)
 {
 	int x;
@@ -490,6 +346,7 @@ void	load_image(t_info *info, int *texture, char *path, t_img *img)
 	}
 	mlx_destroy_image(info->mlx, img->img);
 }
+
 void	load_texture(t_info *info)
 {
 	t_img	img;
@@ -507,55 +364,48 @@ void	load_texture(t_info *info)
 	load_image(info, info->texture[10], "textures/greenlight.xpm", &img);
 }
 
+int		key_release(int key, t_info *info)
+{
+	if (key == K_ESC)
+		exit(0);
+	else if (key == K_W)
+		info->key_w = 0;
+	else if (key == K_A)
+		info->key_a = 0;
+	else if (key == K_S)
+		info->key_s = 0;
+	else if (key == K_D)
+		info->key_d = 0;
+	return (0);
+}
 
-int main(void)
+int		key_press(int key, t_info *info)
+{
+	if (key == K_ESC)
+		exit(0);
+	else if (key == K_W)
+		info->key_w = 1;
+	else if (key == K_A)
+		info->key_a = 1;
+	else if (key == K_S)
+		info->key_s = 1;
+	else if (key == K_D)
+		info->key_d = 1;
+	return (0);
+}
+
+int		start_cub3d(t_config *config)
 {
 	t_info info;
-	info.mlx = mlx_init();
-	
-	info.posX = 22.0;
-	info.posY = 11.5;
-	info.dirX = -1.0;
-	info.dirY = 0.0;
-	info.planeX = 0.0;
-	info.planeY = 0.66;
-	info.key_a = 0;
-	info.key_w = 0;
-	info.key_s = 0;
-	info.key_d = 0;
-	info.key_esc = 0;
-
-	
-	for (int i = 0; i < height; i++)
-	{
-		for (int j = 0; j < width; j++)
-		{
-			info.buf[i][j] = 0;
-		}
-	}
-
-	if (!(info.texture = (int **)malloc(sizeof(int *) * 11)))
-		return (-1);
-	for (int i = 0; i < 11; i++)
-	{
-		if (!(info.texture[i] = (int *)malloc(sizeof(int) * (textHeight * textWidth))))
-			return (-1);
-	}
-	for (int i = 0; i < 11; i++)
-	{
-		for (int j = 0; j < textHeight * textWidth; j++)
-		{
-			info.texture[i][j] = 0;
-		}
-	}
+	info = set_config(config);
 	load_texture(&info);
 	
 	info.moveSpeed = 0.05;
 	info.rotSpeed = 0.05;
-	
-	info.win = mlx_new_window(info.mlx, width, height, "test");
 
-	info.img.img = mlx_new_image(info.mlx, width, height);
+	info.win = mlx_new_window(info.mlx, info.width, info.height, "cub3d");
+
+	info.img.img = mlx_new_image(info.mlx, info.width, info.height);
 	info.img.data = (int *)mlx_get_data_addr(info.img.img, &info.img.bpp, &info.img.size_l, &info.img.endian);
 	mlx_loop_hook(info.mlx, &main_loop, &info);
 

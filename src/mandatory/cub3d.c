@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/18 17:35:37 by hyospark          #+#    #+#             */
+/*   Updated: 2021/07/18 17:36:44 by hyospark         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	draw(t_info *info)
 {
-	for (int y = 0; y < height; y++)
+	for (int y = 0; y < info->height; y++)
 	{
-		for (int x = 0; x < width; x++)
-			info->img.data[y * width + x] = info->buf[y][x];
+		for (int x = 0; x < info->width; x++)
+			info->img.data[y * info->width + x] = info->buf[y][x];
 	}
 	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
 }
@@ -27,25 +39,25 @@ void	calc(t_info *info)
 	int x;
 	int y;
 
-	y = height / 2 + 1;
-	while (y < height)
+	y = info->height / 2 + 1;
+	while (y < info->height)
 	{
 		float rayDirX0 = info->dirX - info->planeX;
 		float rayDirY0 = info->dirY - info->planeY;
 		float rayDirX1 = info->dirX + info->planeX;
 		float rayDirY1 = info->dirY + info->planeY;
 
-		int p = y - height / 2;
-		float posZ = 0.5 * height;
+		int p = y - info->height / 2;
+		float posZ = 0.5 * info->height;
 
 		float rowDistance = posZ / p;
-		float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / width;
-		float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / width;
+		float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / info->width;
+		float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / info->width;
 
 		float floorX = info->posX + rowDistance * rayDirX0;
 		float floorY = info->posY + rowDistance * rayDirY0;
 		x = 0;
-		while (x < width)
+		while (x < info->width)
 		{
 			int cellX = (int)(floorX);
 			int cellY = (int)(floorY);
@@ -73,16 +85,16 @@ void	calc(t_info *info)
 			color = info->texture[ceilingTexture][textWidth * ty + tx];
 			color = (color >> 1) & 8355711;
 
-			info->buf[height - y - 1][x] = color;
+			info->buf[info->height - y - 1][x] = color;
 			x++;
 		}
 		y++;
 	}
 	//벽 캐스팅
 	x = 0;
-	while (x < width)
+	while (x < info->width)
 	{
-		double cameraX = 2 * x / (double)width - 1; //카메라 평면의 위치 값
+		double cameraX = 2 * x / (double)info->width - 1; //카메라 평면의 위치 값
 		double rayDirX = info->dirX + info->planeX * cameraX;//ray 의 방향 계산
 		double rayDirY = info->dirY + info->planeY * cameraX;
 		int mapX = (int)info->posX;
@@ -149,15 +161,15 @@ void	calc(t_info *info)
 		else
 			perpWallDist = (mapY - info->posY + (1 - stepY) / 2) / rayDirY;
 		//화면 길이에 따른 비율을 설정한뒤 길이의 절반을 기준으로 찍어낼 픽셀의 start 와 end를 구한다.
-		// 만약 0 보다 작거나 height 보다 크다면 기본값 수정해준다.
-		int lineHeight = (int)(height / perpWallDist);
+		// 만약 0 보다 작거나 info->height 보다 크다면 기본값 수정해준다.
+		int lineHeight = (int)(info->height / perpWallDist);
 
-		int drawStart = -lineHeight / 2 + height / 2;
+		int drawStart = -lineHeight / 2 + info->height / 2;
 		if (drawStart < 0)
 			drawStart = 0;
-		int drawEnd = lineHeight / 2 + height / 2;
-		if (drawEnd >= height)
-			drawEnd = height - 1;
+		int drawEnd = lineHeight / 2 + info->height / 2;
+		if (drawEnd >= info->height)
+			drawEnd = info->height - 1;
 		int textNum = worldMap[mapX][mapY] - 1;
 
 		double wallX;
@@ -173,7 +185,7 @@ void	calc(t_info *info)
 		if (side == 1 && rayDirY < 0)
 			texX = textWidth - texX - 1;
 		double step = 1.0 * textHeight / lineHeight;
-		double texPos = (drawStart - height / 2 + lineHeight / 2) * step;
+		double texPos = (drawStart - info->height / 2 + lineHeight / 2) * step;
 		for (int i = drawStart; i < drawEnd; i++)
 		{
 			int texY = (int)texPos & (textHeight - 1);
@@ -214,26 +226,26 @@ void	calc(t_info *info)
 
 		//sprite 높이계산
 		int spriteHeight = (int)fabs((height / transformY) / vDiv);
-		int drawStartY = -spriteHeight / 2 + height / 2 + vMoveScreen;
+		int drawStartY = -spriteHeight / 2 + info->height / 2 + vMoveScreen;
 		if (drawStartY < 0)
 			drawStartY = 0;
-		int drawEndY = spriteHeight / 2 + height / 2 + vMoveScreen;
-		if (drawEndY >= height)
-			drawEndY = height - 1;
+		int drawEndY = spriteHeight / 2 + info->height / 2 + vMoveScreen;
+		if (drawEndY >= info->height)
+			drawEndY = info->height - 1;
 		//sprite 너비계산
 		int spriteWidth = (int)fabs((height / transformY) / uDiv);
 		int drawStartX = -spriteWidth / 2 + spriteScreenX;
 		if (drawStartX < 0) drawStartX = 0;
 		int drawEndX = spriteWidth / 2 + spriteScreenX;
-		if (drawEndX >= width) drawEndX = width - 1;
+		if (drawEndX >= info->width) drawEndX = info->width - 1;
 
 		for (int stripe = drawStartX; stripe < drawEndX; stripe++)
 		{
 			int texX = (int)((256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * textWidth / spriteWidth) / 256);
-			if (transformY > 0 && stripe > 0 && stripe < width && transformY < info->zBuffer[stripe])
+			if (transformY > 0 && stripe > 0 && stripe < info->width && transformY < info->zBuffer[stripe])
 			for (int y = drawStartY; y < drawEndY; y++)
 			{
-				int d = (y-vMoveScreen) * 256 - height * 128 + spriteHeight * 128;
+				int d = (y-vMoveScreen) * 256 - info->height * 128 + spriteHeight * 128;
 				int texY = ((d * textHeight) / spriteHeight) / 256;
 				int color = info->texture[sprite[spriteOrder[i]].texture][textWidth * texY + texX];
 				if ((color & 0x00FFFFFF) != 0)

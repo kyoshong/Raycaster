@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 22:01:47 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 18:06:37 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/18 17:35:19 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int		check_map_char(t_map *map, int i, int count)
 	while (tem->next_map_line != NULL)
 	{
 		i = 0;
-		while (tem->map_line[i])
+		while (tem->map[i])
 		{
-			if (tem->map_line[i] == 'N')
+			if (tem->map[i] == 'N')
 					count++;
-			if (!ft_strchr("012N ",tem->map_line[i]))
+			if (!ft_strchr("012N ",tem->map[i]))
 				free_error_exit("WRONG_MAP_CAHR", map);
 			i++;
 			if (max < i)
@@ -60,13 +60,12 @@ void	make_worldMap(t_config *config, int i, int h, int w)
 	while (tem->next_map_line != NULL)
 	{
 		i = 0;
-		while (tem->map_line[i])
+		while (tem->map[i])
 		{
 			w = 0;
-			if (tem->map_line[i] == '0' || tem->map_line[i] == '1' \
-			|| tem->map_line[i] == '2')
-				arr[h][w] = tem->map_line[i] - '0';
-			else if (tem->map_line[i] == 'N')
+			if (tem->map[i] == '0' || tem->map[i] == '1' || tem->map[i] == '2')
+				arr[h][w] = tem->map[i] - '0';
+			else if (tem->map[i] == 'N')
 			{
 				config->player.x = h;
 				config->player.y = w;

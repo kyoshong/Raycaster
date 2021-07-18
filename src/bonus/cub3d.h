@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 18:01:45 by hyospark         ###   ########.fr       */
+/*   Created: 2021/07/18 17:35:06 by hyospark          #+#    #+#             */
+/*   Updated: 2021/07/18 17:35:07 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ typedef struct	s_config
 	int			check_val[7];
 	int			numSprites;
 	t_sprite	sprite;
-	int			sprite_ver;
 	t_map		*map;
 	int			**worldMap;
 	int			mapHeight;
@@ -78,7 +77,7 @@ typedef struct	s_config
 
 typedef struct	s_map
 {
-	char			*map_line;
+	char			*map;
 	struct s_map	*next_map_line;
 }				t_map;
 
@@ -128,7 +127,7 @@ void	check_arg(int argc, char **argv);
 //handle_map_id
 int		check_screen(char *line, t_config *config, int i);
 void	check_path(char *line, t_config *config);
-void	check_path2(char *line, t_config *config);
+		check_path2(char *line, t_config *config);
 int		check_map_id(char *line, t_config *config);
 
 //handle_map_id2

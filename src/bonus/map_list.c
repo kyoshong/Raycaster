@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/18 17:37:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 18:02:33 by hyospark         ###   ########.fr       */
+/*   Created: 2021/07/18 17:35:24 by hyospark          #+#    #+#             */
+/*   Updated: 2021/07/18 17:35:24 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 
 t_map	*ft_new_map(char *content)
 {
-	t_map	*map_struct;
+	t_map	*n_con;
 
-	map_struct = (t_map *)malloc(sizeof(*map_struct));
-	if (map_struct == NULL)
+	if (!(n_con = (t_map *)malloc(sizeof(*n_con))))
 		return (NULL);
-	map_struct->map_line = content;
-	map_struct->next_map_line = NULL;
-	return (map_struct);
+	n_con->map = content;
+	n_con->next_map_line = NULL;
+	return (n_con);
 }
 
 int	ft_lstsize_map(t_map *lst)
@@ -38,43 +37,43 @@ int	ft_lstsize_map(t_map *lst)
 	return (i);
 }
 
-t_map	*ft_lstlast_map(t_map *map_struct)
+t_map	*ft_lstlast_map(t_map *lst)
 {
-	if (!map_struct)
+	if (!lst)
 		return (NULL);
-	while (map_struct->next_map_line)
+	while (lst->next_map_line)
 	{
-		map_struct = map_struct->next_map_line;
+		lst = lst->next_map_line;
 	}
-	return (map_struct);
+	return (lst);
 }
 
-void	ft_lstadd_back_map(t_map **map_struct, t_map *new)
+void	ft_lstadd_back_map(t_map **lst, t_map *new)
 {
 	t_map *temp;
 
 	if (!new)
 		return ;
-	if (!*map_struct)
+	if (!*lst)
 	{
-		*map_struct = new;
+		*lst = new;
 		return ;
 	}
-	temp = ft_lstlast_map(*map_struct);
+	temp = ft_lstlast_map(*lst);
 	temp->next_map_line = new;
 }
 
-void	ft_lstclear_map(t_map **map_struct)
+void	ft_lstclear_map(t_map **lst)
 {
 	t_map *temp;
 
-	if (!map_struct)
+	if (!lst)
 		return ;
-	while (*map_struct)
+	while (*lst)
 	{
-		temp = (*map_struct)->next_map_line;
-		free(map_struct);
-		*map_struct = temp;
+		temp = (*lst)->next_map_line;
+		free(lst);
+		*lst = temp;
 	}
-	*map_struct = NULL;
+	*lst = NULL;
 }

@@ -5,8 +5,8 @@ t_info	set_config(t_config *config)
 	t_info info;
 
 	info.mlx = mlx_init();
-	info.width = config->width;
-	info.height = config->height;
+	info.width = 1920;
+	info.height = 1080;
 	info.posX = 22.0;
 	info.posY = 11.5;
 	info.dirX = -1.0;
