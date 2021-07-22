@@ -1,16 +1,16 @@
-NAME = libft.a
+NAME = libcub3d.a
 CFLAGS = -Wall -Wextra -Werror
 SOURCE = src/mandatory/parsing/*.c \
 		src/mandatory/utils/*.c \
-		src/mandatory/*.h \
-		src/gnl/*
-LIB = libft.a
+		src/gnl/*.c
+LIB = -L. libft.a
 OUT = cub3D
 OBJECT = *.o
+MAIN = src/mandatory/main.c
 
 $(NAME): $(OBJECT)
 	ar	rcs $(NAME) $(OBJECT)
-	gcc $(CFLAGS) $(LIB) -o $(OUT)
+	gcc $(MAIN) $(CFLAGS) $(LIB) -o $(OUT)
 $(OBJECT): $(SOURCE)
 	gcc $(CFLAGS) -c $(SOURCE)
 

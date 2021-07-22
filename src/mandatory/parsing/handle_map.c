@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 00:31:03 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 01:25:18 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 01:34:41 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		check_val(t_config *config)
 	{
 		if (config->check_val[i] != 1)
 		{
-			printf("%d", i);
+			printf("config->check_val[i] : %d\n %d\n",config->check_val[i], i);
 			return (1);
 		}
 		i++;

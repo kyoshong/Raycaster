@@ -6,11 +6,11 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 01:02:55 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 01:39:16 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 void	check_arg(int argc, char **argv)
 {
