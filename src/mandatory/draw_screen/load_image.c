@@ -6,11 +6,11 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:40:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/20 13:40:22 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 00:28:10 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	load_image(t_info *info, int *texture, char *path, t_img *img)
 {

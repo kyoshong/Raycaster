@@ -6,11 +6,11 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:18 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 21:24:59 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 00:40:18 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	check_path(char *line, t_config *config)
 {
@@ -28,7 +28,7 @@ void	check_path(char *line, t_config *config)
 	}
 	else if (!ft_strncmp(line, "S ", 2))
 	{
-		if (NULL == (config->sprite = (re_path(line, 2))))
+		if (NULL == (config->sprite = re_path(line, 2)))
 			buf_free_error_exit("PATH_S_ERROR", line);
 		config->sprite_ver = 1;
 	}
@@ -58,14 +58,14 @@ void	check_map_id(char *line, t_config *config)
 	while(line[i] == ' ')
 		i++;
 	if (ft_strchr("NS", line[i]))
-		check_path(line, &config);
+		check_path(line, config);
 	else if (ft_strchr("WE", line[i]))
-		check_path2(line, &config);
+		check_path2(line, config);
 	else if (ft_strchr("FC", line[i]))
-		check_rgb(line, &config, i);
+		check_rgb(line, config, i);
 	else if (line[i] == '\n' || line[i] == '\0')
 		return ;
-	else if (!check_map_val(line, &config))
+	else if (!check_map_val(line, config))
 		return ;
 	else
 		free_all_error_exit(config->map, "MAP_FILE_ERROR", line);

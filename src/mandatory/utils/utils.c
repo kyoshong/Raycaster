@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 17:02:52 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 21:23:12 by hyospark         ###   ########.fr       */
+/*   Created: 2021/07/23 00:28:24 by hyospark          #+#    #+#             */
+/*   Updated: 2021/07/23 00:33:34 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-void	buf_free_error_exit(char *str, char *buf)
+t_info	set_config()
 {
-	printf("ERROR\n%s", str);
-	free(buf);
-}
+	t_info info;
 
-void	error_exit(char *str)
-{
-	printf("ERROR\n%s", str);
-	exit(1);
-}
-
-void	free_all_error_exit(t_map *map, char *str, char *buf)
-{
-	ft_lstclear_map(map);
-	free(buf);
-	printf("ERROR\n%s", str);
-	exit(1);
+	info.mlx = mlx_init();
+	info.width = 1920;
+	info.height = 1080;
+	info.posX = 22.0;
+	info.posY = 11.5;
+	info.dirX = -1.0;
+	info.dirY = 0.0;
+	info.planeX = 0.0;
+	info.planeY = 0.66;
+	info.key_a = 0;
+	info.key_w = 0;
+	info.key_s = 0;
+	info.key_d = 0;
+	info.key_esc = 0;
+	return (info);
 }

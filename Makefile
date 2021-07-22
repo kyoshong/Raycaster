@@ -1,15 +1,16 @@
 NAME = libft.a
 CFLAGS = -Wall -Wextra -Werror
-SOURCE = 
-
-LIB = -L. -lpushswap
-MAIN = src/mandantory/main.c
+SOURCE = src/mandatory/parsing/*.c \
+		src/mandatory/utils/*.c \
+		src/mandatory/*.h \
+		src/gnl/*
+LIB = libft.a
 OUT = cub3D
-OBJECT = 
+OBJECT = *.o
 
 $(NAME): $(OBJECT)
 	ar	rcs $(NAME) $(OBJECT)
-	gcc $(MAIN) $(CFLAGS) $(LIB) -o $(OUT)
+	gcc $(CFLAGS) $(LIB) -o $(OUT)
 $(OBJECT): $(SOURCE)
 	gcc $(CFLAGS) -c $(SOURCE)
 

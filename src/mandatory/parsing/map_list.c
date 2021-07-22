@@ -6,12 +6,11 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 18:02:33 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 00:30:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "cub3d.h"
+#include "../cub3d.h"
 
 t_map	*ft_new_map(char *content)
 {

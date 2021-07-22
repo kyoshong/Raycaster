@@ -6,11 +6,11 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:37 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/20 14:38:14 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 00:27:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	draw(t_info *info)
 {

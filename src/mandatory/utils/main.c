@@ -6,11 +6,11 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/20 13:09:50 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 01:02:55 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	check_arg(int argc, char **argv)
 {
@@ -51,8 +51,8 @@ int		main(int argc, char *argv[])
 	check_arg(argc, argv);
 	fd = open(argv[1], O_RDWR);
 	if (fd < 0)
-		print_error("CAN_NOT_OPEN_FILE");
-	config = init_config(config);
+		error_exit("CAN_NOT_OPEN_FILE");
+	config = init_config();
 	check = 1;
 	while (check > 0)
 	{
@@ -61,6 +61,7 @@ int		main(int argc, char *argv[])
 		free(buf);
 	}
 	map_avail(config);
-	start_cub3d(config);
+	printf("SUCCESS");
+	//start_cub3d(config);
 	return (0);
 }

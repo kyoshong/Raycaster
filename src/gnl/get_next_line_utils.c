@@ -6,13 +6,13 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 19:16:23 by hyospark          #+#    #+#             */
-/*   Updated: 2021/02/05 15:39:14 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 01:04:52 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*n_str;
 	int		i;
@@ -22,7 +22,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	i = 0;
 	j = 0;
-	if (!(n_str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
+	if (!(n_str = malloc(sizeof(char) * (ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1))))
 		return (NULL);
 	if (!s1)
 	{
@@ -39,7 +39,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (n_str);
 }
 
-char	*ft_strdup(char *s)
+char	*ft_strdup_gnl(char *s)
 {
 	char	*tem;
 	int		i;
@@ -61,7 +61,7 @@ char	*ft_strdup(char *s)
 	return (tem);
 }
 
-size_t	ft_strlen(char *str)
+size_t	ft_strlen_gnl(char *str)
 {
 	size_t	i;
 

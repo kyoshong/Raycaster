@@ -6,12 +6,11 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:42 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 21:13:20 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 00:31:09 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "cub3d.h"
+#include "../cub3d.h"
 
 char	*re_path(char *line, int i)
 {

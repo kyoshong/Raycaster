@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 18:54:03 by hyospark          #+#    #+#             */
-/*   Updated: 2021/03/09 12:08:05 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 01:04:36 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*re_backup(char *cont)
 		i++;
 	if (!cont[i])
 		return (NULL);
-	len_c = ft_strlen(cont);
+	len_c = ft_strlen_gnl(cont);
 	if (!(temp = malloc(sizeof(char) * (len_c - i) + 1)))
 	{
 		free(cont);
@@ -71,12 +71,12 @@ int		get_next_line(int fd, char **line)
 		if ((check = read(fd, buf, BUFFER_SIZE)) < 0)
 			return (-1);
 		buf[check] = '\0';
-		temp = ft_strjoin(cont[fd], buf);
+		temp = ft_strjoin_gnl(cont[fd], buf);
 		if (cont[fd])
 			free(cont[fd]);
 		cont[fd] = temp;
 	}
-	*line = ft_strdup(cont[fd]);
+	*line = ft_strdup_gnl(cont[fd]);
 	cont[fd] = re_backup(cont[fd]);
 	if (check == 0)
 		return (0);
