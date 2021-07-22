@@ -6,11 +6,38 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 22:01:47 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 17:35:19 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/20 13:00:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		check_map_char_sprite(t_map *map, int i, int count)
+{
+	t_map *tem;
+	int max;
+
+	tem = map;
+	max = 0;
+	while (tem->next_map_line != NULL)
+	{
+		i = 0;
+		while (tem->map_line[i])
+		{
+			if (tem->map_line[i] == 'N')
+					count++;
+			if (!ft_strchr("012N ",tem->map_line[i]))
+				free_error_exit("WRONG_MAP_CAHR", map);
+			i++;
+			if (max < i)
+				max = i;
+		}
+		tem = map->next_map_line;
+	}
+	if (count != 1)
+		free_error_exit("MAP_POS_ERROR", map);
+	return (max);
+}
 
 int		check_map_char(t_map *map, int i, int count)
 {
@@ -22,11 +49,11 @@ int		check_map_char(t_map *map, int i, int count)
 	while (tem->next_map_line != NULL)
 	{
 		i = 0;
-		while (tem->map[i])
+		while (tem->map_line[i])
 		{
-			if (tem->map[i] == 'N')
+			if (tem->map_line[i] == 'N')
 					count++;
-			if (!ft_strchr("012N ",tem->map[i]))
+			if (!ft_strchr("012N ",tem->map_line[i]))
 				free_error_exit("WRONG_MAP_CAHR", map);
 			i++;
 			if (max < i)
@@ -60,12 +87,13 @@ void	make_worldMap(t_config *config, int i, int h, int w)
 	while (tem->next_map_line != NULL)
 	{
 		i = 0;
-		while (tem->map[i])
+		while (tem->map_line[i])
 		{
 			w = 0;
-			if (tem->map[i] == '0' || tem->map[i] == '1' || tem->map[i] == '2')
-				arr[h][w] = tem->map[i] - '0';
-			else if (tem->map[i] == 'N')
+			if (tem->map_line[i] == '0' || tem->map_line[i] == '1' \
+			|| tem->map_line[i] == '2')
+				arr[h][w] = tem->map_line[i] - '0';
+			else if (tem->map_line[i] == 'N')
 			{
 				config->player.x = h;
 				config->player.y = w;
@@ -79,35 +107,13 @@ void	make_worldMap(t_config *config, int i, int h, int w)
 	config->worldMap = arr;
 }
 
-void		dfs_map(t_config *t, int **map, int x, int y)
-{
-	if (x == 0 || x == t->mapHeight - 1 || y == 0 | y == t->mapWidth - 1)
-		free_error_exit(t->map, "INVAILED_MAP");
-	if (map[x][y] == 0 || map[x][y] == 3)
-		map[x][y] = -2;
-	if (map[x][y] == -1)
-		free_error_exit(t->map, "INVAILED_MAP");
-	if (x < t->mapHeight - 1 && map[x + 1][y] == 0)
-		dfs_map(t, map, x + 1, y);
-	if (x > 0 && map[x - 1][y] == 0)
-		dfs_map(t, map, x - 1, y);
-	if (y < t->mapWidth - 1 && map[x][y + 1] == 0)
-		dfs_map(t, map, x, y + 1);
-	if (y > 0 && map[x][y - 1] == 0)
-		dfs_map(t, map, x, y - 1);
-}
-
-void	dfs_map_check(t_config *config, int player_x, int player_y)
-{
-	int **map;
-
-	map = config->worldMap;
-	dfs_map(config, map, config->player.x, config->player.y);
-}
 
 int		map_avail(t_config *config)
 {
-	config->mapWidth = check_map_char(config->map, 0, 0);
+	if (config->sprite_ver)
+		config->mapWidth = check_map_char_sprite(config->map, 0, 0);
+	else
+		config->mapWidth = check_map_char(config->map, 0, 0);
 	config->mapHeight = ft_lstsize_map(config->map);
 	make_worldMap(config, 0, 0, 0);
 	dfs_map_check(config, config->player.x, config->player.y);

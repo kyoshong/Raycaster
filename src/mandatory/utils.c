@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-t_info	set_config(t_config *config)
+t_info	set_config()
 {
 	t_info info;
 

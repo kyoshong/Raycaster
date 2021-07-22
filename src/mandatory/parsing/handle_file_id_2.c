@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:42 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 20:55:35 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/18 21:13:20 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,26 @@ char	*re_path(char *line, int i)
 	return (NULL);
 }
 
-void	check_rgb(char *line, t_config *config)
+void	check_rgb(char *line, t_config *config, int val_start)
 {
 	char	*tem;
 	int		i;
 
-	while (!ft_isdigit(line[i]))
+	i = val_start + 1;
+	while (line[i] != ' ')
 		i++;
 	if ((tem = ft_substr(line, i, ft_strlen(line))) == NULL)
-		buf_free_error_exit("RGB_VALUE_ERROR", &line);
-	i = 0;
-	if (line[0] == 'F' && config->east != NULL)
+		buf_free_error_exit("RGB_VALUE_ERROR", line);
+	if (line[val_start] == 'F' && config->east != NULL)
 	{
 		if ((config->floor = ft_split_atoi(tem, ',')) == NULL)
-			error_exit("Floor_RGB_VALUE_ERROR");
+			buf_free_error_exit("Floor_RGB_VALUE_ERROR", line);
 		config->check_val[4] = 1;
 	}
-	else if (line[0] == 'C' && config->floor != NULL)
+	else if (line[val_start] == 'C' && config->floor != NULL)
 	{
 		if((config->ceiling = ft_split_atoi(tem, ',')) == NULL)
-			error_exit("Ceilling_RGB_VALUE_ERROR");
+			buf_free_error_exit("Ceilling_RGB_VALUE_ERROR", line);
 		config->check_val[5] = 1;
 	}
 }

@@ -19,8 +19,9 @@ int		get_map(char *line, t_config *config)
 {
 	t_map *map;
 
-	if (!(map = ft_new_map(line)))
-		buf_free_error_exit("NEW_MAP_ERROR", line);
+	map = ft_new_map(line);
+	if (map == NULL)
+		free_all_error_exit(config->map, "NEW_MAP_ERROR", line);
 	ft_lstadd_back(&(config->map->map_line), &map);
 	return (0);
 }
@@ -30,12 +31,12 @@ int		check_map_val(char *line, t_config *config)
 	int i;
 
 	if (check_val(&config))
-		buf_free_error_exit("NOT_ENOUGH_CONFIG", line);
+		free_all_error_exit(config->map, "NOT_ENOUGH_CONFIG", line);
 	i = 0;
 	while (line[i] == ' ')
 		i++;
 	if (line[i] == 1 && get_map(line, &config))
 		return (0);
 	else
-		buf_free_error_exit("MAP_ERROR", line);
+		free_all_error_exit(config->map,"MAP_ERROR", line);
 }

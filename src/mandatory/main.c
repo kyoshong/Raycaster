@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 16:50:04 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/20 13:09:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,42 @@ void	check_arg(int argc, char **argv)
 		error_exit("FILE_NAME_ERROR");
 }
 
-int main(int argc, char *argv[])
+t_config	*init_config()
+{
+	t_config *config;
+	int i;
+
+	i = 0;
+	config = (t_config *)malloc(sizeof(*config));
+	if (config == NULL)
+		error_exit("malloc_config_error");
+	
+	while (i < 6)
+		config->check_val[i++] = 0;
+	config->sprite_ver = 0;
+	return (config);
+}
+
+int		main(int argc, char *argv[])
 {
 	int			fd;
 	int			check;
 	char		*buf;
-	t_config	config;
+	t_config	*config;
 
 	check_arg(argc, argv);
 	fd = open(argv[1], O_RDWR);
 	if (fd < 0)
 		print_error("CAN_NOT_OPEN_FILE");
-	check = get_next_line(fd, &buf);
+	config = init_config(config);
+	check = 1;
 	while (check > 0)
 	{
 		check = get_next_line(fd, &buf);
-		check_map_id(buf, &config);
+		check_map_id(buf, config);
 		free(buf);
 	}
-	map_avail(&config);
-	start_cub3d(&config);
+	map_avail(config);
+	start_cub3d(config);
 	return (0);
 }
