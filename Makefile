@@ -2,15 +2,16 @@ NAME = libcub3d.a
 CFLAGS = -Wall -Wextra -Werror
 SOURCE = src/mandatory/parsing/*.c \
 		src/mandatory/utils/*.c \
+		src/mandatory/draw_screen/*.c \
 		src/gnl/*.c
-LIB = -L. libft.a
+LIB = libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit
 OUT = cub3D
 OBJECT = *.o
 MAIN = src/mandatory/main.c
 
 $(NAME): $(OBJECT)
 	ar	rcs $(NAME) $(OBJECT)
-	gcc $(MAIN) $(CFLAGS) $(LIB) -o $(OUT)
+	arch -x86_64 gcc $(MAIN) $(CFLAGS) $(LIB) $(NAME) -o $(OUT)
 $(OBJECT): $(SOURCE)
 	gcc $(CFLAGS) -c $(SOURCE)
 

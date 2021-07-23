@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_list.c                                         :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 00:30:50 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 15:50:24 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,9 @@ t_map	*ft_new_map(char *content)
 	map_struct = (t_map *)malloc(sizeof(*map_struct));
 	if (map_struct == NULL)
 		return (NULL);
-	map_struct->map_line = content;
+	map_struct->map_line = ft_strdup(content);
 	map_struct->next_map_line = NULL;
 	return (map_struct);
-}
-
-int	ft_lstsize_map(t_map *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next_map_line;
-		i++;
-	}
-	return (i);
 }
 
 t_map	*ft_lstlast_map(t_map *map_struct)
@@ -63,17 +50,18 @@ void	ft_lstadd_back_map(t_map **map_struct, t_map *new)
 	temp->next_map_line = new;
 }
 
-void	ft_lstclear_map(t_map **map_struct)
+void	ft_lstclear_map(t_map *map_struct)
 {
 	t_map *temp;
 
-	if (!map_struct)
+	if (map_struct == NULL)
 		return ;
-	while (*map_struct)
+	while (1)
 	{
-		temp = (*map_struct)->next_map_line;
+		temp = map_struct->next_map_line;
 		free(map_struct);
-		*map_struct = temp;
+		map_struct = temp;
+		if (map_struct->next_map_line == NULL)
+			break ;
 	}
-	*map_struct = NULL;
 }

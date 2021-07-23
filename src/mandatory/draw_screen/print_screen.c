@@ -6,13 +6,13 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:37:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 00:28:12 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 17:13:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	cal_dda(t_info *info, t_config *config)
+void	cal_dda(t_info *info)
 {
 	//벽 캐스팅
 	int x = 0;
@@ -72,7 +72,7 @@ void	cal_dda(t_info *info, t_config *config)
 				mapY += stepY;
 				side = 1;
 			}
-			if (config->worldMap[mapX][mapY] > 0)
+			if (info->config->worldMap[mapX][mapY] > 0)
 				hit = 1;
 		}
 		/*
@@ -94,7 +94,7 @@ void	cal_dda(t_info *info, t_config *config)
 		int drawEnd = lineHeight / 2 + info->height / 2;
 		if (drawEnd >= info->height)
 			drawEnd = info->height - 1;
-		int textNum = config->worldMap[mapX][mapY] - 1;
+		int textNum = info->config->worldMap[mapX][mapY] - 1;
 
 		double wallX;
 		if (side == 0)
@@ -124,7 +124,7 @@ void	cal_dda(t_info *info, t_config *config)
 	}
 }
 
-void	print_floor_ceilling(t_info *info, t_config *config)
+void	print_floor_ceilling(t_info *info)
 {
 	int x;
 	int y;
@@ -182,7 +182,7 @@ void	print_floor_ceilling(t_info *info, t_config *config)
 	}
 }
 
-void	print_wall(t_info *info, t_config *config)
-{
+// void	print_wall(t_info *info)
+// {
 
-}
+// }

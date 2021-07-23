@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 01:39:16 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 17:01:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ t_config	*init_config()
 	config = (t_config *)malloc(sizeof(*config));
 	if (config == NULL)
 		error_exit("malloc_config_error");
-	
 	while (i < 6)
 		config->check_val[i++] = 0;
 	config->sprite_ver = 0;
+	config->mapHeight = 0;
+	config->mapWidth = 0;
 	return (config);
 }
 
@@ -60,8 +61,15 @@ int		main(int argc, char *argv[])
 		check_map_id(buf, config);
 		free(buf);
 	}
+	// while (config->map->next_map_line != NULL)
+	// {
+	// 	printf("%s\n",config->map->map_line);
+	// 	config->map = config->map->next_map_line;
+	// }
+	// 	printf("%s\n",config->map->map_line);
+
 	map_avail(config);
+	start_cub3d(config);
 	printf("SUCCESS");
-	//start_cub3d(config);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 01:02:10 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 17:16:20 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,12 @@ typedef struct	s_map
 	struct s_map	*next_map_line;
 }				t_map;
 
-
 typedef struct	s_sprite
 {
 	double	x;
 	double	y;
 	int		texture;
 }				t_sprite;
-
 
 typedef struct s_img
 {
@@ -109,6 +107,7 @@ typedef struct	s_info
 	int			**texture;
 	double		moveSpeed;
 	double		rotSpeed;
+	t_config	*config;
 }				t_info;
 
 //main
@@ -127,7 +126,7 @@ void	check_rgb(char *line, t_config *config, int val_start);
 
 //handle_map
 int		check_val(t_config *config);
-int		get_map(char *line, t_config *config);
+void	get_map(char *line, t_config *config);
 int		check_map_val(char *line, t_config *config);
 
 //print_error
@@ -138,26 +137,27 @@ void	free_all_error_exit(t_map *map, char *str, char *buf);
 
 //map_list
 t_map	*ft_new_map(char *content);
-int		ft_lstsize_map(t_map *lst);
 void	ft_lstadd_back_map(t_map **lst, t_map *new);
 t_map	*ft_lstlast_map(t_map *lst);
-void	ft_lstclear_map(t_map **lst);
+void	ft_lstclear_map(t_map *map_struct);
 
 //map_avail
-int		check_map_char(t_map *map, int i, int count);
-void	*set_map(void *ptr, int val, size_t s);
+int		check_map_char(t_config *config, int i, int count);
+int		*make_map_arr(int s);
 void	make_worldMap(t_config *config, int i, int h, int w);
 void	map_avail(t_config *config);
-int		check_map_char_sprite(t_map *map, int i, int count);
+int		check_map_char_sprite(t_config *config, int i, int count);
 
 //map_dfs
 void	dfs_map_check(t_config *config);
 void	dfs_map(t_config *t, int **map, int x, int y);
 
 //cub3d
-int		start_cub3d(t_config *config);
+void	start_cub3d(t_config *config);
 t_info	set_config();
-int	main_loop(t_info *info, t_config *config);
+int		main_loop(t_info *info);
+void	cal_dda(t_info *info);
+
 
 //error print
 void	error_exit(char *str);
@@ -171,7 +171,7 @@ void	free_all_error_exit(t_map *map, char *str, char *buf);
 //key_control
 int		key_release(int key, t_info *info);
 int		key_press(int key, t_info *info);
-void	key_update(t_info *info, t_config *config);
+void	key_update(t_info *info);
 
 //load_image
 void	load_image(t_info *info, int *texture, char *path, t_img *img);

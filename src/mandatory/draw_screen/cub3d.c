@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:37 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 00:27:50 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 17:16:10 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,32 @@ void	draw(t_info *info)
 }
 
 
+// int	main_loop(t_info *info, t_config *config)
+// {
+// 	calc(info);
+// 	draw(info);
+// 	key_update(info, config);
+// 	return (0);
+// }
 
-int	main_loop(t_info *info, t_config *config)
+int	main_loop(t_info *info)
 {
-	calc(info);
-	draw(info);
-	key_update(info, config);
-	return (0);
-}
-
-int	main_loop(t_info *info, t_config *config)
-{
-	calc(info);
+	cal_dda(info);
 	for (int y = 0; y < info->height; y++)
 	{
 		for (int x = 0; x < info->width; x++)
 			info->img.data[y * info->width + x] = info->buf[y][x];
 	}
 	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
-	key_update(info, config);
+	key_update(info);
 	return (0);
 }
 
-int		start_cub3d(t_config *config)
+void	start_cub3d(t_config *config)
 {
 	t_info info;
-	
+
+	info.config = config;
 	info = set_config();
 	load_texture(&info);
 	info.moveSpeed = 0.05;

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:18 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 00:40:18 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 10:45:53 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	check_path(char *line, t_config *config)
 
 void	check_path2(char *line, t_config *config)
 {
-	if (ft_strncmp(line, "WE", 2) && config->south != NULL)
+	if (!ft_strncmp(line, "WE ", 3) && config->south != NULL)
 	{
 		if (NULL == (config->west = (re_path(line, 2))))
 			buf_free_error_exit("PATH_WE_ERROR", line);
 		config->check_val[2] = 1;
 	}
-	else if (ft_strncmp(line, "EA", 2) && config->west != NULL)
+	else if (!ft_strncmp(line, "EA ", 3) && config->west != NULL)
 	{
 		if (NULL == (config->east = (re_path(line, 2))))
 			buf_free_error_exit("PATH_EA_ERROR", line);
@@ -65,8 +65,6 @@ void	check_map_id(char *line, t_config *config)
 		check_rgb(line, config, i);
 	else if (line[i] == '\n' || line[i] == '\0')
 		return ;
-	else if (!check_map_val(line, config))
+	else if (check_map_val(line, config))
 		return ;
-	else
-		free_all_error_exit(config->map, "MAP_FILE_ERROR", line);
 }
