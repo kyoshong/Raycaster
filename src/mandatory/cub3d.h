@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 17:16:20 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 23:38:52 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	ft_lstclear_map(t_map *map_struct);
 //map_avail
 int		check_map_char(t_config *config, int i, int count);
 int		*make_map_arr(int s);
-void	make_worldMap(t_config *config, int i, int h, int w);
+void	make_worldMap(t_config *config);
 void	map_avail(t_config *config);
 int		check_map_char_sprite(t_config *config, int i, int count);
 
@@ -154,7 +154,8 @@ void	dfs_map(t_config *t, int **map, int x, int y);
 
 //cub3d
 void	start_cub3d(t_config *config);
-t_info	set_config();
+t_info	set_config(t_config *config);
+void	set_cub3d(t_info *info, t_config *config);
 int		main_loop(t_info *info);
 void	cal_dda(t_info *info);
 

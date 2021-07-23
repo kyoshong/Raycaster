@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 22:01:47 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 16:45:41 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/24 00:09:49 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int		check_map_char_sprite(t_config *config, int max, int count)
 		i = 0;
 		while (tem->map_line[i] != '\0')
 		{
-			printf("%c", tem->map_line[i]);
 			if (tem->map_line[i] == 'N')
 				count++;
 			else if (ft_strchr("012 ",tem->map_line[i]) == NULL)
@@ -32,7 +31,6 @@ int		check_map_char_sprite(t_config *config, int max, int count)
 			if (max < i)
 				max = i;
 		}
-		printf("\n");
 		if (tem->next_map_line == NULL)
 			break ;
 		tem = tem->next_map_line;
@@ -88,18 +86,11 @@ int		*make_map_arr(int s)
 	return (arr);
 }
 
-void	make_worldMap(t_config *config, int i, int h, int w)
+void	set_worldMap(t_config *config, int h, int w, int **arr)
 {
-	int		**arr;
+	int		i;
 	t_map	*tem;
 
-	if (!(arr = (int**)malloc(sizeof(int *) * config->mapHeight)))
-		return free_map_error_exit(config->map, "ARRAY_MALLOC_ERROR");
-	while (i <= config->mapHeight)
-	{
-		arr[i] = make_map_arr(config->mapWidth);
-		i++;
-	}
 	tem = config->map;
 	while (1)
 	{
@@ -124,6 +115,22 @@ void	make_worldMap(t_config *config, int i, int h, int w)
 		tem = tem->next_map_line;
 		h++;
 	}
+}
+
+void	make_worldMap(t_config *config)
+{
+	int		**arr;
+	int		i;
+
+	if (!(arr = (int**)malloc(sizeof(int *) * config->mapHeight)))
+		return free_map_error_exit(config->map, "ARRAY_MALLOC_ERROR");
+	i = 0;
+	while (i <= config->mapHeight)
+	{
+		arr[i] = make_map_arr(config->mapWidth);
+		i++;
+	}
+	set_worldMap(config, 0, 0, arr);
 	config->worldMap = arr;
 }
 
@@ -133,6 +140,6 @@ void	map_avail(t_config *config)
 		config->mapWidth = check_map_char_sprite(config, 0, 0);
 	else
 		config->mapWidth = check_map_char(config, 0, 0);
-	make_worldMap(config, 0, 0, 0);
+	make_worldMap(config);
 	dfs_map_check(config);
 }

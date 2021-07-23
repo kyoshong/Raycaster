@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:37:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 17:13:50 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/23 20:59:26 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	cal_dda(t_info *info)
 				mapY += stepY;
 				side = 1;
 			}
-			if (info->config->worldMap[mapX][mapY] > 0)
+			if (info->config->worldMap[mapX][mapY] < -1)
 				hit = 1;
 		}
 		/*
