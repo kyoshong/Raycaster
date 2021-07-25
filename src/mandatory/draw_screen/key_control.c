@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:21:48 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 17:12:01 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/25 02:25:43 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,53 @@ int		key_press(int key, t_info *info)
 	return (0);
 }
 
+void	key_rotate(t_info *info)
+{
+	double oldDirX;
+	double oldPlaneX;
+
+	if (info->key_d)
+	{
+		oldDirX = info->dirX;
+		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
+		info->dirY = oldDirX * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
+		oldPlaneX = info->planeX;
+		info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
+		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
+	}
+	if (info->key_a)
+	{
+		oldDirX = info->dirX;
+		info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
+		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
+		oldPlaneX = info->planeX;
+		info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
+		info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
+	}
+}
+
 void	key_update(t_info *info)
 {
 	if (info->key_w)
 	{
-		if (!info->config->worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
+		if (!info->config->worldMap[(int)(info->posX + \
+		info->dirX * info->moveSpeed)][(int)(info->posY)])
 			info->posX += info->dirX * info->moveSpeed;
-		if (!info->config->worldMap[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
+		if (!info->config->worldMap[(int)(info->posX)] \
+		[(int)(info->posY + info->dirY * info->moveSpeed)])
 			info->posY += info->dirY * info->moveSpeed;
 	}
-	//move backwards if no wall behind you
 	if (info->key_s)
 	{
-		if (!info->config->worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
+		if (!info->config->worldMap[(int)(info->posX - \
+		info->dirX * info->moveSpeed)][(int)(info->posY)])
 			info->posX -= info->dirX * info->moveSpeed;
-		if (!info->config->worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
+		if (!info->config->worldMap[(int)(info->posX)] \
+		[(int)(info->posY - info->dirY * info->moveSpeed)])
 			info->posY -= info->dirY * info->moveSpeed;
 	}
-	//rotate to the right
 	if (info->key_d)
 	{
-		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;
 		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
 		info->dirY = oldDirX * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
@@ -70,10 +96,8 @@ void	key_update(t_info *info)
 		info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
 		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
 	}
-	//rotate to the left
 	if (info->key_a)
 	{
-		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;
 		info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
 		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 23:38:52 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/24 19:47:05 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,10 +154,12 @@ void	dfs_map(t_config *t, int **map, int x, int y);
 
 //cub3d
 void	start_cub3d(t_config *config);
-t_info	set_config(t_config *config);
-void	set_cub3d(t_info *info, t_config *config);
+void	set_config(t_config *config, t_info *info);
 int		main_loop(t_info *info);
 void	cal_dda(t_info *info);
+void	set_texture(t_info *info);
+void	print_floor_ceilling(t_info *info);
+
 
 
 //error print
