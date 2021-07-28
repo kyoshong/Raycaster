@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:40:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/24 19:16:25 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/27 18:17:51 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	load_image(t_info *info, int *texture, char *path, t_img *img)
 {
-	img->img = mlx_xpm_file_to_image(info->mlx, path, &img->img_width, &img->img_height);
-	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
+	img->img = mlx_xpm_file_to_image(info->mlx, path, \
+	&img->img_width, &img->img_height);
+	img->data = (int *)mlx_get_data_addr(img->img, \
+	&img->bpp, &img->size_l, &img->endian);
 	for (int y = 0; y < img->img_height; y++)
 	{
 		for (int x = 0; x < img->img_width; x++)

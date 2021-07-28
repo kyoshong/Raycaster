@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:37:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/25 00:46:08 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/29 00:00:24 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	cal_dda(t_info *info)
 				mapY += stepY;
 				side = 1;
 			}
-			if (info->config->worldMap[mapX][mapY] != 0)
+			if (info->config->worldMap[mapX][mapY] > 0)
 				hit = 1;
 		}
 		/*
@@ -95,7 +95,7 @@ void	cal_dda(t_info *info)
 		int drawEnd = lineHeight / 2 + info->height / 2;
 		if (drawEnd >= info->height)
 			drawEnd = info->height - 1;
-		int textNum = info->config->worldMap[mapX][mapY] + 1;
+		//int textNum = info->config->worldMap[mapX][mapY] + 1;
 
 		double wallX;
 		if (side == 0)
@@ -115,7 +115,7 @@ void	cal_dda(t_info *info)
 		{
 			int texY = (int)texPos & (textHeight - 1);
 			texPos += step;
-			int color = info->texture[textNum][textHeight * texY + texX];
+			int color = info->texture[2][textHeight * texY + texX];
 			if (side == 1)
 				color = (color >> 1) & 8355711;
 			info->buf[i][x] = color;

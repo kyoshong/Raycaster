@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/24 19:47:05 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/28 23:55:58 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,63 @@ typedef struct	s_info
 	int			key_esc;
 	t_img		img;
 	int			**buf;
-	double		*zBuffer;
+	double		zBuffer[640];
 	int			**texture;
 	double		moveSpeed;
 	double		rotSpeed;
 	t_config	*config;
 }				t_info;
+
+typedef struct s_wall
+{
+	double cameraX;
+	double rayDirX;
+	double rayDirY;
+	int mapX;
+	int mapY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+	double perpWallDist;
+	int stepX;
+	int stepY;
+	int hit;
+	int side;
+	int lineHeight;
+	int drawStart;
+	int drawEnd;
+	double wallX;
+	int texX;
+	int texY;
+	double step;
+	double texPos;
+	int color;
+}				t_wall;
+
+typedef	struct s_floor
+{
+	float rayDirX0;
+	float rayDirY0;
+	float rayDirX1;
+	float rayDirY1;
+	int p;
+	float posZ;
+	float rowDistance;
+	float floorStepX;
+	float floorStepY;
+	float floorX;
+	float floorY;
+	int cellX;
+	int cellY;
+	int tx;
+	int ty;
+	int	checkPattern;
+	int floorTexture;
+	int ceilingTexture;
+	int color;
+}				t_floor;
+
 
 //main
 void		check_arg(int argc, char **argv);

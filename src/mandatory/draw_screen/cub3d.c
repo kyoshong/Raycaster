@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:37 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/24 19:51:00 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/28 23:15:37 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,21 @@ void	start_cub3d(t_config *config)
 {
 	t_info info;
 
+	printf("mapWidth : %d mapHeight : %d", config->mapWidth,config->mapHeight );
 	set_config(config, &info);
+
+	for (int i = 0; i < config->mapHeight; i++)
+	{
+		for (int j = 0; j < config->mapWidth; j++)
+		{
+			printf("%d", config->worldMap[i][j]);
+		}
+		printf("\n");
+	}
+		printf("mapWidth : %d mapHeight : %d", info.config->mapWidth,info.config->mapHeight );
+	
 	set_texture(&info);
 	load_texture(&info);
-	printf("%d %d", config->player.x, config->player.y);
 	info.win = mlx_new_window(info.mlx, info.width, info.height, "cub3d");
 	info.img.img = mlx_new_image(info.mlx, info.width, info.height);
 	info.img.data = (int *)mlx_get_data_addr(info.img.img, &info.img.bpp, \
