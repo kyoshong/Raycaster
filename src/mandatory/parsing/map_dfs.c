@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:09 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/24 00:15:01 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/29 01:34:13 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,4 @@ void	dfs_map_check(t_config *config)
 	}
 	free(config->worldMap);
 	make_worldMap(config);
-	// for (int i = 0; i <= config->mapHeight; i++)
-	// {
-	// 	for (int j = 0; j < config->mapWidth; j++)
-	// 	{
-	// 		printf("%d" , config->worldMap[i][j]);
-	// 	}
-	// 	printf("\n");	
-	// }
 }

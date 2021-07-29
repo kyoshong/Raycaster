@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/28 23:55:58 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/29 03:44:17 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ typedef struct s_wall
 	double step;
 	double texPos;
 	int color;
+	int textNum;
 }				t_wall;
 
 typedef	struct s_floor
@@ -158,8 +159,9 @@ typedef	struct s_floor
 	int floorTexture;
 	int ceilingTexture;
 	int color;
+	int x;
+	int y;
 }				t_floor;
-
 
 //main
 void		check_arg(int argc, char **argv);
