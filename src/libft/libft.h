@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 12:53:45 by hyospark          #+#    #+#             */
-/*   Updated: 2021/04/28 14:21:42 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/30 16:52:29 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				ft_tolower(int c);
 int				ft_toupper(int c);
 size_t			ft_strlcpy(char *dest, char *src, size_t size);
 int				*ft_split_atoi(char const *s, char c);
-int				*ft_split_atoi2(char const *result, int word_num);
+int				*ft_split_atoi2(char **result, int word_num);
 char			**split2(char **result, char const *s, char c, int word_num);
 char			*word_make(char *word, char const *s, int j, int word_len);
 int				word_count(char const *s, char c);

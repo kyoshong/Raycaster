@@ -193,7 +193,7 @@ int	mipng_data(mlx_img_list_t *img, unsigned char *dat, png_info_t *pi)
 	  z_strm.avail_out = Z_CHUNK;
 	  z_strm.next_out = z_out;
 	  z_ret = inflate(&z_strm, Z_NO_FLUSH);
-	  //	  printf("inflate ret %d avail_out %d\n", z_ret, z_strm.avail_out);
+	  	  printf("inflate ret %d avail_out %d\n", z_ret, z_strm.avail_out);
 	  if (z_ret != Z_OK && z_ret != Z_STREAM_END)
 	    {
 	      inflateEnd(&z_strm);
@@ -212,7 +212,7 @@ int	mipng_data(mlx_img_list_t *img, unsigned char *dat, png_info_t *pi)
   inflateEnd(&z_strm);
   if (b_pos != img->width*img->height*pi->bpp+img->height)
     {
-      //      printf("pb : bpos %d vs expected %d\n", b_pos, img->width*img->height*pi->bpp+img->height);
+            printf("pb : bpos %d vs expected %d\n", b_pos, img->width*img->height*pi->bpp+img->height);
       return (ERR_DATA_MISMATCH);
     }
   if ((ret = mipng_fill_img(img, buffer, pi)))
