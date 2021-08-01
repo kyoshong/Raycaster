@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:21:48 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/31 21:34:33 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/01 23:56:40 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void	key_update(t_info *info)
 		[(int)(info->posY - info->dirY * info->moveSpeed)])
 			info->posY -= info->dirY * info->moveSpeed;
 	}
-	key_rotate(info);
+	key_right(info);
+	key_left(info);
 	if (info->key_esc)
 		exit(0);
 }

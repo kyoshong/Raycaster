@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/31 21:40:03 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/02 00:11:24 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,8 @@ t_config	*init_config();
 
 //handle_map_id
 int		check_screen(char *line, t_config *config, int i);
-void	check_path(char *line, t_config *config);
-void	check_path2(char *line, t_config *config);
+void	check_path_we(char *line, t_config *config);
+void	check_path_ns(char *line, t_config *config);
 void	check_map_id(char *line, t_config *config);
 
 //handle_map_id2
@@ -211,7 +211,8 @@ void	cal_distance(t_info *info, t_wall *wall);
 void	check_hit(t_info *info, t_wall *wall);
 void	get_ratio(t_info *info, t_wall *wall);
 void	set_textureNum(t_wall *wall);
-void	cal_dda(t_info *info);
+void	dda(t_info *info, int x, int i);
+// void	cal_dda(t_info *info, t_wall *wall);
 void	set_floor_val(t_horizon *horizon, t_info *info);
 void	print_floor_ceilling(t_info *info);
 
@@ -228,6 +229,8 @@ void	buf_free_error_exit(char *str, char *buf);
 void	free_map_error_exit(t_map *map, char *str);
 void	free_all_error_exit(t_map *map, char *str, char *buf);
 
+//init_config
+void	set_buf(t_info *info);
 
 ////////////
 //rgb_utils

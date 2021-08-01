@@ -6,27 +6,31 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 23:03:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/01 23:03:42 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/02 00:11:27 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-void	cal_dda(t_info *info)
+void	cal_dda(t_info *info, t_wall *wall)
 {
-	print_floor_ceilling(info);
-	int x = 0;
-	int i;
+	wall->rayDirX = info->dirX + info->planeX * wall->cameraX;
+	wall->rayDirY = info->dirY + info->planeY * wall->cameraX;
+	cal_distance(info, wall);
+	check_hit(info, wall);
+	set_textureNum(wall);
+	get_ratio(info, wall);
+}
+
+void	dda(t_info *info, int x, int i)
+{
 	t_wall wall;
+
+	print_floor_ceilling(info);
 	while (x < info->width)
 	{
 		wall.cameraX = 2 * x / (double)info->width - 1;
-		wall.rayDirX = info->dirX + info->planeX * wall.cameraX;
-		wall.rayDirY = info->dirY + info->planeY * wall.cameraX;
-		cal_distance(info, &wall);
-		check_hit(info, &wall);
-		set_textureNum(&wall);
-		get_ratio(info, &wall);
+		cal_dda(info, &wall);
 		i = wall.drawStart;
 		while (i < wall.drawEnd)
 		{

@@ -6,11 +6,11 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:31:55 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/31 21:31:57 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/01 23:38:10 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	set_config(t_config *config, t_info *info)
 {

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:37 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/31 21:31:01 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/02 00:11:14 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw(t_info *info)
 
 int	main_loop(t_info *info)
 {
-	cal_dda(info);
+	dda(info, 0, 0);
 	draw(info);
 	key_update(info);
 	return (0);

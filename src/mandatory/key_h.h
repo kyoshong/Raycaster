@@ -6,10 +6,9 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:00 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/18 17:37:00 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/01 23:38:48 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef KEY_MACOS_H
 # define KEY_MACOS_H

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:18 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/01 23:08:09 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/01 23:40:53 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	check_map_id(char *line, t_config *config)
 	while(line[i] == ' ')
 		i++;
 	if (ft_strchr("NS", line[i]))
-		check_path(line, config);
+		check_path_ns(line, config);
 	else if (ft_strchr("WE", line[i]))
-		check_path2(line, config);
+		check_path_we(line, config);
 	else if (ft_strchr("FC", line[i]))
 		check_rgb(line, config, i);
 	else if (line[i] == '\n' || line[i] == '\0')
