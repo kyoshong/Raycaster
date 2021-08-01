@@ -6,19 +6,14 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:37:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/30 23:40:51 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/31 21:44:58 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	cal_distance(t_info *info, t_wall *wall)
+void	ray_dir(t_info *info, t_wall *wall)
 {
-	wall->mapX = (int)info->posX;
-	wall->mapY = (int)info->posY; //현재위치 자연수
-	wall->deltaDistX = fabs(1 / wall->rayDirX);
-	wall->deltaDistY = fabs(1 / wall->rayDirY);
-	wall->hit = 0;
 	if (wall->rayDirX < 0)
 	{
 		wall->stepX = -1;
@@ -39,6 +34,16 @@ void	cal_distance(t_info *info, t_wall *wall)
 		wall->stepY = 1;
 		wall->sideDistY = (wall->mapY + 1.0 - info->posY) * wall->deltaDistY;
 	}
+}
+
+void	cal_distance(t_info *info, t_wall *wall)
+{
+	wall->mapX = (int)info->posX;
+	wall->mapY = (int)info->posY; //현재위치 자연수
+	wall->deltaDistX = fabs(1 / wall->rayDirX);
+	wall->deltaDistY = fabs(1 / wall->rayDirY);
+	wall->hit = 0;
+	ray_dir(info, wall);
 }
 
 void	check_hit(t_info *info, t_wall *wall)
@@ -99,81 +104,4 @@ void	set_textureNum(t_wall *wall)
 		wall->textNum = 6;
 	else if (wall->side && wall->stepY >= 0)
 		wall->textNum = 7;
-}
-
-void	cal_dda(t_info *info)
-{
-	print_floor_ceilling(info);
-	int x = 0;
-	int i;
-	t_wall wall;
-	while (x < info->width)
-	{
-		wall.cameraX = 2 * x / (double)info->width - 1;
-		wall.rayDirX = info->dirX + info->planeX * wall.cameraX;
-		wall.rayDirY = info->dirY + info->planeY * wall.cameraX;
-		cal_distance(info, &wall);
-		check_hit(info, &wall);
-		set_textureNum(&wall);
-		get_ratio(info, &wall);
-		i = wall.drawStart;
-		while (i < wall.drawEnd)
-		{
-			wall.texY = (int)wall.texPos & (textHeight - 1);
-			wall.texPos += wall.step;
-			wall.color = info->texture[wall.textNum][textHeight * wall.texY + wall.texX];
-			if (wall.side == 1)
-				wall.color = (wall.color >> 1) & 8355711;
-			info->buf[i][x] = wall.color;
-			i++;
-		}
-		info->zBuffer[x] = wall.perpWallDist;
-		x++;
-	}
-}
-
-void	set_floor_val(t_horizon *horizon, t_info *info)
-{
-	horizon->rayDirX0 = info->dirX - info->planeX;
-	horizon->rayDirY0 = info->dirY - info->planeY;
-	horizon->rayDirX1 = info->dirX + info->planeX;
-	horizon->rayDirY1 = info->dirY + info->planeY;
-	horizon->p = horizon->y - info->height / 2;
-	horizon->posZ = 0.5 * info->height;
-	horizon->rowDistance = horizon->posZ / horizon->p;
-	horizon->floorStepX = horizon->rowDistance * (horizon->rayDirX1 - horizon->rayDirX0) / info->width;
-	horizon->floorStepY = horizon->rowDistance * (horizon->rayDirY1 - horizon->rayDirY0) / info->width;
-	horizon->floorX = info->posX + horizon->rowDistance * horizon->rayDirX0;
-	horizon->floorY = info->posY + horizon->rowDistance * horizon->rayDirY0;
-}
-
-void	print_floor_ceilling(t_info *info)
-{
-	t_horizon horizon;
-
-	horizon.y = info->height / 2 + 1;
-	while (horizon.y < info->height)
-	{
-		set_floor_val(&horizon, info);
-		horizon.x = 0;
-		while (horizon.x < info->width)
-		{
-			horizon.cellX = (int)horizon.floorX;
-			horizon.cellY = (int)horizon.floorY;
-			horizon.tx = (int)(textWidth * (horizon.floorX - horizon.cellX)) & (textWidth - 1);
-			horizon.ty = (int)(textHeight * (horizon.floorY - horizon.cellY)) & (textHeight - 1);
-			horizon.floorX += horizon.floorStepX;
-			horizon.floorY += horizon.floorStepY;
-			horizon.color = info->config->ceiling;
-			//floor.color = info->texture[6][textWidth * floor.ty + floor.tx];
-			//horizon.color = (horizon.color >> 1) & 8355711;
-			info->buf[horizon.y][horizon.x] = horizon.color;
-			horizon.color = info->config->floor;
-			//horizon.color = info->texture[5][textWidth * horizon.ty + horizon.tx];
-			//horizon.color = (horizon.color >> 2) & 8355711;
-			info->buf[info->height - horizon.y - 1][horizon.x] = horizon.color;
-			horizon.x++;
-		}
-		horizon.y++;
-	}
 }

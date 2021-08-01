@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_file_id.c                                   :+:      :+:    :+:   */
+/*   check_map_path.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:18 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/30 16:28:56 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/01 23:08:09 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	check_path(char *line, t_config *config)
+void	check_path_ns(char *line, t_config *config)
 {
 	if (!ft_strncmp(line, "NO ", 3))
 	{
@@ -34,7 +34,7 @@ void	check_path(char *line, t_config *config)
 	}
 }
 
-void	check_path2(char *line, t_config *config)
+void	check_path_we(char *line, t_config *config)
 {
 	if (!ft_strncmp(line, "WE ", 3) && config->south != NULL)
 	{

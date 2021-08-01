@@ -6,12 +6,12 @@
 #    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/24 00:16:04 by hyospark          #+#    #+#              #
-#    Updated: 2021/07/31 15:00:44 by hyospark         ###   ########.fr        #
+#    Updated: 2021/07/31 21:24:09 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libcub3d.a
-BONUS_NAME = libcub3d.a
+BONUS_NAME = libcub3d_bonus.a
 CFLAGS = -Wall -Wextra -Werror
 SOURCE = src/mandatory/map_parsing/*.c \
 		src/mandatory/utils/*.c \
@@ -24,8 +24,11 @@ BONUS_SOURCE = src/bonus/map_parsing/*.c \
 LIB = libft.a
 MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
 OUT = cub3D
+OUT_BONUS = cub3D_bonus
 OBJECT = *.o
+BONUS_OBJECT = *.o
 MAIN = src/mandatory/main.c
+BONUS_MAIN = src/bonus/main.c
 
 $(NAME): $(OBJECT)
 	$(MAKE) bonus -C ./src/libft
@@ -39,12 +42,12 @@ $(OBJECT): $(SOURCE)
 $(BONUS_NAME): $(BONUS_OBJECT)
 	$(MAKE) bonus -C ./src/libft
 	cp ./src/libft/libft.a .
-	mv libft.a $(NAME)
-	ar rc $(NAME) $(OBJECT)
-	ranlib $(NAME)
-	arch -x86_64 gcc $(MAIN) $(CFLAGS) $(MLX) $(NAME) -o $(OUT)
-$(BONUS_OBJECT): $(SOURCE)
-	gcc $(CFLAGS) -c $(SOURCE)
+	mv libft.a $(BONUS_NAME)
+	ar rc $(BONUS_NAME) $(OBJECT)
+	ranlib $(BONUS_NAME)
+	arch -x86_64 gcc $(BONUS_MAIN) $(CFLAGS) $(MLX) $(BONUS_NAME) -o $(OUT_BONUS)
+$(BONUS_OBJECT): $(BONUS_SOURCE)
+	gcc $(CFLAGS) -c $(BONUS_SOURCE)
 all : $(NAME)
 clean:
 	$(MAKE) -C ./src/libft clean
@@ -52,7 +55,9 @@ clean:
 fclean: clean
 	$(MAKE) -C ./src/libft fclean
 	rm -f $(NAME)
+	rm -f $(BONUS_NAME)
 	rm -f $(OUT)
+	rm -f $(OUT_BONUS)
 bonus: fclean $(BONUS_NAME)
 
 re:	fclean all

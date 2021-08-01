@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/30 22:32:16 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/31 21:40:03 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,13 +205,22 @@ int		check_map_char_sprite(t_config *config, int i, int count);
 void	dfs_map_check(t_config *config);
 void	dfs_map(t_config *t, int **map, int x, int y);
 
+//print_srceen
+void	ray_dir(t_info *info, t_wall *wall);
+void	cal_distance(t_info *info, t_wall *wall);
+void	check_hit(t_info *info, t_wall *wall);
+void	get_ratio(t_info *info, t_wall *wall);
+void	set_textureNum(t_wall *wall);
+void	cal_dda(t_info *info);
+void	set_floor_val(t_horizon *horizon, t_info *info);
+void	print_floor_ceilling(t_info *info);
+
+
 //cub3d
 void	start_cub3d(t_config *config);
 void	set_config(t_config *config, t_info *info);
 int		main_loop(t_info *info);
-void	cal_dda(t_info *info);
 void	set_texture(t_info *info, int i, int j);
-void	print_floor_ceilling(t_info *info);
 
 //error print
 void	error_exit(char *str);
@@ -233,6 +242,9 @@ char	*ft_strrev(const char *s);
 int		key_release(int key, t_info *info);
 int		key_press(int key, t_info *info);
 void	key_update(t_info *info);
+void	key_right(t_info *info);
+void	key_left(t_info *info);
+
 
 //load_image
 void	load_image(t_info *info, int *texture, char *path, t_img *img);

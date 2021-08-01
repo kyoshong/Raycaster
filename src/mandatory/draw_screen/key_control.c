@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:21:48 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/25 02:25:43 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/07/31 21:34:33 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,27 @@ int		key_press(int key, t_info *info)
 	return (0);
 }
 
-void	key_rotate(t_info *info)
+void	key_left(t_info *info)
+{
+	double oldDirX;
+	double oldPlaneX;
+
+	if (info->key_a)
+	{
+		oldDirX = info->dirX;
+		info->dirX = info->dirX * cos(info->rotSpeed) - \
+		info->dirY * sin(info->rotSpeed);
+		info->dirY = oldDirX * sin(info->rotSpeed) + \
+		info->dirY * cos(info->rotSpeed);
+		oldPlaneX = info->planeX;
+		info->planeX = info->planeX * cos(info->rotSpeed) - \
+		info->planeY * sin(info->rotSpeed);
+		info->planeY = oldPlaneX * sin(info->rotSpeed) + \
+		info->planeY * cos(info->rotSpeed);
+	}
+}
+
+void	key_right(t_info *info)
 {
 	double oldDirX;
 	double oldPlaneX;
@@ -50,20 +70,15 @@ void	key_rotate(t_info *info)
 	if (info->key_d)
 	{
 		oldDirX = info->dirX;
-		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
-		info->dirY = oldDirX * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
+		info->dirX = info->dirX * cos(-info->rotSpeed) - \
+		info->dirY * sin(-info->rotSpeed);
+		info->dirY = oldDirX * sin(-info->rotSpeed) + \
+		info->dirY * cos(-info->rotSpeed);
 		oldPlaneX = info->planeX;
-		info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
-		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
-	}
-	if (info->key_a)
-	{
-		oldDirX = info->dirX;
-		info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
-		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
-		oldPlaneX = info->planeX;
-		info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
-		info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
+		info->planeX = info->planeX * cos(-info->rotSpeed) - \
+		info->planeY * sin(-info->rotSpeed);
+		info->planeY = oldPlaneX * sin(-info->rotSpeed) + \
+		info->planeY * cos(-info->rotSpeed);
 	}
 }
 
@@ -87,24 +102,7 @@ void	key_update(t_info *info)
 		[(int)(info->posY - info->dirY * info->moveSpeed)])
 			info->posY -= info->dirY * info->moveSpeed;
 	}
-	if (info->key_d)
-	{
-		double oldDirX = info->dirX;
-		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
-		info->dirY = oldDirX * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
-		double oldPlaneX = info->planeX;
-		info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
-		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
-	}
-	if (info->key_a)
-	{
-		double oldDirX = info->dirX;
-		info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
-		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
-		double oldPlaneX = info->planeX;
-		info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
-		info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
-	}
+	key_rotate(info);
 	if (info->key_esc)
 		exit(0);
 }
