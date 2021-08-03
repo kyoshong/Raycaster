@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/02 00:11:24 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/03 17:54:36 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,6 @@ void	get_ratio(t_info *info, t_wall *wall);
 void	set_textureNum(t_wall *wall);
 void	dda(t_info *info, int x, int i);
 // void	cal_dda(t_info *info, t_wall *wall);
-void	set_floor_val(t_horizon *horizon, t_info *info);
 void	print_floor_ceilling(t_info *info);
 
 
@@ -228,6 +227,7 @@ void	error_exit(char *str);
 void	buf_free_error_exit(char *str, char *buf);
 void	free_map_error_exit(t_map *map, char *str);
 void	free_all_error_exit(t_map *map, char *str, char *buf);
+void	esc_exit(t_info *info);
 
 //init_config
 void	set_buf(t_info *info);
@@ -248,6 +248,8 @@ void	key_update(t_info *info);
 void	key_right(t_info *info);
 void	key_left(t_info *info);
 
+//mini_map
+void	mini_map(t_info *info);
 
 //load_image
 void	load_image(t_info *info, int *texture, char *path, t_img *img);
