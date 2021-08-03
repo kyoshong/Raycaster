@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 17:02:52 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/02 20:43:18 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/03 22:21:24 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	buf_free_error_exit(char *str, char *buf)
 {
 	printf("ERROR\n%s", str);
 	free(buf);
+	exit(1);
 }
 
 void	error_exit(char *str)
@@ -42,7 +43,6 @@ void	free_all_error_exit(t_map *map, char *str, char *buf)
 
 void	esc_exit(t_info *info)
 {
-	printf(":: cub3d exit ::");
-	free(info->config);
+	info->config = NULL;
 	exit(0);
 }

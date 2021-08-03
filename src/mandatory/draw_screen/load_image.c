@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:40:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 17:18:24 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/03 21:44:39 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	load_texture(t_info *info)
 	load_image(info, info->texture[1], "textures/redbrick.xpm", &img);
 	load_image(info, info->texture[2], "textures/purplestone.xpm", &img);
 	load_image(info, info->texture[3], "textures/greystone.xpm", &img);
-	load_image(info, info->texture[4], "textures/bluestone.xpm", &img);
-	load_image(info, info->texture[5], "textures/mossy.xpm", &img);
-	load_image(info, info->texture[6], "textures/mossy.xpm", &img);
-	load_image(info, info->texture[7], "textures/barrel.xpm", &img);
+	load_image(info, info->texture[4], "textures/east.xpm", &img);
+	load_image(info, info->texture[5], "textures/west.xpm", &img);
+	load_image(info, info->texture[6], "textures/south.xpm", &img);
+	load_image(info, info->texture[7], "textures/north.xpm", &img);
 	load_image(info, info->texture[8], "textures/barrel.xpm", &img);
 	load_image(info, info->texture[9], "textures/pillar.xpm", &img);
 	load_image(info, info->texture[10], "textures/ocean.xpm", &img);

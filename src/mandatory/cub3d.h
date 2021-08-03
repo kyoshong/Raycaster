@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 17:54:36 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/03 23:13:36 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,14 @@
 #include "key_h.h"
 #include "../../mlx/mlx.h"
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <math.h>
 #include "../libft/libft.h"
 #include <fcntl.h>
 #include "../gnl/get_next_line.h"
 
-#define X_EVENT_KEY_PRESS	2
-#define X_EVENT_KEY_RELEASE	3
-#define X_EVENT_KEY_EXIT	17
+#define KEY_PRESS	2
+#define KEY_RELEASE	3
 #define textHeight 64
 #define textWidth 64
 #define uDiv 1
@@ -158,7 +156,8 @@ typedef	struct s_horizon
 	int	checkPattern;
 	int floorTexture;
 	int ceilingTexture;
-	int color;
+	int ceilingcolor;
+	int floorcolor;
 	int x;
 	int y;
 }				t_horizon;

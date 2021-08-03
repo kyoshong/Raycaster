@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:18 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 18:03:21 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/03 18:14:18 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ void	check_path_ns(char *line, t_config *config)
 {
 	if (!ft_strncmp(line, "NO ", 3))
 	{
-		if (NULL == (config->north = (re_path(line, 3)) || config->check_val[0]))
+		if ((NULL == (config->north = (re_path(line, 3))) || config->check_val[0]))
 			buf_free_error_exit("PATH_NO_ERROR", line);
 		config->check_val[0] = 1;
 	}
 	else if (!ft_strncmp(line, "SO ", 3) && config->north != NULL)
 	{
-		if (NULL == (config->south = (re_path(line, 3)) || config->check_val[1]))
+		if ((NULL == (config->south = (re_path(line, 3))) || config->check_val[1]))
 			buf_free_error_exit("PATH_SO_ERROR", line);
 		config->check_val[1] = 1;
 	}
 	else if (!ft_strncmp(line, "S ", 2))
 	{
-		if (NULL == (config->sprite = re_path(line, 2)) || config->sprite_ver)
+		if ((NULL == (config->sprite = re_path(line, 2))) || config->sprite_ver)
 			buf_free_error_exit("PATH_S_ERROR", line);
 		config->sprite_ver = 1;
 	}
@@ -38,13 +38,13 @@ void	check_path_we(char *line, t_config *config)
 {
 	if (!ft_strncmp(line, "WE ", 3) && config->south != NULL)
 	{
-		if (NULL == (config->west = (re_path(line, 2)) || config->check_val[2]))
+		if ((NULL == (config->west = (re_path(line, 2))) || config->check_val[2]))
 			buf_free_error_exit("PATH_WE_ERROR", line);
 		config->check_val[2] = 1;
 	}
 	else if (!ft_strncmp(line, "EA ", 3) && config->west != NULL)
 	{
-		if (NULL == (config->east = (re_path(line, 2)) || config->check_val[3]))
+		if ((NULL == (config->east = (re_path(line, 2))) || config->check_val[3]))
 			buf_free_error_exit("PATH_EA_ERROR", line);
 		config->check_val[3] = 1;
 	}

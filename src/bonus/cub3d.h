@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 17:43:57 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/03 18:23:01 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 #include <fcntl.h>
 #include "../gnl/get_next_line.h"
 
-#define X_EVENT_KEY_PRESS	2
-#define X_EVENT_KEY_RELEASE	3
-#define X_EVENT_KEY_EXIT	17
+#define KEY_PRESS	2
+#define KEY_RELEASE	3
+#define MOUSE_MOVE 6
 #define textHeight 64
 #define textWidth 64
 #define uDiv 1

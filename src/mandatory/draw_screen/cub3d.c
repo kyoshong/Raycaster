@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:37 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/02 17:38:23 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/03 21:13:38 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	start_cub3d(t_config *config)
 	set_buf(&info);
 	set_texture(&info, 0, 0);
 	load_texture(&info);
-	info.win = mlx_new_window(info.mlx, info.width, info.height, "cub3d");
+	info.win = mlx_new_window(info.mlx, info.width, info.height, "cub3D");
 	info.img.img = mlx_new_image(info.mlx, info.width, info.height);
 	info.img.data = (int *)mlx_get_data_addr(info.img.img, &info.img.bpp, \
 	&info.img.size_l, &info.img.endian);
 	mlx_loop_hook(info.mlx, &main_loop, &info);
-	mlx_hook(info.win, X_EVENT_KEY_PRESS, 0, &key_press, &info);
-	mlx_hook(info.win, X_EVENT_KEY_RELEASE, 0, &key_release, &info);
+	mlx_hook(info.win, KEY_PRESS, 0, &key_press, &info);
+	mlx_hook(info.win, KEY_RELEASE, 0, &key_release, &info);
 	mlx_loop(info.mlx);
 }
