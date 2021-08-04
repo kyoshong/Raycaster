@@ -1,5 +1,5 @@
 /* XPM */
-static char *barrel[] = {
+static char *north[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 2 1 ",
 "  c black",

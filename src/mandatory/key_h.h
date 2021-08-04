@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:00 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 18:24:57 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/04 17:02:28 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,33 @@
 # define K_X 7
 # define K_Y 16
 # define K_Z 6
+
+/*
+** Keyboard ARROWS
+*/
+
+# define K_AR_L 123
+# define K_AR_R 124
+# define K_AR_U 126
+# define K_AR_D 125
+
+/*
+** Keyboard NUMPAD
+*/
+
+# define K_NP_DIV 75
+# define K_NP_MUL 67
+# define K_NP_MIN 78
+# define K_NP_PLU 69
+# define K_NP_1	83
+# define K_NP_2	84
+# define K_NP_3	85
+# define K_NP_4	86
+# define K_NP_5	87
+# define K_NP_6	88
+# define K_NP_7	89
+# define K_NP_8	91
+# define K_NP_9	92
 
 /*
 ** Keyboard MISC

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 18:23:01 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/04 20:35:54 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 #define KEY_PRESS	2
 #define KEY_RELEASE	3
 #define MOUSE_MOVE 6
-#define textHeight 64
-#define textWidth 64
+#define textHeight 128
+#define textWidth 128
 #define uDiv 1
 #define vDiv 1
 #define vMove 0.0

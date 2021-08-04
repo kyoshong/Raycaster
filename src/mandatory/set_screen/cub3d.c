@@ -6,21 +6,11 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:37 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 21:13:38 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/04 21:50:22 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	draw(t_info *info)
-{
-	for (int y = 0; y < info->height; y++)
-	{
-		for (int x = 0; x < info->width; x++)
-			info->img.data[y * info->width + x] = info->buf[y][x];
-	}
-	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
-}
 
 int	main_loop(t_info *info)
 {

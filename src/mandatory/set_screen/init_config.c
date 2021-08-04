@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:31:55 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 17:10:33 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/04 21:17:36 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,19 @@ void	set_buf(t_info *info)
 
 void	set_texture(t_info *info, int i, int j)
 {
-	if (!(info->texture = (int **)malloc(sizeof(int *) * 11)))
+	if (!(info->texture = (int **)malloc(sizeof(int *) * 4)))
 		return ;
-	while (i < 10)
+	while (i < 4)
 	{
-		if (!(info->texture[i] = (int *)malloc(sizeof(int) * (textHeight * textWidth))))
+		if (!(info->texture[i] = (int *)malloc(sizeof(int) * (textWidth * textHeight))))
 			return ;
 		i++;
 	}
-	if (!(info->texture[i] = (int *)malloc(sizeof(int) * (600 * 400))))
-			return ;
 	i = 0;
-	while (i < 11)
+	while (i < 4)
 	{
 		j = 0;
-		while (j < textHeight * textWidth)
+		while (j < textWidth * textHeight)
 		{
 			info->texture[i][j] = 0;
 			j++;

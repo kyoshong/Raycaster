@@ -3,7 +3,7 @@ static char *east[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 3 1 ",
 "  c black",
-"X c #fff000",
+"X c #248fe6",
 ", c #f7f4f4"
 /* pixels */
 "                                                                ",

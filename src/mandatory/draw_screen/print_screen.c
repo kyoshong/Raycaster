@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:37:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/02 00:09:54 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/04 21:41:03 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ray_dir(t_info *info, t_wall *wall)
 void	cal_distance(t_info *info, t_wall *wall)
 {
 	wall->mapX = (int)info->posX;
-	wall->mapY = (int)info->posY; //현재위치 자연수
+	wall->mapY = (int)info->posY;
 	wall->deltaDistX = fabs(1 / wall->rayDirX);
 	wall->deltaDistY = fabs(1 / wall->rayDirY);
 	wall->hit = 0;
@@ -62,7 +62,7 @@ void	check_hit(t_info *info, t_wall *wall)
 			wall->mapY += wall->stepY;
 			wall->side = 1;
 		}
-		if (info->config->worldMap[wall->mapX][wall->mapY] > 0)
+		if (info->config->worldMap[wall->mapX][wall->mapY] == 1)
 			wall->hit = 1;
 	}
 	if (wall->side == 0)
@@ -97,11 +97,11 @@ void	get_ratio(t_info *info, t_wall *wall)
 void	set_textureNum(t_wall *wall)
 {
 	if (!wall->side && wall->stepX < 0)
-		wall->textNum = 4;
+		wall->textNum = 0;
 	else if (!wall->side && wall->stepX >= 0)
-		wall->textNum = 5;
+		wall->textNum = 1;
 	else if (wall->side && wall->stepY < 0)
-		wall->textNum = 6;
+		wall->textNum = 2;
 	else if (wall->side && wall->stepY >= 0)
-		wall->textNum = 7;
+		wall->textNum = 3;
 }

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:40:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 21:44:39 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/04 21:51:23 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void	load_image(t_info *info, int *texture, char *path, t_img *img)
 {
 	if (!ft_strncmp(ft_substr(path, ft_strlen(path) - 4, 4), ".xpm", 4))
 		img->img = mlx_xpm_file_to_image(info->mlx, path, &img->width, &img->height);
+	else if (!ft_strncmp(ft_substr(path, ft_strlen(path) - 4, 4), ".png", 4))
+		img->img = mlx_png_file_to_image(info->mlx, path, &img->width, &img->height);
 	else
-		esc_exit(info);
+		error_exit("IMG_ERROR");
 	img->data = (int *)mlx_get_data_addr(img->img,&img->bpp, &img->size_l, &img->endian);
 	for (int y = 0; y < img->height; y++)
 	{
@@ -31,15 +33,8 @@ void	load_texture(t_info *info)
 {
 	t_img	img;
 
-	load_image(info, info->texture[0], "textures/eagle.xpm", &img);
-	load_image(info, info->texture[1], "textures/redbrick.xpm", &img);
-	load_image(info, info->texture[2], "textures/purplestone.xpm", &img);
-	load_image(info, info->texture[3], "textures/greystone.xpm", &img);
-	load_image(info, info->texture[4], "textures/east.xpm", &img);
-	load_image(info, info->texture[5], "textures/west.xpm", &img);
-	load_image(info, info->texture[6], "textures/south.xpm", &img);
-	load_image(info, info->texture[7], "textures/north.xpm", &img);
-	load_image(info, info->texture[8], "textures/barrel.xpm", &img);
-	load_image(info, info->texture[9], "textures/pillar.xpm", &img);
-	load_image(info, info->texture[10], "textures/ocean.xpm", &img);
+	load_image(info, info->texture[0], info->config->north, &img);
+	load_image(info, info->texture[1], info->config->south, &img);
+	load_image(info, info->texture[2], info->config->west, &img);
+	load_image(info, info->texture[3], info->config->east, &img);
 }

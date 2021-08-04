@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:28:46 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/01 23:18:27 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/04 17:26:55 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	set_worldMap(t_config *config, int h, int w, int **arr)
 			{
 				config->player.x = h;
 				config->player.y = w;
-				arr[h][w] = 3;
+				arr[h][w] = 0;
 			}
 			i++;
 			w++;

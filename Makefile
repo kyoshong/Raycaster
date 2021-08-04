@@ -6,7 +6,7 @@
 #    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/24 00:16:04 by hyospark          #+#    #+#              #
-#    Updated: 2021/08/02 00:04:44 by hyospark         ###   ########.fr        #
+#    Updated: 2021/08/04 21:52:42 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CFLAGS = -Wall -Wextra -Werror
 SOURCE = src/mandatory/map_parsing/*.c \
 		src/mandatory/utils/*.c \
 		src/mandatory/draw_screen/*.c \
+		src/mandatory/set_screen/*.c \
 		src/gnl/*.c
 # BONUS_SOURCE = src/bonus/map_parsing/*.c \
 # 		src/bonus/utils/*.c \

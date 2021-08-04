@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 23:13:36 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/04 21:53:09 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 #define KEY_PRESS	2
 #define KEY_RELEASE	3
-#define textHeight 64
-#define textWidth 64
+#define textHeight 128
+#define textWidth 128
 #define uDiv 1
 #define vDiv 1
 #define vMove 0.0
@@ -98,9 +98,11 @@ typedef struct	s_info
 	int			key_w;
 	int			key_s;
 	int			key_d;
+	int			key_AR_L;
+	int			key_AR_R;
 	int			key_esc;
 	t_img		img;
-	int			**buf;
+	int	**buf;
 	double		zBuffer[640];
 	int			**texture;
 	double		moveSpeed;
@@ -205,6 +207,7 @@ void	dfs_map_check(t_config *config);
 void	dfs_map(t_config *t, int **map, int x, int y);
 
 //print_srceen
+void	draw(t_info *info);
 void	ray_dir(t_info *info, t_wall *wall);
 void	cal_distance(t_info *info, t_wall *wall);
 void	check_hit(t_info *info, t_wall *wall);
@@ -213,6 +216,7 @@ void	set_textureNum(t_wall *wall);
 void	dda(t_info *info, int x, int i);
 // void	cal_dda(t_info *info, t_wall *wall);
 void	print_floor_ceilling(t_info *info);
+
 
 
 //cub3d
@@ -246,6 +250,9 @@ int		key_press(int key, t_info *info);
 void	key_update(t_info *info);
 void	key_right(t_info *info);
 void	key_left(t_info *info);
+//key_rotate
+void	key_right_rotate(t_info *info);
+void	key_left_rotate(t_info *info);
 
 //mini_map
 void	mini_map(t_info *info);
