@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/04 21:53:09 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/05 01:06:00 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 #define KEY_PRESS	2
 #define KEY_RELEASE	3
+#define RED_BUTTON 17
 #define textHeight 128
 #define textWidth 128
 #define uDiv 1
@@ -102,8 +103,8 @@ typedef struct	s_info
 	int			key_AR_R;
 	int			key_esc;
 	t_img		img;
-	int	**buf;
-	double		zBuffer[640];
+	int			**buf;
+	double		zBuffer[1280];
 	int			**texture;
 	double		moveSpeed;
 	double		rotSpeed;
@@ -250,6 +251,7 @@ int		key_press(int key, t_info *info);
 void	key_update(t_info *info);
 void	key_right(t_info *info);
 void	key_left(t_info *info);
+int		red_button_click(t_info *info);
 //key_rotate
 void	key_right_rotate(t_info *info);
 void	key_left_rotate(t_info *info);

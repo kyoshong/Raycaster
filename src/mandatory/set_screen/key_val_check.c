@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 21:49:32 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/04 21:49:40 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/05 01:05:56 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,11 @@ int		key_press(int key, t_info *info)
 		info->key_AR_L = 1;
 	else if (key == K_AR_R)
 		info->key_AR_R = 1;
+	return (0);
+}
+
+int		red_button_click(t_info *info)
+{
+	esc_exit(info);
 	return (0);
 }

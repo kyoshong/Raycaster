@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:31:55 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/04 21:17:36 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/04 23:55:14 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	set_config(t_config *config, t_info *info)
 {
 	if ((info->mlx = mlx_init()) == NULL)
 		free_map_error_exit(config->map, "MLX_INIT_ERROR");
-	info->width = 640;
-	info->height = 480;
+	info->width = 1280;
+	info->height = 960;
 	info->posX = config->player.x;
 	info->posY = config->player.y;
 	info->dirX = -1.0;
