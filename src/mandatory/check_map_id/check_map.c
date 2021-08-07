@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_map.c                                       :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 00:31:03 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/01 23:23:13 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/08 00:34:11 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_map(char *line, t_config *config)
 
 	map = ft_new_map(line);
 	if (map == NULL)
-		free_all_error_exit(config->map, "NEW_MAP_ERROR", line);
+		buf_error_exit("NEW_MAP_ERROR", line, config);
 	ft_lstadd_back_map(&(config->map), map);
 }
 
@@ -41,12 +41,12 @@ int		check_map_val(char *line, t_config *config)
 	int i;
 
 	if (check_val(config))
-		free_all_error_exit(config->map, "NOT_ENOUGH_CONFIG", line);
+		buf_error_exit("NOT_ENOUGH_CONFIG", line, config);
 	i = 0;
 	while (line[i] == ' ')
 		i++;
 	if (line[i] != '1' || line[ft_strlen(line) - 1] != '1')
-		free_all_error_exit(config->map, "INVAILED_MAP", line);
+		buf_error_exit("INVAILED_MAP", line, config);
 	get_map(line, config);
 	return (1);
 }

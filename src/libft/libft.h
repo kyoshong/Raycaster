@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 12:53:45 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/30 16:52:29 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/07 23:42:21 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+#include <stdio.h>
 
 typedef	struct	s_list
 {
@@ -58,7 +59,7 @@ int				ft_toupper(int c);
 size_t			ft_strlcpy(char *dest, char *src, size_t size);
 int				*ft_split_atoi(char const *s, char c);
 int				*ft_split_atoi2(char **result, int word_num);
-char			**split2(char **result, char const *s, char c, int word_num);
+int				split2(char **result, char const *s, char c, int word_num);
 char			*word_make(char *word, char const *s, int j, int word_len);
 int				word_count(char const *s, char c);
 int				ft_lstsize(t_list *lst);

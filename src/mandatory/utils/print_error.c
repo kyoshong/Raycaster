@@ -6,16 +6,19 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 17:02:52 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 22:21:24 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/08 02:39:47 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	buf_free_error_exit(char *str, char *buf)
+
+void	buf_error_exit(char *str, char *buf, t_config *config)
 {
 	printf("ERROR\n%s", str);
 	free(buf);
+	config_path_free(config);
+	free(config);
 	exit(1);
 }
 
@@ -25,24 +28,30 @@ void	error_exit(char *str)
 	exit(1);
 }
 
-void	free_map_error_exit(t_map *map, char *str)
+void	map_avail_error_exit(t_config *config, char *str)
 {
-	ft_lstclear_map(map);
 	printf("ERROR\n%s", str);
-
+	config_path_free(config);
+	free(config);
 	exit(1);
 }
 
-void	free_all_error_exit(t_map *map, char *str, char *buf)
+
+void	cub3d_error_exit(t_info *info, char *str)
 {
-	ft_lstclear_map(map);
-	free(buf);
 	printf("ERROR\n%s", str);
-	exit(1); 
+	cub3d_free_all(info);
+	config_path_free(info->config);
+	free(info->config);
+	exit(1);
 }
 
 void	esc_exit(t_info *info)
 {
-	info->config = NULL;
+	printf("ESC_EXIT\n");
+	cub3d_free_all(info);
+	config_path_free(info->config);
+	free(info->config);
+	 system("leaks cub3D > ./leaks_result_temp;cat leaks_result_temp | grep leaked && rm -rf leaks_result_temp");
 	exit(0);
 }

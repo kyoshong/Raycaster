@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:09 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/29 01:34:13 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/08 00:45:27 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	dfs_map(t_config *config, int **map, int x, int y)
 {
 	if (x == 0 || x == config->mapHeight || y == 0 | y == config->mapWidth - 1)
-		free_map_error_exit(config->map, "INVAILED_MAP");
+		map_avail_error_exit(config, "INVAILED_MAP");
 	if (map[x][y] == 0 || map[x][y] == 3)
 		map[x][y] = -2;
 	if (map[x][y] == -1)
-		free_map_error_exit(config->map, "INVAILED_MAP");
+		map_avail_error_exit(config, "INVAILED_MAP");
 	if (x < config->mapHeight && map[x + 1][y] > 1)
 		dfs_map(config, map, x + 1, y); 
 	if (x > 0 && map[x - 1][y] != 1)
@@ -36,11 +36,6 @@ void	dfs_map_check(t_config *config)
 
 	dfs_map(config, config->worldMap, config->player.x, config->player.y);
 	i = 0;
-	while (i <= config->mapHeight)
-	{
-		free(config->worldMap[i]);
-		i++; 
-	}
-	free(config->worldMap);
+	free_worldMap(config);
 	make_worldMap(config);
 }

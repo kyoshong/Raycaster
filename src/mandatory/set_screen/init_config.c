@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:31:55 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/04 23:55:14 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/05 23:08:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	set_config(t_config *config, t_info *info)
 {
-	if ((info->mlx = mlx_init()) == NULL)
-		free_map_error_exit(config->map, "MLX_INIT_ERROR");
+	info->mlx = mlx_init();
+	if (info->mlx == NULL)
+		map_avail_error_exit(config, "MLX_INIT_ERROR");
 	info->width = 1280;
 	info->height = 960;
 	info->posX = config->player.x;
@@ -41,10 +42,17 @@ void	set_buf(t_info *info)
 
 	i = 0;
 	info->buf = (int **)malloc(sizeof(int*) * info->height);
+	if (info->buf == NULL)
+		cub3d_error_exit(info, "SCREEN_BUF_MALLOC_ERROR");
 	while (i < info->height)
 	{
 		j = 0;
 		info->buf[i] = (int *)malloc(sizeof(int) * info->width);
+		if (info->buf[i] == NULL)
+		{
+			free_arr(info->buf, i - 1);
+			cub3d_error_exit(info, "SCREEN_BUF_MALLOC_ERROR");
+		}
 		while (j < info->width)
 		{
 			info->buf[i][j] = 0;
@@ -56,16 +64,21 @@ void	set_buf(t_info *info)
 
 void	set_texture(t_info *info, int i, int j)
 {
-	if (!(info->texture = (int **)malloc(sizeof(int *) * 4)))
-		return ;
-	while (i < 4)
+	info->texture = (int **)malloc(sizeof(int *) * picsNum);
+	if (info->texture == NULL)
+		cub3d_error_exit(info, "TEXTURE_MALLOC_ERROR");
+	while (i < picsNum)
 	{
-		if (!(info->texture[i] = (int *)malloc(sizeof(int) * (textWidth * textHeight))))
-			return ;
+		info->texture[i] = (int *)malloc(sizeof(int) * (textWidth * textHeight));
+		if (info->texture[i] == NULL)
+		{
+			free_arr(info->texture, i -1);
+			cub3d_error_exit(info, "TEXTURE_MALLOC_ERROR");
+		}
 		i++;
 	}
 	i = 0;
-	while (i < 4)
+	while (i < picsNum)
 	{
 		j = 0;
 		while (j < textWidth * textHeight)

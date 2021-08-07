@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:21:48 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/04 21:49:47 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/08 02:27:26 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ void	key_left(t_info *info)
 {
 	if (info->key_a)
 	{
-		if (!info->config->worldMap[(int)(info->posX - info->planeX * info->moveSpeed)][(int)(info->posY)])
+		if (!info->config->worldMap
+		[(int)(info->posX - info->planeX * info->moveSpeed)][(int)(info->posY)])
 			info->posX -= info->planeX * info->moveSpeed;
-		if (!info->config->worldMap[(int)(info->posX)][(int)(info->posY - info->planeY * info->moveSpeed)])
+		if (!info->config->worldMap
+		[(int)(info->posX)][(int)(info->posY - info->planeY * info->moveSpeed)])
 			info->posY -= info->planeY * info->moveSpeed;
 	}
 }
@@ -36,6 +38,10 @@ void	key_right(t_info *info)
 
 void	key_update(t_info *info)
 {
+	key_right_rotate(info);
+	key_left_rotate(info);
+	key_right(info);
+	key_left(info);
 	if (info->key_w)
 	{
 		if (!info->config->worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
@@ -50,8 +56,4 @@ void	key_update(t_info *info)
 		if (!info->config->worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
 			info->posY -= info->dirY * info->moveSpeed;
 	}
-	key_right(info);
-	key_left(info);
-	key_right_rotate(info);
-	key_left_rotate(info);
 }

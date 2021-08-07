@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:28:46 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/04 17:26:55 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/08 00:40:40 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,16 @@ void	make_worldMap(t_config *config)
 	int		i;
 
 	if (!(arr = (int**)malloc(sizeof(int *) * config->mapHeight)))
-		return free_map_error_exit(config->map, "ARRAY_MALLOC_ERROR");
+		return map_avail_error_exit(config, "ARRAY_MALLOC_ERROR");
 	i = 0;
 	while (i <= config->mapHeight)
 	{
 		arr[i] = make_map_arr(config->mapWidth);
+		if (arr[i] == NULL)
+		{
+			free_arr(arr, i - 1);
+			map_avail_error_exit(config, "ARRAY_MALLOC_ERROR");
+		}
 		i++;
 	}
 	set_worldMap(config, 0, 0, arr);

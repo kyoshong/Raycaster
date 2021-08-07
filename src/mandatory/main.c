@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/30 22:44:16 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/08 02:37:54 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 void	check_arg(int argc, char **argv)
 {
-	int a;
+	int		len;
+	char	*path;
 
 	if (argc < 2)
 		error_exit("TOO_FEW_ARG");
 	if (argc > 3)
 		error_exit("TOO_MANY_ARG");
-	a = ft_strlen(argv[1]);
-	if (argc == 2 && ft_strncmp(ft_substr(argv[1], a - 4, 4), ".cub", 4) != 0)
+	len = ft_strlen(argv[1]);
+	path = ft_substr(argv[1], len - 4, 4);
+	if (argc == 2 && ft_strncmp(path, ".cub", 4) != 0)
 		error_exit("FILE_NAME_ERROR");
+	free(path);
 }
 
 t_config	*init_config()
@@ -32,15 +35,15 @@ t_config	*init_config()
 
 	i = 0;
 	config = (t_config *)malloc(sizeof(*config));
-	if (config == NULL)
+	if (!config)
 		error_exit("malloc_config_error");
 	while (i < 6)
 		config->check_val[i++] = 0;
 	config->sprite_ver = 0;
 	config->mapHeight = 0;
 	config->mapWidth = 0;
-	config->ceiling = 0;
-	config->floor = 0;
+	config->ceiling = -1;
+	config->floor = -1;
 	return (config);
 }
 
@@ -52,7 +55,7 @@ int		main(int argc, char *argv[])
 	t_config	*config;
 
 	check_arg(argc, argv);
-	fd = open(argv[1], O_RDWR);
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		error_exit("CAN_NOT_OPEN_FILE");
 	config = init_config();

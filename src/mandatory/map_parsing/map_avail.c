@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 22:01:47 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 18:01:22 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/05 03:21:03 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		check_map_char_sprite(t_config *config, int max, int count)
 			if (tem->map_line[i] == 'N')
 				count++;
 			else if (ft_strchr("012 ",tem->map_line[i]) == NULL)
-				free_map_error_exit(config->map, "WRONG_MAP_CAHR");
+				map_avail_error_exit(config, "WRONG_MAP_CAHR");
 			i++;
 			if (max < i)
 				max = i;
@@ -37,7 +37,7 @@ int		check_map_char_sprite(t_config *config, int max, int count)
 		config->mapHeight++;
 	}
 	if (count != 1)
-		free_map_error_exit(config->map, "MAP_POS_ERROR");
+		map_avail_error_exit(config, "MAP_POS_ERROR");
 	return (max);
 }
 
@@ -55,7 +55,7 @@ int		check_map_char(t_config *config, int max, int count)
 			if (tem->map_line[i] == 'N')
 					count++;
 			else if (!ft_strchr("01 ",tem->map_line[i]))
-				free_map_error_exit(config->map, "WRONG_MAP_CAHR");
+				map_avail_error_exit(config, "WRONG_MAP_CAHR");
 			i++;
 			if (max < i)
 				max = i;
@@ -66,7 +66,7 @@ int		check_map_char(t_config *config, int max, int count)
 		config->mapHeight++;
 	}
 	if (count != 1)
-		free_map_error_exit(config->map, "MAP_POS_ERROR");
+		map_avail_error_exit(config, "MAP_POS_ERROR");
 	return (max);
 }
 

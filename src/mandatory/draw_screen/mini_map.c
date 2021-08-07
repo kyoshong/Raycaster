@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 17:38:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/04 00:57:15 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/05 02:24:57 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	draw_map(t_info *info, int x, int y)
 		while (j < 5)
 		{
 			info->buf[x + i][y + j] = weight * 0x000000 + (1 - weight) * info->buf[x + i][y + j];
+			//info->buf[x + i][y + j] = 0xFFFFFF;
 			j++;
 		}
 		i++;
@@ -45,7 +46,10 @@ void	draw_miniplayer(t_info *info)
 		y = 0;
 		while (y < 5)
 		{
-			info->buf[x + i - 2][y + j - 2] = 0xFF0000;
+			// if (y == 0 || x == 0 || y == 4 || x == 4)
+			// 	info->buf[x + i - 2][y + j - 2] = 0x000000;
+			// else
+				info->buf[x + i - 2][y + j - 2] = 0xFF0000;
 			y++;
 		}
 		x++;

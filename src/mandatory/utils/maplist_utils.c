@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils.c                                        :+:      :+:    :+:   */
+/*   maplist_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 15:50:24 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/08 00:37:11 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ void	ft_lstclear_map(t_map *map_struct)
 	while (1)
 	{
 		temp = map_struct->next_map_line;
+		free(map_struct->map_line);
 		free(map_struct);
-		map_struct = temp;
-		if (map_struct->next_map_line == NULL)
+		if (temp == NULL)
 			break ;
+		map_struct = temp;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/05 01:06:00 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/08 01:18:49 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #define RED_BUTTON 17
 #define textHeight 128
 #define textWidth 128
+#define picsNum 4
 #define uDiv 1
 #define vDiv 1
 #define vMove 0.0
@@ -184,10 +185,7 @@ int		check_val(t_config *config);
 void	get_map(char *line, t_config *config);
 int		check_map_val(char *line, t_config *config);
 
-//print_error
-void	error_exit(char *str);
-void	buf_free_error_exit(char *str, char *buf);
-void	free_all_error_exit(t_map *map, char *str, char *buf);
+
 
 
 //map_list
@@ -227,11 +225,16 @@ int		main_loop(t_info *info);
 void	set_texture(t_info *info, int i, int j);
 
 //error print
+void	free_arr(int **arr, int i);
+void	config_path_free(t_config *config);
 void	error_exit(char *str);
-void	buf_free_error_exit(char *str, char *buf);
-void	free_map_error_exit(t_map *map, char *str);
-void	free_all_error_exit(t_map *map, char *str, char *buf);
+void	buf_error_exit(char *str, char *buf, t_config *config);
+void	map_avail_error_exit(t_config *config, char *str);
 void	esc_exit(t_info *info);
+void	cub3d_error_exit(t_info *info, char *str);
+void	cub3d_free_all(t_info *info);
+void	free_worldMap(t_config *config);
+
 
 //init_config
 void	set_buf(t_info *info);
@@ -239,11 +242,11 @@ void	set_buf(t_info *info);
 ////////////
 //rgb_utils
 int		convert_rgb(int *rgb_int);
-char	*ft_strAppend(char *s1, char *s2);
+char	*ft_strAppend(char *s1, char *s2, char *s3);
 int		ft_get_base_count(int n);
 int		ft_count_base(int n, int i);
 char	*ft_get_upper_str(int n);
-char	*ft_strrev(const char *s);
+char	*ft_strrev(char *s);
 
 //key_control
 int		key_release(int key, t_info *info);
@@ -255,12 +258,13 @@ int		red_button_click(t_info *info);
 //key_rotate
 void	key_right_rotate(t_info *info);
 void	key_left_rotate(t_info *info);
-
 //mini_map
 void	mini_map(t_info *info);
 
 //load_image
-void	load_image(t_info *info, int *texture, char *path, t_img *img);
+void	convert_image(t_info *info, int *texture, char *path, t_img *img);
 void	load_texture(t_info *info);
+
+void	mlx_hook_ready(t_info *info);
 
 # endif

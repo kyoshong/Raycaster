@@ -6,13 +6,13 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:27:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/31 21:27:25 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/08 00:08:16 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char	*ft_strrev(const char *s)
+char	*ft_strrev(char *s)
 {
 	char	*str;
 	size_t	slen;
@@ -23,13 +23,18 @@ char	*ft_strrev(const char *s)
 	slen = len;
 	if (len == 0)
 		return ("");
+	if (len == 1)
+		len++;
 	if (!s || !(str = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	j = 0;
 	len--;
+	if (len == 1)
+		str[j++] = '0';
 	while (j < slen)
 		str[j++] = s[len--];
 	str[j] = '\0';
+	free(s);
 	return (str);
 }
 
@@ -53,8 +58,7 @@ char	*ft_get_upper_str(int n)
 	}
 	str[i++] = base[n];
 	str[i] = '\0';
-	str = ft_strrev(str);
-	return (str);
+	return (ft_strrev(str));
 }
 
 int		ft_count_base(int n, int i)

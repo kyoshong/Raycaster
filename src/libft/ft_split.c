@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 12:42:34 by hyospark          #+#    #+#             */
-/*   Updated: 2021/04/27 23:38:17 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/07 23:40:04 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*word_make(char *word, char const *s, int j, int word_len)
 	return (word);
 }
 
-char	**split2(char **result, char const *s, char c, int word_num)
+int		split2(char **result, char const *s, char c, int word_num)
 {
 	int		i;
 	int		j;
@@ -63,29 +63,31 @@ char	**split2(char **result, char const *s, char c, int word_num)
 			word_len++;
 		}
 		if (!(result[i] = (char *)malloc(sizeof(char) * (word_len + 1))))
-			return (NULL);
+			return (i);
 		word_make(result[i], s, j, word_len);
 		word_len = 0;
 		i++;
 	}
 	result[i] = 0;
-	return (result);
+	return (-1);
 }
 
 char		**ft_split(char const *s, char c)
 {
 	int		word_num;
 	char	**result;
+	int		i;
 
 	if (s == 0)
 		return (NULL);
 	word_num = word_count(s, c);
 	if (!(result = (char **)malloc(sizeof(char *) * (word_num + 1))))
 		return (NULL);
-	if (split2(result, s, c, word_num) == NULL)
+	i = split2(result, s, c, word_num);
+	if (i >= 0)
 	{
-		while (word_num >= 0)
-			free(result[word_num--]);
+		while (i >= 0)
+			free(result[i--]);
 		free(result);
 	}
 	return (result);

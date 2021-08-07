@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 21:07:50 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/03 22:21:54 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/07 23:44:47 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ int			*ft_split_atoi2(char **result, int word_num)
 			return (NULL);
 		i++;
 	}
+	i = 0;
+	while (i < word_num)
+	{
+		free(result[i]);
+		i++;
+	}
+	free(result);
 	return (i_result);
 }
 
@@ -34,16 +41,18 @@ int			*ft_split_atoi(char const *s, char c)
 {
 	int		word_num;
 	char	**result;
+	int		i;
 
 	if (s == 0)
 		return (NULL);
 	word_num = word_count(s, c);
 	if (!(result = (char **)malloc(sizeof(char *) * (word_num + 1))))
 		return (NULL);
-	if (split2(result, s, c, word_num) == NULL)
+	i = split2(result, s, c, word_num);
+	if (i >= 0)
 	{
-		while (word_num >= 0)
-			free(result[word_num--]);
+		while (i >= 0)
+			free(result[i--]);
 		free(result);
 	}
 	else
