@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:42 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 02:05:00 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 20:34:23 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*re_path(char *line, int i)
 	while (line[i] == ' ')
 		i++;
 	start = i;
-	while (line[i] != ' ')
+	while (line[i] && line[i] != ' ')
 		i++;
 	if (i > start)
 		return (ft_substr(line, start, i));

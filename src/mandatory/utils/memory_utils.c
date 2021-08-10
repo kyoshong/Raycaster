@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 00:36:34 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 02:35:18 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 21:32:28 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,4 @@ void	cub3d_free_all(t_info *info)
 		free_arr(info->buf, info->height - 1);
 	if (info->texture != NULL)
 		free_arr(info->texture, picsNum - 1);
-	if (info->win != NULL)
-		mlx_destroy_window(info->mlx, info->win);
-	if (info->img.img != NULL)
-		mlx_destroy_image(info->mlx, info->img.img);
-	if (info->mlx != NULL)
-		free(info->mlx);
 }

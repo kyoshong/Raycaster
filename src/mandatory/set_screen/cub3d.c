@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:37 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 02:25:01 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 23:12:08 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void	start_cub3d(t_config *config)
 	if (info.img.data == NULL)
 		cub3d_error_exit(&info, "GET_DATA_ADDR_ERROR");
 	mlx_hook_ready(&info);
+
 }

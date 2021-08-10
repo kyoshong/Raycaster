@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 17:38:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/05 02:24:57 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 23:08:02 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	mini_map(t_info *info)
 	while (x < info->config->mapHeight + 1)
 	{
 		y = 0;
-		while (y < info->config->mapWidth + 1)
+		while (y < info->config->mapWidth)
 		{
 			if (info->config->worldMap[x][y] == 1)
 				draw_map(info, x, y);

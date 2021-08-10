@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 17:02:52 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 02:39:47 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 23:12:35 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,14 @@ void	cub3d_error_exit(t_info *info, char *str)
 void	esc_exit(t_info *info)
 {
 	printf("ESC_EXIT\n");
+	if (info->img.img)
+		mlx_destroy_image(info->mlx, info->img.img);
+	if (info->win)
+		mlx_destroy_window(info->mlx, info->win);
 	cub3d_free_all(info);
 	config_path_free(info->config);
+	free(info->mlx);
 	free(info->config);
-	 system("leaks cub3D > ./leaks_result_temp;cat leaks_result_temp | grep leaked && rm -rf leaks_result_temp");
+	// system("leaks cub3D > ../leaks_result_temp;cat ../leaks_result_temp | grep leaked && rm -rf ../leaks_result_temp");
 	exit(0);
 }

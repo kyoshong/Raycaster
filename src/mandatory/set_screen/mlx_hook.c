@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 21:56:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/05 21:58:05 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 23:12:23 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@ void	mlx_hook_ready(t_info *info)
 	mlx_hook(info->win, KEY_RELEASE, 0, &key_release, info);
 	mlx_hook(info->win, RED_BUTTON, 0, &red_button_click, info);
 	mlx_loop(info->mlx);
+
 }

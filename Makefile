@@ -6,7 +6,7 @@
 #    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/24 00:16:04 by hyospark          #+#    #+#              #
-#    Updated: 2021/08/08 00:39:32 by hyospark         ###   ########.fr        #
+#    Updated: 2021/08/10 23:10:56 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ all : $(NAME)
 clean:
 	$(MAKE) -C ./src/libft clean
 	rm -f $(OBJECT)
+	rm -f $(LIB)
 fclean: clean
 	$(MAKE) -C ./src/libft fclean
 	rm -f $(NAME)

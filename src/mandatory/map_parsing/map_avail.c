@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 22:01:47 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/05 03:21:03 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 21:54:31 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int		check_map_char(t_config *config, int max, int count)
 	t_map *tem;
 	int i;
 
+	if (!config->map)
+		map_avail_error_exit(config, "NO_MAP_ERROR");
 	tem = config->map;
 	while (1)
 	{

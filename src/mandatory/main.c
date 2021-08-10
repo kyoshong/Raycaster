@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 02:37:54 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 21:57:19 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_config	*init_config()
 	config->mapWidth = 0;
 	config->ceiling = -1;
 	config->floor = -1;
+	config->map = NULL;
 	return (config);
 }
 
@@ -68,6 +69,5 @@ int		main(int argc, char *argv[])
 	}
 	map_avail(config);
 	start_cub3d(config);
-	printf("SUCCESS");
 	return (0);
 }

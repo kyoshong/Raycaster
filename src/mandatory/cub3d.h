@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 01:18:49 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 21:32:56 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,12 +185,13 @@ int		check_val(t_config *config);
 void	get_map(char *line, t_config *config);
 int		check_map_val(char *line, t_config *config);
 
+void	key_forword(t_info *info);
 
 
 
 //map_list
 t_map	*ft_new_map(char *content);
-void	ft_lstadd_back_map(t_map **lst, t_map *new);
+void	ft_lstadd_back_map(t_config *config, t_map *new);
 t_map	*ft_lstlast_map(t_map *lst);
 void	ft_lstclear_map(t_map *map_struct);
 

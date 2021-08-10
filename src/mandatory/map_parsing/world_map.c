@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:28:46 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 00:40:40 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 21:57:15 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_worldMap(t_config *config, int h, int w, int **arr)
 	{
 		i = 0;
 		w = 0;
-		while (tem->map_line[i] != '\0')
+		while (tem->map_line[i] && (w < config->mapWidth + 1))
 		{
 			if (tem->map_line[i] == '0' || tem->map_line[i] == '1' \
 			|| tem->map_line[i] == '2')
@@ -47,8 +47,7 @@ void	make_worldMap(t_config *config)
 {
 	int		**arr;
 	int		i;
-
-	if (!(arr = (int**)malloc(sizeof(int *) * config->mapHeight)))
+	if (!(arr = (int**)malloc(sizeof(int *) * (config->mapHeight + 1))))
 		return map_avail_error_exit(config, "ARRAY_MALLOC_ERROR");
 	i = 0;
 	while (i <= config->mapHeight)
@@ -62,5 +61,17 @@ void	make_worldMap(t_config *config)
 		i++;
 	}
 	set_worldMap(config, 0, 0, arr);
+	// 		printf("\n");
+
+	// for (int i = 0; i < config->mapHeight + 1; i++)
+	// {
+	// 	for (int j = 0; j < config->mapWidth; j++)
+	// 	{
+	// 		printf("%d",arr[i][j]);
+	// 	}
+	// 	printf("\n");
+	// }
+	
 	config->worldMap = arr;
+
 }

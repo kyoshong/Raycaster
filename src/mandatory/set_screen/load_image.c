@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:40:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 02:12:38 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 20:09:16 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	convert_image(t_info *info, int *texture, char *path, t_img *img)
 	tem = ft_substr(path, ft_strlen(path) - 4, 4);
 	if (!ft_strncmp(tem, ".xpm", 4))
 		img->img = mlx_xpm_file_to_image(info->mlx, path, &img->width, &img->height);
-	// else if (!ft_strncmp(tem, ".png", 4))
-	// 	img->img = mlx_png_file_to_image(info->mlx, path, &img->width, &img->height);
+	else if (!ft_strncmp(tem, ".png", 4))
+		img->img = mlx_png_file_to_image(info->mlx, path, &img->width, &img->height);
 	else
 		cub3d_error_exit(info, "IMG_ERROR");
 	if (img->img == NULL)

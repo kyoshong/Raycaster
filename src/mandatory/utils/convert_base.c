@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:27:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 00:08:16 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/10 01:20:35 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ char	*ft_strrev(char *s)
 	if (!s || !(str = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	j = 0;
-	len--;
 	if (len == 1)
 		str[j++] = '0';
+	len--;
 	while (j < slen)
 		str[j++] = s[len--];
 	str[j] = '\0';
