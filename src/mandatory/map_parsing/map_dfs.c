@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:09 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 00:45:27 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 02:53:53 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	dfs_map(t_config *config, int **map, int x, int y)
 	if (map[x][y] == -1)
 		map_avail_error_exit(config, "INVAILED_MAP");
 	if (x < config->mapHeight && map[x + 1][y] > 1)
-		dfs_map(config, map, x + 1, y); 
+		dfs_map(config, map, x + 1, y);
 	if (x > 0 && map[x - 1][y] != 1)
 		dfs_map(config, map, x - 1, y);
 	if (y < config->mapWidth - 1 && map[x][y + 1] > 1)
@@ -32,7 +32,7 @@ void	dfs_map(t_config *config, int **map, int x, int y)
 
 void	dfs_map_check(t_config *config)
 {
-	int i;
+	int	i;
 
 	dfs_map(config, config->worldMap, config->player.x, config->player.y);
 	i = 0;

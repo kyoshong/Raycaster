@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:06:20 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 16:23:15 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 15:57:37 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	key_left_rotate(t_info *info)
 {
-	double oldDirX;
-	double oldPlaneX;
+	double	oldDirX;
+	double	oldPlaneX;
 
 	if (info->key_AR_L == 1)
 	{
@@ -34,8 +34,8 @@ void	key_left_rotate(t_info *info)
 
 void	key_right_rotate(t_info *info)
 {
-	double oldDirX;
-	double oldPlaneX;
+	double	oldDirX;
+	double	oldPlaneX;
 
 	if (info->key_AR_R == 1)
 	{

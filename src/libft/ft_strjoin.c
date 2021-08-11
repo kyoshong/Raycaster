@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 18:19:58 by hyospark          #+#    #+#             */
-/*   Updated: 2021/01/16 18:44:30 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:26:06 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return ((char *)s2);
 	str1 = (char *)s1;
 	str2 = (char *)s2;
-	if (!(n_str = (char *)malloc(ft_strlen(str1) + ft_strlen(str2) + 1)))
+	n_str = (char *)malloc(ft_strlen(str1) + ft_strlen(str2) + 1);
+	if (!n_str)
 		return (NULL);
 	i = 0;
 	while (*str1 != '\0')

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 14:15:13 by hyospark          #+#    #+#             */
-/*   Updated: 2021/01/19 15:19:46 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:11:01 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ char	*ft_strdup(const char *s)
 	int		len;
 
 	len = ft_strlen(s);
-	if (!(tem = (char *)malloc((sizeof(char) * len) + 1)))
+	tem = (char *)malloc(sizeof(char) * (len + 1));
+	if (!tem)
 		return (NULL);
 	i = 0;
 	while (s[i] != '\0')

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 12:42:25 by hyospark          #+#    #+#             */
-/*   Updated: 2021/01/16 17:40:31 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:14:54 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	if (f == NULL)
 		return (NULL);
 	len = ft_strlen((char *)s);
-	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
 		return (NULL);
 	i = 0;
 	while (s[i])

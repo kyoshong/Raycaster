@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 22:24:17 by hyospark          #+#    #+#             */
-/*   Updated: 2021/01/20 17:09:58 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:19:56 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	new = NULL;
 	while (lst)
 	{
-		if (!(temp = ft_lstnew(f(lst->content))))
+		temp = ft_lstnew(f(lst->content));
+		if (!temp)
 		{
 			ft_lstdelone(new, del);
 			return (NULL);

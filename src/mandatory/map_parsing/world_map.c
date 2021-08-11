@@ -6,11 +6,18 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:28:46 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/10 21:57:15 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 15:25:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	set_position(t_config *config, int h, int w, int **arr)
+{
+	config->player.x = h;
+	config->player.y = w;
+	arr[h][w] = 0;
+}
 
 void	set_worldMap(t_config *config, int h, int w, int **arr)
 {
@@ -28,11 +35,7 @@ void	set_worldMap(t_config *config, int h, int w, int **arr)
 			|| tem->map_line[i] == '2')
 				arr[h][w] = tem->map_line[i] - '0';
 			else if (tem->map_line[i] == 'N')
-			{
-				config->player.x = h;
-				config->player.y = w;
-				arr[h][w] = 0;
-			}
+				set_position(config, h, w, arr);
 			i++;
 			w++;
 		}
@@ -47,8 +50,10 @@ void	make_worldMap(t_config *config)
 {
 	int		**arr;
 	int		i;
-	if (!(arr = (int**)malloc(sizeof(int *) * (config->mapHeight + 1))))
-		return map_avail_error_exit(config, "ARRAY_MALLOC_ERROR");
+
+	arr = (int **)malloc(sizeof(int *) * (config->mapHeight + 1));
+	if (!arr)
+		return (map_avail_error_exit(config, "ARRAY_MALLOC_ERROR"));
 	i = 0;
 	while (i <= config->mapHeight)
 	{
@@ -61,17 +66,5 @@ void	make_worldMap(t_config *config)
 		i++;
 	}
 	set_worldMap(config, 0, 0, arr);
-	// 		printf("\n");
-
-	// for (int i = 0; i < config->mapHeight + 1; i++)
-	// {
-	// 	for (int j = 0; j < config->mapWidth; j++)
-	// 	{
-	// 		printf("%d",arr[i][j]);
-	// 	}
-	// 	printf("\n");
-	// }
-	
 	config->worldMap = arr;
-
 }

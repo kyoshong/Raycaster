@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/10 21:57:19 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 02:03:16 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	check_arg(int argc, char **argv)
 	free(path);
 }
 
-t_config	*init_config()
+t_config	*init_config(void)
 {
-	t_config *config;
-	int i;
+	t_config	*config;
+	int			i;
 
 	i = 0;
 	config = (t_config *)malloc(sizeof(*config));
@@ -48,7 +48,7 @@ t_config	*init_config()
 	return (config);
 }
 
-int		main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	int			fd;
 	int			check;

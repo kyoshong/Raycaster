@@ -6,18 +6,18 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 19:24:29 by hyospark          #+#    #+#             */
-/*   Updated: 2021/01/19 17:11:53 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:12:00 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strlcat(char *dest, const char *src, size_t size)
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	size_t i;
-	size_t j;
-	size_t dest_l;
-	size_t src_l;
+	size_t	i;
+	size_t	j;
+	size_t	dest_l;
+	size_t	src_l;
 
 	j = 0;
 	while (j < size && dest[j])

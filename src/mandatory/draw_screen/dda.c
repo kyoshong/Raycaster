@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 23:03:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/04 21:50:12 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 15:22:52 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	cal_dda(t_info *info, t_wall *wall)
 
 void	dda(t_info *info, int x, int i)
 {
-	t_wall wall;
+	t_wall	wall;
 
 	print_floor_ceilling(info);
 	while (x < info->width)
@@ -34,11 +34,12 @@ void	dda(t_info *info, int x, int i)
 		i = wall.drawStart;
 		while (i < wall.drawEnd)
 		{
-			wall.texY = (int)wall.texPos & (textHeight - 1);
+			wall.texY = (int)wall.texPos & (TEXT_HEIGHT - 1);
 			wall.texPos += wall.step;
-			wall.color = info->texture[wall.textNum][textHeight * wall.texY + wall.texX];
-			// if (wall.side == 1)
-			// 	wall.color = wall.color & 12369084;
+			wall.color = info->texture[wall.textNum] \
+			[TEXT_HEIGHT * wall.texY + wall.texX];
+			if (wall.side == 1)
+				wall.color = wall.color & 12369084;
 			info->buf[i][x] = wall.color;
 			i++;
 		}
@@ -49,10 +50,19 @@ void	dda(t_info *info, int x, int i)
 
 void	draw(t_info *info)
 {
-	for (int y = 0; y < info->height; y++)
+	int		x;
+	int		y;
+
+	y = 0;
+	while (y < info->height)
 	{
-		for (int x = 0; x < info->width; x++)
+		x = 0;
+		while (x < info->width)
+		{
 			info->img.data[y * info->width + x] = info->buf[y][x];
+			x++;
+		}
+		y++;
 	}
 	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
 }

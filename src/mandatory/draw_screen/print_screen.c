@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:37:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/04 21:41:03 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 23:14:18 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,11 @@ void	check_hit(t_info *info, t_wall *wall)
 			wall->hit = 1;
 	}
 	if (wall->side == 0)
-		wall->perpWallDist = (wall->mapX - info->posX + (1 - wall->stepX) / 2) / wall->rayDirX;
+		wall->perpWallDist = (wall->mapX - info->posX + \
+		(1 - wall->stepX) / 2) / wall->rayDirX;
 	else
-		wall->perpWallDist = (wall->mapY - info->posY + (1 - wall->stepY) / 2) / wall->rayDirY;
+		wall->perpWallDist = (wall->mapY - info->posY + \
+		(1 - wall->stepY) / 2) / wall->rayDirY;
 }
 
 void	get_ratio(t_info *info, t_wall *wall)
@@ -85,23 +87,24 @@ void	get_ratio(t_info *info, t_wall *wall)
 	else
 		wall->wallX = info->posX + wall->perpWallDist * wall->rayDirX;
 	wall->wallX -= floor(wall->wallX);
-	wall->texX = (int)(wall->wallX * (double)textWidth);
+	wall->texX = (int)(wall->wallX * (double)TEXT_HEIGHT);
 	if (wall->side == 0 && wall->rayDirX > 0)
-		wall->texX = textWidth - wall->texX - 1;
+		wall->texX = TEXT_HEIGHT - wall->texX - 1;
 	if (wall->side == 1 && wall->rayDirY < 0)
-		wall->texX = textWidth - wall->texX - 1;
-	wall->step = 1.0 * textHeight / wall->lineHeight;
-	wall->texPos = (wall->drawStart - info->height / 2 + wall->lineHeight / 2) * wall->step;
+		wall->texX = TEXT_HEIGHT - wall->texX - 1;
+	wall->step = 1.0 * TEXT_HEIGHT / wall->lineHeight;
+	wall->texPos = (wall->drawStart - info->height / \
+	2 + wall->lineHeight / 2) * wall->step;
 }
 
 void	set_textureNum(t_wall *wall)
 {
 	if (!wall->side && wall->stepX < 0)
 		wall->textNum = 0;
-	else if (!wall->side && wall->stepX >= 0)
+	else if (wall->side && wall->stepY >= 0)
 		wall->textNum = 1;
 	else if (wall->side && wall->stepY < 0)
 		wall->textNum = 2;
-	else if (wall->side && wall->stepY >= 0)
+	else if (!wall->side && wall->stepX >= 0)
 		wall->textNum = 3;
 }

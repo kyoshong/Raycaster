@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:18 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 00:31:31 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 18:47:23 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,22 @@ void	check_path_ns(char *line, t_config *config)
 {
 	if (!ft_strncmp(line, "NO ", 3))
 	{
-		if ((NULL == (config->north = (re_path(line, 3))) || config->check_val[0]))
+		config->north = re_path(line, 3);
+		if ((NULL == config->north) || config->check_val[0])
 			buf_error_exit("PATH_NO_ERROR", line, config);
 		config->check_val[0] = 1;
 	}
 	else if (!ft_strncmp(line, "SO ", 3) && config->north != NULL)
 	{
-		if ((NULL == (config->south = (re_path(line, 3))) || config->check_val[1]))
+		config->south = re_path(line, 3);
+		if ((NULL == config->south) || config->check_val[1])
 			buf_error_exit("PATH_SO_ERROR", line, config);
 		config->check_val[1] = 1;
 	}
 	else if (!ft_strncmp(line, "S ", 2))
 	{
-		if ((NULL == (config->sprite = re_path(line, 2))) || config->sprite_ver)
+		config->sprite = re_path(line, 2);
+		if ((NULL == config->sprite) || config->sprite_ver)
 			buf_error_exit("PATH_S_ERROR", line, config);
 		config->sprite_ver = 1;
 	}
@@ -54,17 +57,17 @@ void	check_path_we(char *line, t_config *config)
 
 void	check_map_id(char *line, t_config *config)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(line[i] == ' ')
+	while (line[i] == ' ')
 		i++;
 	if (ft_strchr("NS", line[i]))
 		check_path_ns(line, config);
 	else if (ft_strchr("WE", line[i]))
 		check_path_we(line, config);
 	else if (ft_strchr("FC", line[i]))
-		check_rgb(line, config, i);
+		check_rgb(line, config, i, i + 1);
 	else if (line[i] == '\n' || line[i] == '\0')
 		return ;
 	else if (check_map_val(line, config))

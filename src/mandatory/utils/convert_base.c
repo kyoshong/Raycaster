@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:27:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/10 01:20:35 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 16:01:44 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	*ft_strrev(char *s)
 		return ("");
 	if (len == 1)
 		len++;
-	if (!s || !(str = malloc(sizeof(char) * (len + 1))))
+	str = malloc(sizeof(char) * (len + 1));
+	if (!s || !str)
 		return (NULL);
 	j = 0;
 	if (len == 1)
@@ -47,7 +48,8 @@ char	*ft_get_upper_str(int n)
 
 	i = 0;
 	len = ft_get_base_count(n);
-	if (!(str = malloc(sizeof(char) * (len + 2))))
+	str = malloc(sizeof(char) * (len + 2));
+	if (!str)
 		return (NULL);
 	base = "0123456789ABCDEF";
 	while (n >= 16)
@@ -61,7 +63,7 @@ char	*ft_get_upper_str(int n)
 	return (ft_strrev(str));
 }
 
-int		ft_count_base(int n, int i)
+int	ft_count_base(int n, int i)
 {
 	if (n > 16)
 		i = ft_count_base(n / 16, i);
@@ -69,7 +71,7 @@ int		ft_count_base(int n, int i)
 	return (i);
 }
 
-int		ft_get_base_count(int n)
+int	ft_get_base_count(int n)
 {
 	int	i;
 

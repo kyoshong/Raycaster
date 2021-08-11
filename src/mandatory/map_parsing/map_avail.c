@@ -6,16 +6,31 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 22:01:47 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/10 21:54:31 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:07:33 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int		check_map_char_sprite(t_config *config, int max, int count)
+int	check_map_char_val(t_config *config, char c)
 {
-	t_map *tem;
-	int i;
+	char	*val;
+
+	if (config->sprite_ver)
+		val = ft_strchr("012 ", c);
+	else
+		val = ft_strchr("01 ", c);
+	if (c == 'N')
+		return (1);
+	else if (val == NULL)
+		map_avail_error_exit(config, "WRONG_MAP_CAHR");
+	return (0);
+}
+
+int	check_map_char_sprite(t_config *config, int max, int count)
+{
+	t_map	*tem;
+	int		i;
 
 	tem = config->map;
 	while (1)
@@ -23,10 +38,7 @@ int		check_map_char_sprite(t_config *config, int max, int count)
 		i = 0;
 		while (tem->map_line[i] != '\0')
 		{
-			if (tem->map_line[i] == 'N')
-				count++;
-			else if (ft_strchr("012 ",tem->map_line[i]) == NULL)
-				map_avail_error_exit(config, "WRONG_MAP_CAHR");
+			count += check_map_char_val(config, tem->map_line[i]);
 			i++;
 			if (max < i)
 				max = i;
@@ -41,10 +53,10 @@ int		check_map_char_sprite(t_config *config, int max, int count)
 	return (max);
 }
 
-int		check_map_char(t_config *config, int max, int count)
+int	check_map_char(t_config *config, int max, int count)
 {
-	t_map *tem;
-	int i;
+	t_map	*tem;
+	int		i;
 
 	if (!config->map)
 		map_avail_error_exit(config, "NO_MAP_ERROR");
@@ -54,10 +66,7 @@ int		check_map_char(t_config *config, int max, int count)
 		i = 0;
 		while (tem->map_line[i])
 		{
-			if (tem->map_line[i] == 'N')
-					count++;
-			else if (!ft_strchr("01 ",tem->map_line[i]))
-				map_avail_error_exit(config, "WRONG_MAP_CAHR");
+			count += check_map_char_val(config, tem->map_line[i]);
 			i++;
 			if (max < i)
 				max = i;
@@ -72,13 +81,14 @@ int		check_map_char(t_config *config, int max, int count)
 	return (max);
 }
 
-int		*make_map_arr(int s)
+int	*make_map_arr(int s)
 {
-	int *arr;
-	int i;
+	int	*arr;
+	int	i;
 
-	if (!(arr = (int *)malloc(sizeof(int) * s)))
-		return NULL;
+	arr = (int *)malloc(sizeof(int) * s);
+	if (!arr)
+		return (NULL);
 	i = 0;
 	while (i < s)
 	{

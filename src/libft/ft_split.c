@@ -6,13 +6,13 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 12:42:34 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/07 23:40:04 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:16:39 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		word_count(char const *s, char c)
+int	word_count(char const *s, char c)
 {
 	int	i;
 	int	cnt;
@@ -44,7 +44,7 @@ char	*word_make(char *word, char const *s, int j, int word_len)
 	return (word);
 }
 
-int		split2(char **result, char const *s, char c, int word_num)
+int	split2(char **result, char const *s, char c, int word_num)
 {
 	int		i;
 	int		j;
@@ -62,7 +62,8 @@ int		split2(char **result, char const *s, char c, int word_num)
 			j++;
 			word_len++;
 		}
-		if (!(result[i] = (char *)malloc(sizeof(char) * (word_len + 1))))
+		result[i] = (char *)malloc(sizeof(char) * (word_len + 1));
+		if (!result[i])
 			return (i);
 		word_make(result[i], s, j, word_len);
 		word_len = 0;
@@ -72,7 +73,7 @@ int		split2(char **result, char const *s, char c, int word_num)
 	return (-1);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int		word_num;
 	char	**result;
@@ -81,7 +82,8 @@ char		**ft_split(char const *s, char c)
 	if (s == 0)
 		return (NULL);
 	word_num = word_count(s, c);
-	if (!(result = (char **)malloc(sizeof(char *) * (word_num + 1))))
+	result = (char **)malloc(sizeof(char *) * (word_num + 1));
+	if (!result)
 		return (NULL);
 	i = split2(result, s, c, word_num);
 	if (i >= 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyo <hyo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:10:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/01/13 22:58:13 by hyo              ###   ########.fr       */
+/*   Updated: 2021/08/11 19:15:35 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char *temp;
+	char	*temp;
 
 	temp = NULL;
 	if (*s == '\0' && c == 0)

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 19:16:23 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 01:04:52 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 18:50:06 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 		return (NULL);
 	i = 0;
 	j = 0;
-	if (!(n_str = malloc(sizeof(char) * (ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1))))
+	n_str = malloc(sizeof(char) * (ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1));
+	if (!n_str)
 		return (NULL);
 	if (!s1)
 	{
@@ -47,9 +48,11 @@ char	*ft_strdup_gnl(char *s)
 
 	if (!s)
 		return ("");
-	if ((len = line_check(s)) == 0)
+	len = line_check(s);
+	if (len == 0)
 		return (s);
-	if (!(tem = malloc(sizeof(char) * len)))
+	tem = malloc(sizeof(char) * len);
+	if (!tem)
 		return (0);
 	i = 0;
 	while (s[i] != '\n' && s[i])

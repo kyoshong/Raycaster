@@ -6,15 +6,15 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 00:31:03 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/10 21:22:11 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 02:45:03 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int		check_val(t_config *config)
+int	check_val(t_config *config)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < 6)
@@ -28,7 +28,7 @@ int		check_val(t_config *config)
 
 void	get_map(char *line, t_config *config)
 {
-	t_map *map;
+	t_map	*map;
 
 	map = ft_new_map(line);
 	if (map == NULL)
@@ -36,9 +36,9 @@ void	get_map(char *line, t_config *config)
 	ft_lstadd_back_map(config, map);
 }
 
-int		check_map_val(char *line, t_config *config)
+int	check_map_val(char *line, t_config *config)
 {
-	int i;
+	int		i;
 
 	if (check_val(config))
 		buf_error_exit("NOT_ENOUGH_CONFIG", line, config);

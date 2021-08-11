@@ -6,15 +6,15 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 20:23:33 by hyospark          #+#    #+#             */
-/*   Updated: 2021/01/19 20:55:30 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:14:27 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		check_str(char cp, char const *s)
+static int	check_str(char cp, char const *s)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -26,7 +26,7 @@ static int		check_str(char cp, char const *s)
 	return (0);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*fin;
 	size_t	start;
@@ -41,7 +41,8 @@ char			*ft_strtrim(char const *s1, char const *set)
 	end = ft_strlen(s1);
 	while (check_str(s1[end - 1], set) && end > start)
 		end--;
-	if (!(fin = (char*)malloc(sizeof(*s1) * (end - start + 1))))
+	fin = (char *)malloc(sizeof(*s1) * (end - start + 1));
+	if (!fin)
 		return (NULL);
 	i = 0;
 	while (start < end)

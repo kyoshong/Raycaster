@@ -6,13 +6,13 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 19:58:18 by hyospark          #+#    #+#             */
-/*   Updated: 2021/01/25 14:11:14 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:10:13 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		space_check(char b)
+int	space_check(char b)
 {
 	if (b == ' ' || b == '\n' || b == '\r' || b == '\t' || b == '\f')
 		return (1);
@@ -21,7 +21,7 @@ int		space_check(char b)
 	return (0);
 }
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	long	i;
 	long	minus;

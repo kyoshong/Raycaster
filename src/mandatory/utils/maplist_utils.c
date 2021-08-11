@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:37:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/10 21:34:19 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/12 03:44:15 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ t_map	*ft_lstlast_map(t_map *map_struct)
 	return (map_struct);
 }
 
-void	ft_lstadd_back_map(t_config *config, t_map *new)
+void	ft_lstadd_back_map(t_config *config, t_map *n)
 {
-	t_map *tem;
-	
-	if (!new)
+	t_map	*tem;
+
+	if (!n)
 		return ;
 	if (config->map == NULL)
 	{
-		config->map = new;
+		config->map = n;
 		return ;
 	}
 	tem = config->map;
@@ -51,12 +51,12 @@ void	ft_lstadd_back_map(t_config *config, t_map *new)
 	{
 		tem = tem->next_map_line;
 	}
-	tem->next_map_line = new;
+	tem->next_map_line = n;
 }
 
 void	ft_lstclear_map(t_map *map_struct)
 {
-	t_map *temp;
+	t_map	*temp;
 
 	if (map_struct == NULL)
 		return ;

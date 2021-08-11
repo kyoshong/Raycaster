@@ -6,13 +6,13 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 21:49:32 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/10 19:31:38 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 15:57:08 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int		key_release(int key, t_info *info)
+int	key_release(int key, t_info *info)
 {
 	if (key == K_W)
 		info->key_w = 0;
@@ -31,7 +31,7 @@ int		key_release(int key, t_info *info)
 	return (0);
 }
 
-int		key_press(int key, t_info *info)
+int	key_press(int key, t_info *info)
 {
 	if (key == K_ESC)
 		esc_exit(info);
@@ -50,7 +50,7 @@ int		key_press(int key, t_info *info)
 	return (0);
 }
 
-int		red_button_click(t_info *info)
+int	red_button_click(t_info *info)
 {
 	esc_exit(info);
 	return (0);

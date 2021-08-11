@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 00:36:34 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/10 21:32:28 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 16:00:15 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_arr(int **arr, int i)
 
 void	free_worldMap(t_config *config)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (config->worldMap != NULL)
@@ -62,5 +62,5 @@ void	cub3d_free_all(t_info *info)
 	if (info->buf != NULL)
 		free_arr(info->buf, info->height - 1);
 	if (info->texture != NULL)
-		free_arr(info->texture, picsNum - 1);
+		free_arr(info->texture, PICS_NUM - 1);
 }

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:57:41 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/08 00:13:29 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 16:05:10 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*ft_strAppend(char *s1, char *s2, char *s3)
 	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
 	if (!s1 && !s2)
 		return (NULL);
-	if (!(n_str = (char *)malloc(len + 1)))
+	n_str = (char *)malloc(len + 1);
+	if (!n_str)
 		return (NULL);
 	i = 0;
 	while (*s1 != '\0')
@@ -41,7 +42,7 @@ int	convert_int(char *rgb_char)
 	int		rgb;
 	char	*base;
 	int		j;
-	
+
 	i = 0;
 	len = ft_strlen(rgb_char);
 	base = "0123456789ABCDEF";
@@ -49,7 +50,7 @@ int	convert_int(char *rgb_char)
 	while (i < len)
 	{
 		j = 0;
-		while(rgb_char[i] != base[j])
+		while (rgb_char[i] != base[j])
 			j++;
 		rgb += j;
 		if (i + 1 < len)
@@ -60,13 +61,13 @@ int	convert_int(char *rgb_char)
 	return (rgb);
 }
 
-int		convert_rgb(int *rgb_int)
+int	convert_rgb(int *rgb_int)
 {
-	int i;
-	char *rgb;
-	char *rgb2;
-	char *rgb3;
-	char *rgb_list;
+	int		i;
+	char	*rgb;
+	char	*rgb2;
+	char	*rgb3;
+	char	*rgb_list;
 
 	i = 0;
 	rgb = ft_get_upper_str(rgb_int[0]);

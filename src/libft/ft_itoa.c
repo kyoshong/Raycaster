@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 12:45:19 by hyospark          #+#    #+#             */
-/*   Updated: 2021/01/19 20:38:58 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:01:42 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,19 @@ static int	cheak_size(long n)
 	return (count);
 }
 
-char		*ft_itoa(int n)
+int	set_negative(long num)
+{
+	int	s;
+
+	s = 0;
+	if (num < 0)
+	{
+		s = 1;
+	}
+	return (s);
+}
+
+char	*ft_itoa(int n)
 {
 	char	*n_str;
 	int		len;
@@ -33,21 +45,18 @@ char		*ft_itoa(int n)
 	long	num;
 
 	num = (long)n;
-	s = 0;
-	if (num < 0)
-	{
-		num = -num;
-		s = 1;
-	}
+	s = set_negative(num);
+	num = -num;
 	len = cheak_size(num);
-	if (!(n_str = (char *)malloc(sizeof(char) * len + s + 1)))
+	n_str = (char *)malloc(sizeof(char) * (len + s + 1));
+	if (!n_str)
 		return (NULL);
 	if (s)
 		n_str[0] = '-';
 	n_str[len + s] = '\0';
-	while (len)
+	while (len >= s)
 	{
-		n_str[len - (s ? 0 : 1)] = (num % 10) + '0';
+		n_str[len] = (num % 10) + '0';
 		num = num / 10;
 		len--;
 	}

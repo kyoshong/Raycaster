@@ -6,19 +6,20 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 21:07:50 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/07 23:44:47 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:12:59 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			*ft_split_atoi2(char **result, int word_num)
+int	*ft_split_atoi2(char **result, int word_num)
 {
-	int		*i_result;
-	int		i;
-	
-	if (!(i_result = (int *)malloc(sizeof(int *) * (word_num))))
-			return (NULL);
+	int	*i_result;
+	int	i;
+
+	i_result = (int *)malloc(sizeof(int *) * (word_num));
+	if (!i_result)
+		return (NULL);
 	i = 0;
 	while (i < word_num)
 	{
@@ -37,7 +38,7 @@ int			*ft_split_atoi2(char **result, int word_num)
 	return (i_result);
 }
 
-int			*ft_split_atoi(char const *s, char c)
+int	*ft_split_atoi(char const *s, char c)
 {
 	int		word_num;
 	char	**result;
@@ -46,7 +47,8 @@ int			*ft_split_atoi(char const *s, char c)
 	if (s == 0)
 		return (NULL);
 	word_num = word_count(s, c);
-	if (!(result = (char **)malloc(sizeof(char *) * (word_num + 1))))
+	result = (char **)malloc(sizeof(char *) * (word_num + 1));
+	if (!result)
 		return (NULL);
 	i = split2(result, s, c, word_num);
 	if (i >= 0)

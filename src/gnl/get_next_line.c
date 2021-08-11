@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 18:54:03 by hyospark          #+#    #+#             */
-/*   Updated: 2021/07/23 01:04:36 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 18:51:26 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@ char	*re_backup(char *cont)
 	int		j;
 	char	*temp;
 
-	if (!cont)
-		return (NULL);
 	i = 0;
 	while (cont[i] && cont[i] != '\n')
 		i++;
 	if (!cont[i])
 		return (NULL);
 	len_c = ft_strlen_gnl(cont);
-	if (!(temp = malloc(sizeof(char) * (len_c - i) + 1)))
+	temp = malloc(sizeof(char) * (len_c - i) + 1);
+	if (!temp)
 	{
 		free(cont);
 		return (NULL);
@@ -41,7 +40,7 @@ char	*re_backup(char *cont)
 	return (temp);
 }
 
-int		line_check(char *cont)
+int	line_check(char *cont)
 {
 	int	i;
 
@@ -56,7 +55,7 @@ int		line_check(char *cont)
 	return (0);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*cont[OPEN_MAX];
 	char		buf[BUFFER_SIZE + 1];
@@ -68,7 +67,8 @@ int		get_next_line(int fd, char **line)
 	check = 1;
 	while (!line_check(cont[fd]) && check != 0)
 	{
-		if ((check = read(fd, buf, BUFFER_SIZE)) < 0)
+		check = read(fd, buf, BUFFER_SIZE);
+		if (check < 0)
 			return (-1);
 		buf[check] = '\0';
 		temp = ft_strjoin_gnl(cont[fd], buf);

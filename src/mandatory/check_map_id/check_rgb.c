@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 17:35:42 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/10 20:34:23 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:02:42 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*re_path(char *line, int i)
 {
-	int start;
+	int	start;
 
 	while (line[i] == ' ')
 		i++;
@@ -26,36 +26,30 @@ char	*re_path(char *line, int i)
 	return (NULL);
 }
 
-void	check_rgb(char *line, t_config *config, int val_start)
+void	check_rgb(char *line, t_config *config, int val_start, int i)
 {
 	char	*tem;
-	int		i;
 	int		*rgb;
 
-	i = val_start + 1;
 	while (line[i] != ' ')
 		i++;
-	if ((tem = ft_substr(line, i, ft_strlen(line))) == NULL)
+	tem = ft_substr(line, i, ft_strlen(line));
+	if (tem == NULL)
 		buf_error_exit("RGB_VALUE_ERROR", line, config);
+	rgb = ft_split_atoi(tem, ',');
+	if (rgb == NULL)
+		rgb_error_exit("RGB_VALUE_ERROR", line, config, tem);
 	if (line[val_start] == 'F' && config->east != NULL)
 	{
-		if ((rgb = ft_split_atoi(tem, ',')) == NULL || config->check_val[4])
-		{
-			free(tem);
-			buf_error_exit("Floor_RGB_VALUE_ERROR", line, config);
-		}
 		config->floor = convert_rgb(rgb);
 		config->check_val[4] = 1;
 	}
 	else if ((line[val_start] == 'C') && (config->floor >= 0))
 	{
-		if((rgb = ft_split_atoi(tem, ',')) == NULL || config->check_val[5])
-		{
-			free(tem);
-			buf_error_exit("Ceilling_RGB_VALUE_ERROR", line, config);
-		}
 		config->ceiling = convert_rgb(rgb);
 		config->check_val[5] = 1;
 	}
+	else
+		rgb_error_exit("RGB_VALUE_ERROR", line, config, tem);
 	free(tem);
 }

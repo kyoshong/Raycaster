@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:31:55 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/10 20:08:19 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/11 15:56:18 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	set_config(t_config *config, t_info *info)
 
 void	set_buf(t_info *info)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	info->buf = (int **)malloc(sizeof(int*) * info->height);
+	info->buf = (int **)malloc(sizeof(int *) * info->height);
 	if (info->buf == NULL)
 		cub3d_error_exit(info, "SCREEN_BUF_MALLOC_ERROR");
 	while (i < info->height)
@@ -64,24 +64,25 @@ void	set_buf(t_info *info)
 
 void	set_texture(t_info *info, int i, int j)
 {
-	info->texture = (int **)malloc(sizeof(int *) * picsNum);
+	info->texture = (int **)malloc(sizeof(int *) * PICS_NUM);
 	if (info->texture == NULL)
 		cub3d_error_exit(info, "TEXTURE_MALLOC_ERROR");
-	while (i < picsNum)
+	while (i < PICS_NUM)
 	{
-		info->texture[i] = (int *)malloc(sizeof(int) * (textWidth * textHeight));
+		info->texture[i] = \
+		(int *)malloc(sizeof(int) * (TEXT_WIDTH * TEXT_HEIGHT));
 		if (info->texture[i] == NULL)
 		{
-			free_arr(info->texture, i -1);
+			free_arr(info->texture, i - 1);
 			cub3d_error_exit(info, "TEXTURE_MALLOC_ERROR");
 		}
 		i++;
 	}
 	i = 0;
-	while (i < picsNum)
+	while (i < PICS_NUM)
 	{
 		j = 0;
-		while (j < textWidth * textHeight)
+		while (j < TEXT_WIDTH * TEXT_HEIGHT)
 		{
 			info->texture[i][j] = 0;
 			j++;
