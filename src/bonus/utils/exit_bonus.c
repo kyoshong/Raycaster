@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 15:58:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/12 03:40:44 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/12 22:52:56 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	esc_exit(t_info *info)
 		mlx_destroy_window(info->mlx, info->win);
 	cub3d_free_all(info);
 	config_path_free(info->config);
-	free(info->mlx);
 	free(info->config);
 	exit(0);
 }

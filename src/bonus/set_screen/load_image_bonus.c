@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:40:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/12 22:16:47 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/12 23:47:32 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	copy_texture(t_info *info, int *texture, t_img *img)
 		y++;
 	}
 	mlx_destroy_image(info->mlx, img->img);
-		free(info->img.img);
 }
 
 void	convert_image(t_info *info, int *texture, char *path, t_img *img)

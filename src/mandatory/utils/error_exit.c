@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 17:02:52 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/11 16:07:11 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/12 23:46:11 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ void	cub3d_error_exit(t_info *info, char *str)
 	cub3d_free_all(info);
 	config_path_free(info->config);
 	free(info->config);
+	free(info);
 	exit(1);
 }
