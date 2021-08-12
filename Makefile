@@ -6,7 +6,7 @@
 #    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/24 00:16:04 by hyospark          #+#    #+#              #
-#    Updated: 2021/08/12 21:10:36 by hyospark         ###   ########.fr        #
+#    Updated: 2021/08/13 01:11:00 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -124,7 +124,7 @@ BONUS_OBJECT = map_avail_bonus.o\
 		get_next_line_bonus.o\
 		get_next_line_utils_bonus.o\
 
-$(NAME): $(OBJECT)
+$(NAME): $(OBJECT) $(MAIN)
 		@echo "\033[36m ** .. Making Cub3D .. **"
 		$(MAKE) -C ./src/libft
 		cp ./src/libft/libft.a .
@@ -138,7 +138,7 @@ $(NAME): $(OBJECT)
 $(OBJECT): $(SOURCE)
 	gcc $(CFLAGS) -c $(SOURCE)
 
-$(BONUS_NAME): $(BONUS_OBJECT)
+$(BONUS_NAME): $(BONUS_OBJECT) $(BONUS_MAIN)
 			@echo "\033[36m ** .. Making Cub3D .. **"
 			$(MAKE) -C ./src/libft
 			cp ./src/libft/libft.a .

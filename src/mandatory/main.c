@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/11 02:03:16 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/13 01:14:00 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	check_arg(int argc, char **argv)
 
 	if (argc < 2)
 		error_exit("TOO_FEW_ARG");
-	if (argc > 3)
+	if (argc > 2)
 		error_exit("TOO_MANY_ARG");
 	len = ft_strlen(argv[1]);
+	if (len < 5)
+		error_exit("FILE_NAME_ERROR");
 	path = ft_substr(argv[1], len - 4, 4);
 	if (argc == 2 && ft_strncmp(path, ".cub", 4) != 0)
 		error_exit("FILE_NAME_ERROR");
