@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 15:58:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/11 19:02:12 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/12 21:13:17 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	esc_exit(t_info *info)
 	config_path_free(info->config);
 	free(info->mlx);
 	free(info->config);
+	system("leaks cub3D > leaks_result_temp;cat leaks_result_temp | grep leaked && rm -rf leaks_result_temp");
 	exit(0);
 }

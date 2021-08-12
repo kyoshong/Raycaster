@@ -6,7 +6,7 @@
 #    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/24 00:16:04 by hyospark          #+#    #+#              #
-#    Updated: 2021/08/12 15:53:07 by hyospark         ###   ########.fr        #
+#    Updated: 2021/08/12 21:10:36 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ SOURCE = src/mandatory/map_parsing/map_avail.c \
 		src/mandatory/check_map_id/check_map_path.c \
 		src/mandatory/check_map_id/check_map.c \
 		src/mandatory/check_map_id/check_rgb.c \
-		src/mandatory/main.c \
 		src/mandatory/gnl/get_next_line.c \
 		src/mandatory/gnl/get_next_line_utils.c \
 
@@ -67,12 +66,13 @@ BONUS_SOURCE = src/bonus/main_bonus.c \
 		src/bonus/gnl/get_next_line_bonus.c \
 		src/bonus/gnl/get_next_line_utils_bonus.c \
 
-LIB = libft.a
+LIB = libft.a -L. -lcub3d
 MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
+MAIN = src/mandatory/main.c
+BONUS_MAIN = src/bonus/main_bonus.c
 OUT = cub3D
 BONUS_OUT = cub3D_bonus
-OBJECT = main.o\
-		map_avail.o\
+OBJECT = map_avail.o\
 		map_dfs.o\
 		world_map.o\
 		convert_base.o\
@@ -98,8 +98,7 @@ OBJECT = main.o\
 		get_next_line.o\
 		get_next_line_utils.o\
 
-BONUS_OBJECT = main_bonus.o\
-		map_avail_bonus.o\
+BONUS_OBJECT = map_avail_bonus.o\
 		map_dfs_bonus.o\
 		world_map_bonus.o\
 		convert_base_bonus.o\
@@ -127,27 +126,28 @@ BONUS_OBJECT = main_bonus.o\
 
 $(NAME): $(OBJECT)
 		@echo "\033[36m ** .. Making Cub3D .. **"
-		$(MAKE) bonus -C ./src/libft
+		$(MAKE) -C ./src/libft
 		cp ./src/libft/libft.a .
-		arch -x86_64 gcc $(CFLAGS) $(MLX) $(OBJECT) libft.a  -o $(OUT)
+		ar rc $(NAME) $(OBJECT)
+		arch -x86_64 gcc $(MAIN) $(CFLAGS) $(LIB) $(MLX) -o $(OUT)
 		@echo "\033[31m   ______      __   _____ ____  "
 		@echo "\033[33m  / ____/_  __/ /_ |__  // __ \ "
 		@echo "\033[32m / /   / / / / __ \ /_ </ / / / "
 		@echo "\033[34m/ /___/ /_/ / /_/ /__/ / /_/ /  "
-		@echo "\033[35m\____/\__,_/_.___/____/_____/   "
+		@echo "\033[35m\____/\____/_____/____/_____/..*"
 $(OBJECT): $(SOURCE)
 	gcc $(CFLAGS) -c $(SOURCE)
 
 $(BONUS_NAME): $(BONUS_OBJECT)
 			@echo "\033[36m ** .. Making Cub3D .. **"
-			$(MAKE) bonus -C ./src/libft
+			$(MAKE) -C ./src/libft
 			cp ./src/libft/libft.a .
-			arch -x86_64 gcc $(CFLAGS) $(MLX) $(BONUS_OBJECT) libft.a -o $(BONUS_OUT)
+			arch -x86_64 gcc $(BONUS_MAIN) $(CFLAGS) $(MLX) $(BONUS_OBJECT) libft.a -o $(BONUS_OUT)
 			@echo "\033[31m   ______      __   _____ ____  "
 			@echo "\033[33m  / ____/_  __/ /_ |__  // __ \ "
 			@echo "\033[32m / /   / / / / __ \ /_ </ / / / "
 			@echo "\033[34m/ /___/ /_/ / /_/ /__/ / /_/ /  "
-			@echo "\033[35m\____/\__,_/_.___/____/_____/   "
+			@echo "\033[35m\____/\____/_____/____/_____/..*"
 $(BONUS_OBJECT): $(BONUS_SOURCE)
 	gcc $(CFLAGS) -c $(BONUS_SOURCE)
 all : $(NAME)

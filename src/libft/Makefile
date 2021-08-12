@@ -14,29 +14,22 @@ ft_strlcat.c ft_strchr.c ft_strrchr.c ft_strnstr.c \
 ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 ft_toupper.c ft_tolower.c ft_itoa.c ft_putchar_fd.c \
 ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_split_atoi.c\
-
-bonus=ft_lstsize.c ft_lstnew.c ft_lstmap.c ft_lstlast.c \
+ft_lstsize.c ft_lstnew.c ft_lstmap.c ft_lstlast.c \
 ft_lstiter.c ft_lstdelone.c ft_lstclear.c ft_lstadd_front.c ft_lstadd_back.c \
 
 OBJ=$(SRC:.c=.o)
-
-OBJS_BONUS=$(bonus:.c=.o)
-
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
 
 all: $(NAME)
 
-bonus: $(OBJ) $(OBJS_BONUS)
-	ar rcs $(NAME) $(OBJ) $(OBJS_BONUS)
-
 clean:
-	$(RM) $(OBJ) $(OBJS_BONUS)
+	$(RM) $(OBJ)
 
 fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: clean fclean re all bonus so
+.PHONY: clean fclean re all
