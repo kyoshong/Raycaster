@@ -4,7 +4,7 @@ static char *south[] = {
 "128 128 3 1 ",
 "  c black",
 "X c #f7f4f4",
-", c #e450da"
+", c #def912"
 /* pixels */
 "                                                                                                                                ",
 "                                                                                                                                ",

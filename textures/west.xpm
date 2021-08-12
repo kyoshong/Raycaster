@@ -3,7 +3,7 @@ static char *west[] = {
 /* columns rows colors chars-per-pixel */
 "128 128 3 1 ",
 "  c black",
-"X c #def912",
+"X c #ff2d2d",
 ", c #f7f4f4"
 /* pixels */
 "                                                                                                                                ",
