@@ -6,7 +6,7 @@
 #    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/24 00:16:04 by hyospark          #+#    #+#              #
-#    Updated: 2021/08/13 01:11:00 by hyospark         ###   ########.fr        #
+#    Updated: 2021/08/13 02:02:41 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,7 @@ SOURCE = src/mandatory/map_parsing/map_avail.c \
 		src/mandatory/gnl/get_next_line.c \
 		src/mandatory/gnl/get_next_line_utils.c \
 
-BONUS_SOURCE = src/bonus/main_bonus.c \
-		src/bonus/map_parsing/map_avail_bonus.c \
+BONUS_SOURCE = src/bonus/map_parsing/map_avail_bonus.c \
 		src/bonus/map_parsing/map_dfs_bonus.c \
 		src/bonus/map_parsing/world_map_bonus.c \
 		src/bonus/utils/convert_base_bonus.c \
@@ -67,6 +66,7 @@ BONUS_SOURCE = src/bonus/main_bonus.c \
 		src/bonus/gnl/get_next_line_utils_bonus.c \
 
 LIB = libft.a -L. -lcub3d
+LIB_BONUS = libft.a -L. -lcub3d_bonus
 MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
 MAIN = src/mandatory/main.c
 BONUS_MAIN = src/bonus/main_bonus.c
@@ -142,7 +142,8 @@ $(BONUS_NAME): $(BONUS_OBJECT) $(BONUS_MAIN)
 			@echo "\033[36m ** .. Making Cub3D .. **"
 			$(MAKE) -C ./src/libft
 			cp ./src/libft/libft.a .
-			arch -x86_64 gcc $(BONUS_MAIN) $(CFLAGS) $(MLX) $(BONUS_OBJECT) libft.a -o $(BONUS_OUT)
+			ar rc $(BONUS_NAME) $(BONUS_OBJECT)
+			arch -x86_64 gcc $(BONUS_MAIN) $(CFLAGS) $(LIB_BONUS) $(MLX) -o $(BONUS_OUT)
 			@echo "\033[31m   ______      __   _____ ____  "
 			@echo "\033[33m  / ____/_  __/ /_ |__  // __ \ "
 			@echo "\033[32m / /   / / / / __ \ /_ </ / / / "
@@ -150,12 +151,14 @@ $(BONUS_NAME): $(BONUS_OBJECT) $(BONUS_MAIN)
 			@echo "\033[35m\____/\____/_____/____/_____/..*"
 $(BONUS_OBJECT): $(BONUS_SOURCE)
 	gcc $(CFLAGS) -c $(BONUS_SOURCE)
+
 all : $(NAME)
 clean:
 	$(MAKE) -C ./src/libft clean
 	rm -f $(OBJECT)
 	rm -f $(BONUS_OBJECT)
 	rm -f $(LIB)
+	rm -f $(LIB_BONUS)
 fclean: clean
 	$(MAKE) -C ./src/libft fclean
 	rm -f $(NAME)
