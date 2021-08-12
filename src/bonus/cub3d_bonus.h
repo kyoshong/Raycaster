@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:45:52 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/12 03:40:03 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/12 15:48:11 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
-# include "../gnl/get_next_line.h"
+# include "gnl/get_next_line_bonus.h"
 # include <stdio.h>
 # define KEY_PRESS 2
 # define KEY_RELEASE 3

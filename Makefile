@@ -6,7 +6,7 @@
 #    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/24 00:16:04 by hyospark          #+#    #+#              #
-#    Updated: 2021/08/12 04:18:50 by hyospark         ###   ########.fr        #
+#    Updated: 2021/08/12 15:53:07 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,8 @@ SOURCE = src/mandatory/map_parsing/map_avail.c \
 		src/mandatory/check_map_id/check_map.c \
 		src/mandatory/check_map_id/check_rgb.c \
 		src/mandatory/main.c \
-		src/gnl/get_next_line.c \
-		src/gnl/get_next_line_utils.c \
+		src/mandatory/gnl/get_next_line.c \
+		src/mandatory/gnl/get_next_line_utils.c \
 
 BONUS_SOURCE = src/bonus/main_bonus.c \
 		src/bonus/map_parsing/map_avail_bonus.c \
@@ -64,14 +64,66 @@ BONUS_SOURCE = src/bonus/main_bonus.c \
 		src/bonus/check_map_id/check_map_path_bonus.c \
 		src/bonus/check_map_id/check_map_bonus.c \
 		src/bonus/check_map_id/check_rgb_bonus.c \
-		src/gnl/get_next_line.c \
-		src/gnl/get_next_line_utils.c \
+		src/bonus/gnl/get_next_line_bonus.c \
+		src/bonus/gnl/get_next_line_utils_bonus.c \
 
 LIB = libft.a
 MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
 OUT = cub3D
 BONUS_OUT = cub3D_bonus
-OBJECT = *.o
+OBJECT = main.o\
+		map_avail.o\
+		map_dfs.o\
+		world_map.o\
+		convert_base.o\
+		error_exit.o\
+		exit.o\
+		maplist_utils.o\
+		memory_utils.o\
+		rgb_utils.o\
+		dda.o\
+		floor_ceiling.o\
+		mini_map.o\
+		print_screen.o\
+		cub3d.o\
+		init_config.o\
+		key_control.o\
+		key_rotate.o\
+		key_val_check.o\
+		load_image.o\
+		mlx_hook.o\
+		check_map_path.o\
+		check_map.o\
+		check_rgb.o\
+		get_next_line.o\
+		get_next_line_utils.o\
+
+BONUS_OBJECT = main_bonus.o\
+		map_avail_bonus.o\
+		map_dfs_bonus.o\
+		world_map_bonus.o\
+		convert_base_bonus.o\
+		error_exit_bonus.o\
+		exit_bonus.o\
+		maplist_utils_bonus.o\
+		memory_utils_bonus.o\
+		rgb_utils_bonus.o\
+		dda_bonus.o\
+		floor_ceiling_bonus.o\
+		mini_map_bonus.o\
+		print_screen_bonus.o\
+		cub3d_bonus.o\
+		init_config_bonus.o\
+		key_control_bonus.o\
+		key_rotate_bonus.o\
+		key_val_check_bonus.o\
+		load_image_bonus.o\
+		mlx_hook_bonus.o\
+		check_map_path_bonus.o\
+		check_map_bonus.o\
+		check_rgb_bonus.o\
+		get_next_line_bonus.o\
+		get_next_line_utils_bonus.o\
 
 $(NAME): $(OBJECT)
 		@echo "\033[36m ** .. Making Cub3D .. **"
@@ -102,13 +154,15 @@ all : $(NAME)
 clean:
 	$(MAKE) -C ./src/libft clean
 	rm -f $(OBJECT)
+	rm -f $(BONUS_OBJECT)
 	rm -f $(LIB)
 fclean: clean
 	$(MAKE) -C ./src/libft fclean
-	rm -f $(NAME) $(BONUS_NAME)
-	rm -f $(OUT) $(BONUS_OUT)
-# rm -f $(OUT_BONUS)
-# rm -f $(BONUS_NAME)
+	rm -f $(NAME)
+	rm -f $(BONUS_NAME)
+	rm -f $(OUT)
+	rm -f $(BONUS_OUT)
+	@echo "\033[36m ** .. Clean Cub3D .. **"
 
 bonus: fclean $(BONUS_NAME)
 
