@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 21:07:50 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/11 19:12:59 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:17:17 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	*ft_split_atoi(char const *s, char c)
 	if (s == 0)
 		return (NULL);
 	word_num = word_count(s, c);
+	if (word_num != 3)
+		return (NULL);
 	result = (char **)malloc(sizeof(char *) * (word_num + 1));
 	if (!result)
 		return (NULL);

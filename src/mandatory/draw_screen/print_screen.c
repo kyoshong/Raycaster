@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:37:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/11 23:14:18 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:01:12 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@ void	ray_dir(t_info *info, t_wall *wall)
 	if (wall->rayDirX < 0)
 	{
 		wall->stepX = -1;
-		wall->sideDistX = (info->posX - wall->mapX) * wall->deltaDistX;
+		wall->firstDistX = (info->posX - wall->mapX) * wall->nextDistX;
 	}
 	else
 	{
 		wall->stepX = 1;
-		wall->sideDistX = (wall->mapX + 1.0 - info->posX) * wall->deltaDistX;
+		wall->firstDistX = (wall->mapX + 1.0 - info->posX) * wall->nextDistX;
 	}
 	if (wall->rayDirY < 0)
 	{
 		wall->stepY = -1;
-		wall->sideDistY = (info->posY - wall->mapY) * wall->deltaDistY;
+		wall->firstDistY = (info->posY - wall->mapY) * wall->nextDistY;
 	}
 	else
 	{
 		wall->stepY = 1;
-		wall->sideDistY = (wall->mapY + 1.0 - info->posY) * wall->deltaDistY;
+		wall->firstDistY = (wall->mapY + 1.0 - info->posY) * wall->nextDistY;
 	}
 }
 
@@ -40,8 +40,8 @@ void	cal_distance(t_info *info, t_wall *wall)
 {
 	wall->mapX = (int)info->posX;
 	wall->mapY = (int)info->posY;
-	wall->deltaDistX = fabs(1 / wall->rayDirX);
-	wall->deltaDistY = fabs(1 / wall->rayDirY);
+	wall->nextDistX = fabs(1 / wall->rayDirX);
+	wall->nextDistY = fabs(1 / wall->rayDirY);
 	wall->hit = 0;
 	ray_dir(info, wall);
 }
@@ -50,15 +50,15 @@ void	check_hit(t_info *info, t_wall *wall)
 {
 	while (!wall->hit)
 	{
-		if (wall->sideDistX < wall->sideDistY)
+		if (wall->firstDistX < wall->firstDistY)
 		{
-			wall->sideDistX += wall->deltaDistX;
+			wall->firstDistX += wall->nextDistX;
 			wall->mapX += wall->stepX;
 			wall->side = 0;
 		}
 		else
 		{
-			wall->sideDistY += wall->deltaDistY;
+			wall->firstDistY += wall->nextDistY;
 			wall->mapY += wall->stepY;
 			wall->side = 1;
 		}
@@ -66,16 +66,16 @@ void	check_hit(t_info *info, t_wall *wall)
 			wall->hit = 1;
 	}
 	if (wall->side == 0)
-		wall->perpWallDist = (wall->mapX - info->posX + \
+		wall->flatWallDist = (wall->mapX - info->posX + \
 		(1 - wall->stepX) / 2) / wall->rayDirX;
 	else
-		wall->perpWallDist = (wall->mapY - info->posY + \
+		wall->flatWallDist = (wall->mapY - info->posY + \
 		(1 - wall->stepY) / 2) / wall->rayDirY;
 }
 
 void	get_ratio(t_info *info, t_wall *wall)
 {
-	wall->lineHeight = (int)(info->height / wall->perpWallDist);
+	wall->lineHeight = (int)(info->height / wall->flatWallDist);
 	wall->drawStart = -wall->lineHeight / 2 + info->height / 2;
 	if (wall->drawStart < 0)
 		wall->drawStart = 0;
@@ -83,9 +83,9 @@ void	get_ratio(t_info *info, t_wall *wall)
 	if (wall->drawEnd >= info->height)
 		wall->drawEnd = info->height - 1;
 	if (wall->side == 0)
-		wall->wallX = info->posY + wall->perpWallDist * wall->rayDirY;
+		wall->wallX = info->posY + wall->flatWallDist * wall->rayDirY;
 	else
-		wall->wallX = info->posX + wall->perpWallDist * wall->rayDirX;
+		wall->wallX = info->posX + wall->flatWallDist * wall->rayDirX;
 	wall->wallX -= floor(wall->wallX);
 	wall->texX = (int)(wall->wallX * (double)TEXT_HEIGHT);
 	if (wall->side == 0 && wall->rayDirX > 0)

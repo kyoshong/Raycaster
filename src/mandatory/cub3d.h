@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:45:52 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/12 15:47:06 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/13 18:26:14 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,16 @@ typedef struct s_info
 
 typedef struct s_wall
 {
-	double			cameraX;
+	double			camera;
 	double			rayDirX;
 	double			rayDirY;
 	int				mapX;
 	int				mapY;
-	double			sideDistX;
-	double			sideDistY;
-	double			deltaDistX;
-	double			deltaDistY;
-	double			perpWallDist;
+	double			firstDistX;
+	double			firstDistY;
+	double			nextDistX;
+	double			nextDistY;
+	double			flatWallDist;
 	int				stepX;
 	int				stepY;
 	int				hit;

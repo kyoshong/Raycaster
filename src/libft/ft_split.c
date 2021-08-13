@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 12:42:34 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/11 19:16:39 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:46:00 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ int	word_count(char const *s, char c)
 
 	i = 0;
 	cnt = 0;
+	while (s[i])
+	{
+		if (s[i] == c || ft_isdigit(s[i]) || s[i] == ' ')
+			i++;
+		else
+			return (0);
+	}
+	i = 0;
 	while (s[i])
 	{
 		if (s[i] == c)

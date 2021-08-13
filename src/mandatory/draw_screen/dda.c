@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 23:03:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/12 20:27:54 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/13 18:26:14 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	cal_dda(t_info *info, t_wall *wall)
 {
-	wall->rayDirX = info->dirX + info->planeX * wall->cameraX;
-	wall->rayDirY = info->dirY + info->planeY * wall->cameraX;
+	wall->rayDirX = info->dirX + info->planeX * wall->camera;
+	wall->rayDirY = info->dirY + info->planeY * wall->camera;
 	cal_distance(info, wall);
 	check_hit(info, wall);
 	set_textureNum(wall);
@@ -29,7 +29,7 @@ void	dda(t_info *info, int x, int i)
 	print_floor_ceilling(info);
 	while (x < info->width)
 	{
-		wall.cameraX = 2 * x / (double)info->width - 1;
+		wall.camera = 2 * x / (double)info->width - 1;
 		cal_dda(info, &wall);
 		i = wall.drawStart;
 		while (i < wall.drawEnd)
@@ -43,7 +43,7 @@ void	dda(t_info *info, int x, int i)
 			info->buf[i][x] = wall.color;
 			i++;
 		}
-		info->zBuffer[x] = wall.perpWallDist;
+		info->zBuffer[x] = wall.flatWallDist;
 		x++;
 	}
 }
