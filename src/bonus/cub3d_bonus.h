@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 01:45:52 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/13 18:26:14 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/13 20:35:01 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ typedef struct s_info
 	int				key_esc;
 	t_img			img;
 	int				**buf;
-	double			zBuffer[1280];
 	int				**texture;
 	double			moveSpeed;
 	double			rotSpeed;
@@ -128,24 +127,6 @@ typedef struct s_wall
 
 typedef struct s_horizon
 {
-	float			rayDirX0;
-	float			rayDirY0;
-	float			rayDirX1;
-	float			rayDirY1;
-	int				p;
-	float			posZ;
-	float			rowDistance;
-	float			floorStepX;
-	float			floorStepY;
-	float			floorX;
-	float			floorY;
-	int				cellX;
-	int				cellY;
-	int				tx;
-	int				ty;
-	int				checkPattern;
-	int				floorTexture;
-	int				ceilingTexture;
 	int				ceilingcolor;
 	int				floorcolor;
 	int				x;

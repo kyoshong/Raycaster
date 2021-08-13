@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:37:53 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/13 18:26:14 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:53:35 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ void	get_ratio(t_info *info, t_wall *wall)
 	wall->wallX -= floor(wall->wallX);
 	wall->texX = (int)(wall->wallX * (double)TEXT_HEIGHT);
 	if (wall->side == 0 && wall->rayDirX > 0)
-		wall->texX = TEXT_HEIGHT - wall->texX - 1;
+		wall->texX = TEXT_WIDTH - wall->texX - 1;
 	if (wall->side == 1 && wall->rayDirY < 0)
-		wall->texX = TEXT_HEIGHT - wall->texX - 1;
+		wall->texX = TEXT_WIDTH - wall->texX - 1;
 	wall->step = 1.0 * TEXT_HEIGHT / wall->lineHeight;
 	wall->texPos = (wall->drawStart - info->height / \
 	2 + wall->lineHeight / 2) * wall->step;

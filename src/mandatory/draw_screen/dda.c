@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 23:03:39 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/13 18:26:14 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/13 20:31:53 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,13 @@ void	dda(t_info *info, int x, int i)
 		i = wall.drawStart;
 		while (i < wall.drawEnd)
 		{
-			wall.texY = (int)wall.texPos & (TEXT_HEIGHT - 1);
+			wall.texY = (int)wall.texPos;
 			wall.texPos += wall.step;
 			wall.color = info->texture[wall.textNum] \
 			[TEXT_HEIGHT * wall.texY + wall.texX];
-			if (wall.side == 1)
-				wall.color = wall.color & 10526880;
 			info->buf[i][x] = wall.color;
 			i++;
 		}
-		info->zBuffer[x] = wall.flatWallDist;
 		x++;
 	}
 }
