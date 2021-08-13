@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:17:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/13 01:14:00 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/13 14:43:03 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ t_config	*init_config(void)
 	t_config	*config;
 	int			i;
 
-	i = 0;
 	config = (t_config *)malloc(sizeof(*config));
 	if (!config)
 		error_exit("malloc_config_error");
+	i = 0;
 	while (i < 6)
 		config->check_val[i++] = 0;
 	config->sprite_ver = 0;
