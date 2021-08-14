@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 21:42:49 by hyospark          #+#    #+#             */
-/*   Updated: 2021/08/13 23:14:54 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/08/14 17:46:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	print_floor_ceilling(t_info *info)
 		horizon.x = 0;
 		while (horizon.x < info->width)
 		{
-			info->buf[horizon.y][horizon.x] = horizon.ceilingcolor;
+			info->buf[horizon.y][horizon.x] = horizon.floorcolor;
 			info->buf[info->height - horizon.y - 1][horizon.x] \
-			= horizon.floorcolor;
+			= horizon.ceilingcolor;
 			horizon.x++;
 		}
 		horizon.y++;

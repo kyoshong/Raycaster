@@ -2,8 +2,8 @@ NO ./pics/LSD.png
 SO ./textures/south.xpm
 WE ./textures/west.xpm
 EA ./pics/SIA.png
-F 225,80,225
-C 35,136,230
+F 35,136,230
+C 225,80,225
 
         1111111111111111111111111
         1000000000110000000000001
