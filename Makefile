@@ -6,13 +6,13 @@
 #    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/24 00:16:04 by hyospark          #+#    #+#              #
-#    Updated: 2021/08/13 02:02:41 by hyospark         ###   ########.fr        #
+#    Updated: 2021/08/13 20:50:37 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libcub3d.a
 BONUS_NAME = libcub3d_bonus.a
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 SOURCE = src/mandatory/map_parsing/map_avail.c \
 		src/mandatory/map_parsing/map_dfs.c \
 		src/mandatory/map_parsing/world_map.c \
