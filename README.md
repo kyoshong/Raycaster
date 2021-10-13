@@ -4,6 +4,18 @@
 ## Build and Run
 `make && ./cub3D map/map.cub`
 ## Commands
-|Key|Action|
-|A|move left|
 
+| Key | Action |
+|---|:---:|---:|
+| A | move left |
+
+| Key | Action |
+|:---:|:---:|
+| `A` | move left |
+| `D` | move right |
+| `S` | move back |
+| `W` | move front |
+| `→` | turn right |
+| `→` | turn right |
+| `←` | turn left |
+| `ESC` | exit |
